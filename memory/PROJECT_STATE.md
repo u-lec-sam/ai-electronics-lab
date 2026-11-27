@@ -3,7 +3,7 @@
 **Snapshot date:** 2026-11-27  
 **Repository:** `u-lec-sam/ai-electronics-lab`  
 **Default branch at snapshot:** `main`  
-**Status:** recursive-improvement memory/evaluation bootstrap merged into main; post-merge CI running at snapshot time.
+**Status:** recursive-improvement and one-button operator contracts merged into main; one-button branch CI passed; main CI run 34 was running at snapshot time.
 
 ## Verified repository state
 
@@ -36,13 +36,20 @@
 - KiCad checks: skipped because no native KiCad files exist.
 - Pull request #1: merged into main.
 - Merge commit: `39136ea018436c2699988b307bbc91d5fe28f6b4`.
-- Post-merge GitHub Actions run 23 was in progress when this snapshot was updated.
+- Post-merge GitHub Actions run 23: success.
 
-## Next actions
+## One-button operator loop
 
-1. Confirm post-merge CI completes successfully.
-2. Research the exact STM32G0B1CET6 package pinout and power requirements.
-3. Produce a traceable pin-allocation proposal and power-tree design before schematic capture.
+- Protocol: `docs/ONE_BUTTON_OPERATOR_LOOP.md`.
+- Pull request #2: merged into main.
+- Merge commit: `b322b15e3f85f6b4981964d1dfda9b04f1042fc5`.
+- Candidate CI run 32: success; repository validation, six contract tests, and C syntax check passed.
+- Two earlier candidate CI runs failed because assertions did not match the documented wording. The assertions were corrected; the failures remain in Actions history.
+- KiCad ERC/DRC were skipped because native KiCad files do not yet exist.
+
+## Next action
+
+1. Verify STM32G0B1CET6 LQFP48 package pins, power requirements, and alternate functions from official ST documentation; create a source-linked pin allocation and provisional power-tree proposal.
 
 ## Confidence and limitations
 
