@@ -61,7 +61,7 @@ The matrix below is the functional contract supported by the EVM guide and schem
 
 - SPRUJ26A §3.2.12 directs BOOSTXL-3PHGANINV to LaunchPad sites J1/J3 and J4/J2 for F280025C/F280039C/F2800137.
 - The older EVM guide §2.3 describes BoosterPack-standard header mating and the alternate extended headers. Match the actual LaunchPad revision and board orientation; do not rely on header names alone.
-- EVM guide §2.2: J6 fitted powers LaunchPad J1-1 at 3.3 V, max 300 mA. For USB debug, remove EVM J6 to avoid dual-source/backfeed conflict.
+- EVM guide §2.2: J6 fitted powers LaunchPad J1-1 at 3.3 V, max 300 mA. For USB debug, remove EVM J5 to avoid dual-source/backfeed conflict.
 - Motor power connector: J4, DC+ / DC−. Motor phase output connector: J3, V_A/V_B/V_C, as shown in the EVM guide.
 - The schematic lists signal groups but does not by itself authorize a connector-to-MCU pin map for every LaunchPad revision. Resolve exact net-to-header-to-GPIO/ADC/ePWM mapping from the board-revision-matched LaunchPad schematic/pinout and SDK configuration. No hand-wired adapter is approved until that table is complete.
 
@@ -157,18 +157,20 @@ The SENS007 interface sheet routes the first six EVM J2/J4 pins (40 down to 35) 
 
 The physical pin-to-pin and EVM channel order is confirmed by the SENS007 schematic and SPRR444A LaunchPad connector schematic. The ePWM peripheral labels above are the device GPIO-mux functions to be checked against the exact F28003x datasheet/SDK target configuration before firmware output is enabled. Complementary dead-band, synchronization, polarity and trip-zone behavior are not validated by this wiring table.
 
-### 9.3 Protection, enable and auxiliary GPIO
+### 9.3 Protection, enable and auxiliary GPIO — direct schematic trace
 
-| EVM J2/J4 pin / net | LaunchPad Site-1 J4/J2 counterpart | Evidence status |
-|---|---|---|
-| Pin 33: OT (TMP302 output) | Pin 33: GPIO48 | **Pin/site mapping confirmed**. EVM schematic shows TMP302 OUT → OT and a 10-kΩ pull-up to 3V3. Firmware polarity/threshold/debounce must be confirmed from TMP302 configuration and SDK. |
-| nEn_uC (active-low PWM-enable request) | EVM sheet-5 connector extraction disagrees about whether this is J2/J4 pin 11 or pin 13; corresponding LaunchPad pins are GPIO23 (pin 11) or GPIO37 (pin 13) | **UNRESOLVED — do not wire or configure until direct schematic net tracing is reviewed.** The EVM schematic also shows the nEnable signal controlling U4 OE; nOE=0 enables the buffer, while OCP is ORed into the disable path. |
-| nEnable / U4 OE state | Some schematic text extractions associate this with J2/J4 pin 12 or pin 18; LaunchPad counterparts are GPIO22 (pin 12) or GPIO32 (pin 18) | **UNRESOLVED / possibly status or control routing**. Do not assume this is an MCU output pin or drive it. |
-| DIR / U4 direction | SENS007 shows DIR pulled high by R28; connector text extractions associate J2/J4 pin 19 with DIR | LaunchPad pin 19 is GPIO5_BP. **Keep MCU pin high-impedance unless the exact EVM net is confirmed**; the intended default is DIR='1', A→B. |
-| EVM J2/J4 pin 20 GND | LaunchPad pin 20 GND | **Confirmed signal-ground connection** |
-| Other J2/J4 pins 31, 32, 34, 17, 15, 14 and remaining unused GPIO/SPI/reset positions | Same numbered Site-1 header positions | Not used by the six-PWM/analog core interface unless a specific SDK option requires them; keep unassigned until full net mapping is complete |
+The rendered original SENS007 Rev A sheet 5 resolves the earlier OCR ambiguity. See the full trace and power-link evidence in [SENS007 enable and power-jumper audit](SENS007_ENABLE_AND_POWER_JUMPER_AUDIT.md).
 
-**Important:** the active-low request and actual buffer enable are not the same net. SENS007 uses U12 OR logic: nEn_uC and the overcurrent signal IComp feed the logic; nEnable controls U4 OE. The level translator's annotation is DIR='1' A→B and nOE=0 enabled. The EVM schematic OCR/parsed connector tables disagree on the exact header pin carrying nEn_uC/nEnable. This remains a hard no-power hold point until the net-to-header connection is resolved from the native schematic/assembly CAD or a revision-matched physical continuity check performed with all boards unpowered by a qualified person.
+| EVM SENS007 signal | Exact SENS007 connection | LaunchPad Site-1 counterpart | Status |
+|---|---|---|---|
+| Active-low MCU enable request | J2/J4 pin 11 → `nEn_uC` → U12 SN74LVC1G32 input 1 | J4/J2 pin 11; SPRR444A shows GPIO22/GPIO23 selectable route | **EVM pin confirmed.** Exact LaunchPad GPIO route requires board routing/SDK configuration check. |
+| OCP input | Internal `IComp` → U12 input 2; R79 is the 0-Ω OCP link | Internal to EVM | **Schematic path confirmed.** Do not remove R79 or bypass OCP. |
+| Buffer enable | U12 output `nEnable` → U4 SN74AVC8T245 OE, package pin 22 | No separate header pin | **Internal net confirmed.** Active-low; nOE=0 enables U4. Do not treat U4 pin22 as connector pin22. |
+| Buffer direction | J2/J4 pin 19 → U4 DIR, package pin 2; R28 10-kΩ pull-up | J4/J2 pin19, GPIO5_BP | **EVM pin confirmed.** Default DIR='1', A→B. |
+| PCB overtemperature | J2/J4 pin33 OT from TMP302 OUT | J4/J2 pin33, GPIO48 | **Header mapping confirmed.** Firmware threshold/polarity/fault response still require SDK/TMP302 review. |
+| Signal ground | J2/J4 pin20 GND | J4/J2 pin20 GND | **Header mapping confirmed.** Grounding/earth setup remains a separate hold. |
+
+The old candidate pin numbers 11/12/13/18 were caused by confusing connector pin numbers with U4 IC package pins and OCR reading order. In the original drawing U4 package pins 11/12/13 are GND and pin18 is B4; they are not alternative J2/J4 assignments for `nEn_uC` or `nEnable`. The external `nEn_uC` request is pin11; `nEnable` is the internal U12 output; U4 OE is package pin22; DIR is connector pin19. LaunchPad pin11 has a GPIO22/GPIO23 route notation, so do not hard-code one MCU GPIO until its routing and SDK configuration are confirmed.
 
 ### 9.4 Ground, 3.3-V and orientation limits
 
@@ -201,3 +203,8 @@ The physical pin-to-pin and EVM channel order is confirmed by the SENS007 schema
 ## 12. Final conclusion
 
 The prior J4-40/GND conflict was an interpretation error, not a documented incompatibility. Official drawings support a direct Site-1 header-number crosswalk for the analog and six PWM signal groups, and the SDK guide explicitly documents this board pairing. The OT signal also maps to the same-numbered GPIO header position. The active-low enable/control net remains ambiguous in the parsed schematic evidence and is deliberately left unresolved. **Do not stack or apply power until this enable-pin ambiguity, sample pin-1 orientation, board revision and power/ground jumper states are verified.**
+
+
+## Enable/power-link audit update
+
+See [SENS007_ENABLE_AND_POWER_JUMPER_AUDIT.md](SENS007_ENABLE_AND_POWER_JUMPER_AUDIT.md) for the rendered-sheet-5 net trace, correction of the J5 designator, LaunchPad JP1/JP2A/JP2B vs JP4–JP7 distinctions, and the remaining sample-specific no-power hold. The SENS007 nEn_uC and DIR header pins are resolved at the schematic level; actual board revisions, pin-1 marks and jumper population remain unverified.
