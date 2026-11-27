@@ -3,7 +3,7 @@
 **Snapshot date:** 2026-11-27  
 **Repository:** `u-lec-sam/ai-electronics-lab`  
 **Default branch at snapshot:** `main`  
-**Status:** active scaffold; recursive-improvement evaluation bootstrap in progress.
+**Status:** recursive-improvement memory/evaluation bootstrap passed CI on candidate branch; awaiting integration.
 
 ## Verified repository state
 
@@ -27,12 +27,20 @@
 6. Oscillator/RTC requirements.
 7. Connector pitch, board outline, mounting, and assembly constraints.
 
+## Latest scaffold improvement
+
+- Candidate branch: `agent/recursive-evaluation-bootstrap`
+- Candidate commit: `558fcbaa3fbb7c5c8dd0ed7a4a8f57084861ab49`
+- GitHub Actions run 19: success.
+- Repository-contract tests, scaffold validation, and C syntax check: passed.
+- KiCad checks: skipped because no native KiCad files exist.
+- Pull request: https://github.com/u-lec-sam/ai-electronics-lab/pull/1
+
 ## Next actions
 
-1. Establish automated repository-contract tests and structured memory/evaluation folders.
-2. Confirm those tests through GitHub Actions.
-3. Research the exact STM32G0B1CET6 package pinout and power requirements.
-4. Produce a traceable pin-allocation proposal and power-tree design before schematic capture.
+1. Integrate the tested scaffold improvement.
+2. Research the exact STM32G0B1CET6 package pinout and power requirements.
+3. Produce a traceable pin-allocation proposal and power-tree design before schematic capture.
 
 ## Confidence and limitations
 
