@@ -14,6 +14,8 @@
 - AEL-002 benchmark distinguishes LS Mecapion iX7NH network servo from iX7M multi-axis servo.
 - AEL-002 first prototype scope is one axis, external 24–48 VDC bus, three-phase PMSM/BLDC, guarded bench evaluation. No mains power stage or component ratings are frozen.
 - Candidate MCU: TI C2000 F280039C/F28003x; alternative: STM32G4. Neither is frozen.
+- AEL-002 candidate PR #3: https://github.com/u-lec-sam/ai-electronics-lab/pull/3 (draft, awaiting review; not merged).
+- Candidate CI run #43 on commit `2f2d47ec1678043966815d1687eabdccd8ce8bf0`: success. Run #41 failed due to a contract regression in the operator document; the assertions were preserved and the document corrected. Run #43 then passed.
 - Motor, encoder, supply current limit/regen capability, load/inertia, duty cycle, cooling, communications and budget remain unresolved.
 
 ## CI baseline
