@@ -219,3 +219,14 @@ See [SENS007_ENABLE_AND_POWER_JUMPER_AUDIT.md](SENS007_ENABLE_AND_POWER_JUMPER_A
 - Power: SDK guide calls for JP1, JP2 and J101 in its F280039C setup; schematic differentiates JP2A/JP2B XDS110-to-MCU rails. Actual JP1/JP2A/JP2B/J101 and EVM J5 states are unknown. No physical sample inspected.
 - Official references: SPRR444A, SPRUJ26A, SLURAY0A, SLUUBP1A, TMP302 SBOS488E, TLV3201 SBOS561C; full links and trace in `SENS007_ENABLE_AND_POWER_JUMPER_AUDIT.md`.
 - No firmware, test or CI definitions changed. No board mating, measurement, energization or motor test. **NO POWER / NO STACK remains.**
+
+
+## 14. SDK source boundary and fault recovery requirements (2026-11-27)
+
+- TI 5.02 release notes list F28003x Universal Lab + LAUNCHXL-F280039C + BOOSTXL-3PHGANINV. TI advertises SDK 6.00.00.00 (2026-03-31), but its export-controlled installer was not inspected.
+- Inspected public TI motor-control-sdk full tree has no F28003x Universal Lab project/HAL/SysConfig. Exact GPIO23 ownership, target ePWM TZ sources/actions/ISR and re-arm flow are unverified.
+- SENS007 nEn_uC physically maps to GPIO23 at Site-1 pin 11; GPIO22 is pin 12. Generic command-switch example configures GPIO23 input and conflicts if used simultaneously; reserve GPIO23 for nEn_uC, relocate/disable command switch in future source-reviewed firmware.
+- ePWM CBC/OST semantics in SPRAD12A are generic only, not proof of target app configuration.
+- SENS007 OCP comparator/OR/U12/U4 path is combinational inhibit, not a documented MCU-visible latch; comparator deassertion may permit re-enable if host enable remains asserted. R79 must remain fitted. Require host disable and supervised explicit re-arm.
+- TMP302 active-low OUT has sensor 5°C/10°C hysteresis, not software latch. GPIO48 handling and firmware recovery are unverified; require software-latched OT, PWM safe state, host disable and explicit acknowledgement/re-arm after cooling.
+- Detailed source links and caveats in `SENS007_ENABLE_AND_POWER_JUMPER_AUDIT.md` §10. No source package, firmware, tests or CI definitions changed. No hardware activity. **NO STACK / NO POWER** remains.
