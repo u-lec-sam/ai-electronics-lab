@@ -41,3 +41,9 @@
 - Session experiment record: `docs/experiments/2026-11-27-ael-002-architecture.md`.
 - No schematic, PCB, firmware build, simulation, HIL, hardware measurement, product safety assessment or certification is claimed.
 - This snapshot is a candidate-branch record until the pull request is reviewed and merged.
+
+
+## Compatibility clarification (2026-11-27)
+
+- TI's BOOSTXL-3PHGANINV page specifies 12–60 V input and 7 A RMS output per phase. The listed supported LaunchPads are F280049C, F28379D and F280025C; LAUNCHXL-F280039C is not listed.
+- F280039C remains an MCU candidate, but its use with this inverter would be a custom integration until pin mapping, voltage levels, PWM/ADC timing, hardware fault path and software support are verified. No plug-and-play compatibility or energized test is claimed.
