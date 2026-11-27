@@ -81,3 +81,11 @@
 - SENS007's analog pins 23–29 carry VDC, VA, VB, VC, IA, IB, IC; SPRUJ30 J3 pins 23–29 are ADC-capable. This is a candidate correspondence only pending physical orientation/revision confirmation.
 - The MotorControl SDK's explicit F280039C evaluation pairing remains vendor-documented; the present physical pin audit has not yet proven direct stacking for the exact board revisions.
 - Next task is now narrowed to connector crosswalk, pin-1/orientation review and fault/power-source mapping. No power application is approved.
+
+
+## Final validation for connector-audit update
+
+- Final content commit before CI record: `6e13831c9a6493704fd36728e772b6874579ca1d`.
+- GitHub Actions runs #79 (ID 46005035231) and #80 (ID 46005039591) on that exact commit: **success**.
+- Both runs: repository structure/table validation passed; repository and recursive-improvement contract tests passed; C scaffold syntax passed; KiCad CLI install/ERC/DRC skipped because no native KiCad schematic/PCB exists.
+- Existing test files and CI workflow were not changed. PR #3 remains open/draft; no merge.
