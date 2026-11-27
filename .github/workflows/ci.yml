@@ -1,0 +1,55 @@
+name: electronics-lab-ci
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  scaffold:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Validate repository structure and tables
+        run: python scripts/validate_project.py
+      - name: Check C scaffold syntax
+        run: gcc -std=c11 -Wall -Wextra -Werror -fsyntax-only projects/001-stm32g0b1-sensor-io/firmware/src/main.c
+
+  kicad:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install KiCad CLI
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y kicad
+      - name: ERC when schematics exist
+        shell: bash
+        run: |
+          shopt -s globstar nullglob
+          files=(projects/**/*.kicad_sch)
+          if [ ${#files[@]} -eq 0 ]; then
+            echo "No KiCad schematic committed; ERC skipped."
+            exit 0
+          fi
+          for f in "${files[@]}"; do
+            kicad-cli sch erc --exit-code-violations "$f"
+          done
+      - name: DRC when boards exist
+        shell: bash
+        run: |
+          shopt -s globstar nullglob
+          files=(projects/**/*.kicad_pcb)
+          if [ ${#files[@]} -eq 0 ]; then
+            echo "No KiCad PCB committed; DRC skipped."
+            exit 0
+          fi
+          for f in "${files[@]}"; do
+            kicad-cli pcb drc --exit-code-violations "$f"
+          done
