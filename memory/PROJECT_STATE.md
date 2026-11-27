@@ -225,3 +225,16 @@
 - No firmware, schematic, PCB, simulation execution, motor test, thermal measurement, physical inspection or power-up is claimed.
 - **NO STACK / NO POWER** remains. The physical sample revision, pin-1 orientation, jumpers, USB/XDS110 and grounding/test configuration remain unverified.
 - Next Academy task: Chapter 07 on DC link, three-phase two-level inverter, phase/line voltage, PWM/SVPWM, dead time, switching/conduction losses, capacitor stress and regenerative energy. Actual component ratings remain TBD.
+
+
+## Engineering Academy chapter 07 (2026-11-28)
+
+- Added `docs/academy/07-dc-link-and-three-phase-inverter.md` (26,927 characters).
+- Re-read the live operator protocol, README, Academy index, quality checklist, Academy chapters 00–06 and current CI workflow before writing.
+- Chapter covers DC-link charge/energy/power balance; two-level three-phase VSI pole/phase/line voltage; all eight switching states; SPWM and SVPWM with explicitly distinguished modulation-index conventions; linear voltage limits; SVPWM dwell-time derivation; deadtime and current-dependent voltage error; MOSFET/IGBT conduction, switching and gate-drive losses; capacitor voltage/ripple-current/ESR/thermal stress; regenerative energy and braking paths.
+- Includes dimensional analysis, four worked design calculations and twelve fully solved exercises, manufacturer datasheet intake templates for switches/gate drivers/capacitors, and an AEL-002 power-stage requirements worksheet.
+- Reference basis includes TI SPRJUF4A, Infineon loss/deadtime application notes, Kolar & Round DC-link capacitor RMS ripple-current analysis, and Cornell Dubilier capacitor application guidance. Manufacturer EVM/module values are not copied as AEL-002 ratings.
+- All real AEL-002 DC bus limits, motor current, PWM frequency, semiconductor, gate-driver, capacitor, brake chopper/resistor and cooling ratings remain **TBD**.
+- No firmware, schematic, PCB, simulation execution, hardware inspection, motor test, thermal measurement or power-up is claimed.
+- **NO STACK / NO POWER** remains. No local device or filesystem access was used.
+- Next Academy task: Chapter 08 on Clarke/Park transforms, PMSM d/q current dynamics, FOC current loop, cascaded speed/position loops, sampling and PWM/ADC synchronization.
