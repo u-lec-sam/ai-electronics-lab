@@ -175,3 +175,13 @@
 - Existing CI/test definitions were not modified. No firmware, schematic, PCB, BOM, physical test, stack, or power-up was performed.
 - AEL-002 **NO STACK / NO POWER** remains mandatory. Sample board revisions, pin-1 orientation, EVM J5, LaunchPad JP1/JP2A/JP2B and grounding remain physically unverified; motor/supply/load/regeneration/cooling requirements remain open.
 - CI evidence for these academy changes is to be added only after a run completes on the exact final commit.
+
+
+## Engineering Academy progress — AC circuits and three-phase power (2026-11-28)
+
+- Added docs/academy/04-ac-circuits-and-three-phase-power.md: periodic waveforms, frequency/period/angular frequency/phase, peak/peak-to-peak/average/RMS definitions, derivation of sinusoidal RMS, phasors, complex impedance, R/L/C phase and reactance, series RLC and resonance, balanced three-phase 120-degree sequence, vector derivations of Y/Delta line/phase relations, P/Q/S, power factor, THD, displacement vs true PF, triplen harmonics, worked calculations, four calculation/model exercises and 12 fully worked questions.
+- The chapter explicitly separates AEL-002's first externally supplied 24–48 VDC bus feeding a three-phase PWM inverter from a future industrial 200/400 VAC three-phase mains-input architecture. No mains wiring or power-up instructions are included; no ratings are inferred from educational examples.
+- Re-read the live Academy 00–03 lessons and LESSON_REVIEW_CHECKLIST.md before writing. The lesson follows the established intuition → formal definition → derivation → worked examples → project boundary → exercises/solutions → completion criteria structure.
+- Theory cross-check sources: OpenStax University Physics Vol. 2 §§15.2–15.4; U.S. DOE Electrical Science Handbook DOE-HDBK-1011/3-92, Three-Phase Circuits; MIT OCW 6.622 Lecture 21; NCEES FE Reference Handbook, Balanced Three-Phase Systems. Links are included in the lesson.
+- Updated Academy index and this operator queue. Existing CI workflow/test definitions were not changed. Exact-commit CI for the new lesson is pending and must be checked before claiming validation.
+- No firmware, schematic, PCB, BOM, component ratings, local device access, physical inspection, board stack, power-up or hardware test occurred. AEL-002 NO STACK / NO POWER remains mandatory; motor/supply/load/regeneration/cooling requirements remain open.
