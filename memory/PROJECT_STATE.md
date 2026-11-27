@@ -150,3 +150,5 @@
 - SENS007 OCP is combinational comparator/OR/U12/U4 OE inhibit, not proven MCU-visible latch. OCP deassertion may re-enable buffer if host enable stays asserted; R79 must remain fitted. Require explicit supervised re-arm.
 - TMP302 active-low OUT has sensor 5°C/10°C hysteresis, not firmware latch. GPIO48 app handling/recovery unverified; require software latch, PWM disable and explicit acknowledgement after cooling.
 - Detailed audit §10 in `projects/002-modular-servo-drive/SENS007_ENABLE_AND_POWER_JUMPER_AUDIT.md`. No SDK installer, firmware, tests, CI definitions or hardware activity. NO STACK / NO POWER.
+
+- GitHub Actions run #120, ID 46016354866, exact commit `bd046a78124e8fb6edf2cf4c091ebc9ae4451a5f`: **success**. Repository structure/table validation, recursive-improvement contract tests and C scaffold syntax passed. KiCad job passed; CLI/ERC/DRC skipped because native KiCad schematic/PCB files are absent. Existing tests and CI definitions unchanged.
