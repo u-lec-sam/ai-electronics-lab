@@ -1,0 +1,12 @@
+Interface,Signal,Direction,Voltage,Preliminary mapping,Status
+SWD,SWDIO,Bidirectional,3.3V,To be verified,Do not assign package pin until datasheet review
+SWD,SWCLK,Input,3.3V,To be verified,Do not assign package pin until datasheet review
+SWD,NRST,Input,3.3V,To be verified,Verify reset pin and circuit
+UART,TX,Output,3.3V,USART instance TBD,Verify alternate function
+UART,RX,Input,3.3V,USART instance TBD,Verify alternate function
+I2C,SDA,Bidirectional,3.3V,I2C instance TBD,Verify alternate function and pull-ups
+I2C,SCL,Open-drain,3.3V,I2C instance TBD,Verify alternate function and pull-ups
+SPI,SCK,Output,3.3V,SPI instance TBD,Verify alternate function
+SPI,MISO,Input,3.3V,SPI instance TBD,Verify alternate function
+SPI,MOSI,Output,3.3V,SPI instance TBD,Verify alternate function
+SPI,CS,Output,3.3V,GPIO TBD,Verify pin availability
