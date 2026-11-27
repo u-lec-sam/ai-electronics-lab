@@ -37,8 +37,15 @@ A small standard-library test suite plus conditional KiCad CI will improve detec
 
 ## Results
 
-Pending GitHub Actions execution.
+- The first workflow revision failed before creating any jobs because the job-level conditional was invalid for the chosen expression context.
+- The KiCad guard was moved to individual steps. This preserved the desired behavior without skipping the whole job.
+- GitHub Actions run 19 for candidate commit `558fcbaa3fbb7c5c8dd0ed7a4a8f57084861ab49` completed successfully.
+- Scaffold validation: passed.
+- Repository-contract tests: passed.
+- C scaffold syntax check: passed.
+- KiCad installation/ERC/DRC: skipped because no native KiCad schematic or PCB files exist. This is not an ERC/DRC pass.
+- The initial failed workflow run remains part of the experiment history; it was not erased.
 
 ## Decision
 
-Pending results and review.
+Accepted for integration after review. The candidate meets the stated software/repository acceptance criteria. Hardware correctness is outside this experiment.
