@@ -37,6 +37,18 @@ READ → BASELINE → DIAGNOSE → PROPOSE → IMPLEMENT → TEST → REVIEW →
 
 Do not indiscriminately dump complete histories into every prompt. Retrieve the smallest relevant evidence set. Attach sources, revisions, and commit references to durable claims.
 
+## One-button interaction contract
+
+For every substantive response in this project:
+1. Read the live repository and choose the next safe, high-value task without asking the user to plan it.
+2. Execute all useful supported work in the current turn; do not merely describe a plan.
+3. Keep exactly one prioritized next task in `docs/ONE_BUTTON_OPERATOR_LOOP.md`, including scope, rationale, acceptance criteria, and blockers.
+4. End the response with one ChatGPT action button labeled **Run next task**. It must submit the fixed continuation instruction specified in that document.
+5. On button activation, refresh GitHub again before doing anything. Never assume chat memory is current.
+6. Do not ask the user to repeat repository URLs, paste files, run shell commands, or inspect CI when connected tools can do it.
+7. Ask only one essential blocker question when a physical action, missing requirement, or consequential safety/cost/security decision prevents progress.
+8. The button is user-triggered conversation continuation, not background execution or a persistent agent daemon. Never claim work happened between presses.
+
 ## Evaluation and anti-gaming rules
 
 - A change is an improvement only against a stated baseline and acceptance criteria.
