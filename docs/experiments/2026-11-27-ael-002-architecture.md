@@ -47,3 +47,25 @@ Needs CI evidence and independent engineering review before integration. The doc
 ## Next experiment
 
 Resolve the minimum motor/supply/load requirements and compare exact C2000 F280039C versus STM32G4 evaluation hardware before freezing the control MCU or power-stage envelope.
+
+
+## Follow-up study: controller evaluation boards and design inputs
+
+- Exact comparison: TI LAUNCHXL-F280039C plus separately selected BOOSTXL-3PHGANINV versus ST P-NUCLEO-IHM03 (NUCLEO-G431RB + X-NUCLEO-IHM16M1); NUCLEO-G474RE considered separately as a controller evaluation board.
+- TI official board page lists 120-MHz C28x/CLA, 3 ADC modules, 16 PWM channels, two eQEP, CAN/CAN-FD and the 48-V BOOSTXL-3PHGANINV option. The LaunchPad is a controller board, not a motor inverter by itself.
+- ST official P-NUCLEO-IHM03 data brief lists 7–45 VDC and up to 1.5 A RMS for X-NUCLEO-IHM16M1, plus encoder/Hall input and 1-/3-shunt options. It is not a 48-V-rated power board and is a low-current learning platform.
+- STM32G474RE offers 170-MHz Cortex-M4, HRTIM, fast ADCs, comparators and op-amps; NUCLEO-G474RE is a separate Nucleo-64 board. No direct plug-in compatibility with the P-NUCLEO-IHM03 is assumed.
+- Recommendation: F280039C path leads for the intended 24–48 V prototype, conditional on checking the inverter EVM's detailed operating limits, pin mapping and software support. Keep ST as a low-voltage FOC reference, not as an electrically equivalent 48-V board.
+- Added a motor/encoder/supply/load/duty/cooling/communications/safety intake table and a staged power-stage review checklist. All ratings remain TBD.
+
+## Validation update
+
+- Live main commit at session start: 6ca4716de7ae11e82e23ad2f61271dc9e4d1e899.
+- Existing AEL-002 PR #3 remained open and draft; branch head before this update: 4d1c10fdbcc903288f739965de561be25a5e43b7.
+- Latest candidate CI before this update: run #47 (ID 45979733003), success. Scaffold validation, existing contract tests and C syntax passed; KiCad install/ERC/DRC skipped because no native KiCad files exist.
+- This update adds documentation only; CI will be rerun on the updated branch. No tests were deleted or weakened.
+- No electrical calculations can be finalized without motor, encoder, supply and load data. No hardware, firmware, simulation, HIL or bench test is claimed.
+
+## Next experiment
+
+Create a parameterized control/power interface specification and test plan for the chosen evaluation stack, then verify the BOOSTXL-3PHGANINV operating limits and exact connector mapping against its official user guide before any energized setup.
