@@ -1,6 +1,6 @@
 # Current Project State
 
-**Snapshot date:** 2026-11-27 (updated after live branch review)nics-lab`  
+**Snapshot date:** 2026-11-27 (updated after live branch review)  
 **Default branch:** `main`  
 **Baseline main commit before AEL-002 candidate:** `6ca4716de7ae11e82e23ad2f61271dc9e4d1e899`
 
@@ -72,3 +72,12 @@
 - Rating discrepancy: TI product page says 7 A RMS/phase, whereas SPRUJ26A Table 3-1 says 3.5 A for the EVM. Thermal/test conditions must be resolved; neither is assumed as a safe continuous application rating.
 - Added `projects/002-modular-servo-drive/BOOSTXL_3PHGANINV_INTERFACE_AND_TEST_PLAN.md` with controller comparison, sourced interface contract, unresolved pin-map fields, and staged test gates.
 - No exact F280039C GPIO/ADC/ePWM mapping is claimed yet. No motor/encoder/supply/load/cooling selected; no power applied or hardware test claimed.
+
+
+## F280039C connector cross-check hold point (2026-11-27)
+
+- SENS007 Rev A sheet 5 calls EVM J2/J4 pin 40 a PWM/GPIO input, while SPRUJ30's LAUNCHXL-F280039C map calls LaunchPad J4-40 GND. The EVM J2/J4 pins 40–35 are described as PWM/GPIO/Timer_Cap inputs; LaunchPad J4 pins 40–35 include GND, GPIO05, GPIO32, GPIO059, XRSn, GPIO08.
+- This is an unresolved numbering/orientation/connector-pair correspondence. Do not use same-number-to-same-number assumptions and do not stack or energize boards until an official, revision-matched physical crosswalk resolves it.
+- SENS007's analog pins 23–29 carry VDC, VA, VB, VC, IA, IB, IC; SPRUJ30 J3 pins 23–29 are ADC-capable. This is a candidate correspondence only pending physical orientation/revision confirmation.
+- The MotorControl SDK's explicit F280039C evaluation pairing remains vendor-documented; the present physical pin audit has not yet proven direct stacking for the exact board revisions.
+- Next task is now narrowed to connector crosswalk, pin-1/orientation review and fault/power-source mapping. No power application is approved.
