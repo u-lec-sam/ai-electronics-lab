@@ -22,21 +22,22 @@
 
 ## Active next task
 
-### AEL Academy: AC circuits, phasors, RMS and three-phase fundamentals
+### AEL Academy: magnetism, electromagnetic induction and motor fundamentals
 
-**Why now:** Academy chapters 00–03 now cover development/safety, electrical basics, engineering mathematics, and RC/RL transients. The next dependency is AC waveform analysis, phase, impedance and three-phase power, which are needed before explaining inverter switching and motor phase quantities.
+**Why now:** Chapters 00–04 establish the engineering process, electrical quantities, mathematics, RC/RL transients, AC phasors, balanced three-phase relationships and power. The next dependency is the physical bridge from three-phase current to rotating magnetic fields, induced voltage and motor torque, before deriving PMSM/BLDC models and FOC.
 
 **Scope:**
-- Write a Korean lesson on periodic signals, frequency/period/angular frequency, phase, peak/peak-to-peak/RMS, average power, and the limits of sinusoidal RMS shortcuts.
-- Derive sinusoidal R/L/C impedance and phase relationships with a clear sign convention and phasor explanation.
-- Explain three-phase 120-electrical-degree relationships, line/phase voltage and current for balanced Y/Delta systems, active/reactive/apparent power and power factor; distinguish balanced sinusoidal assumptions from PWM/nonlinear drive input.
-- Add worked examples, diagrams or calculation tables, exercises and full solutions; connect to AEL-002's DC-fed three-phase inverter without expanding its first prototype to mains AC input.
-- Review chapters 00–03 with the Academy checklist; fix errors and preserve source traceability.
-- Update Academy index, project memory and CI evidence. Keep CI definitions and safety hold unchanged.
+- Write a Korean lesson on magnetic field, flux, flux density, permeability, Ampere's law intuition, Faraday's law and Lenz's law.
+- Derive motional/transformer induced voltage at an introductory level; explain back-EMF, torque production and energy conversion with sign conventions.
+- Explain pole pairs, mechanical/electrical angle, electrical frequency vs rotor speed, and why three-phase winding placement plus phase sequence produces a rotating field.
+- Introduce DC motor, induction motor, synchronous motor, PMSM and BLDC distinctions without prematurely selecting a motor.
+- Add worked calculations, units, exercises/solutions, datasheet interpretation and a safe simulation-only exercise.
+- Review chapters 00–04 against the lesson checklist; record assumptions and source links.
+- Update Academy index, project memory and operator queue; preserve CI definitions and all hardware safety gates.
 
-**Acceptance criteria:** all equations define symbols/units and assumptions; line/phase relationships are derived, not memorized; examples are independently checkable; power-factor claims distinguish displacement factor and true power factor when harmonics exist; no mains wiring instructions or power-up authorization are implied.
+**Acceptance criteria:** Faraday/Lenz signs and units are explicit; mechanical/electrical angle conversion uses pole-pair count; motor examples are dimensionally checked; educational values are not presented as AEL-002 ratings; no wiring or energization instructions are implied.
 
-**Blockers:** none for theory/documentation. Hardware remains **NO STACK / NO POWER** pending sample-specific revision, pin-1, EVM J5, LaunchPad JP1/JP2A/JP2B and grounding checks; motor/supply/load/regeneration/cooling requirements remain open.
+**Blockers:** none for theory/documentation. Actual motor model, pole pairs, winding R/L, back-EMF/torque constants, encoder, supply capability, load/inertia, duty and cooling remain TBD. Hardware remains **NO STACK / NO POWER** pending sample-specific physical inspection and an approved procedure.
 
 ### AEL-002: sample-specific no-power inspection and requirements intake (gated)
 Resume only when physical inspection and motor/supply/load data can be supplied. Never infer sample jumper states from schematic drawings.
