@@ -97,3 +97,13 @@ TI's BOOSTXL-3PHGANINV official page specifies 12–60 V input and 7 A RMS outpu
 - Added source-linked controller/interface matrix and V0–V8 staged validation plan in `projects/002-modular-servo-drive/BOOSTXL_3PHGANINV_INTERFACE_AND_TEST_PLAN.md`.
 - Exact F280039C LaunchPad pin mapping, board revision correlation, OCP/thermal dynamic verification, and grounding/measurement strategy remain open. No energization, motor rotation, firmware build, HIL or physical test is claimed.
 - Tests/CI definitions were not edited. The current pre-change branch head is checked against Actions run #66; the post-change run is pending.
+
+
+## Additional pinout audit — connector mapping hold point
+
+- Reviewed TI F280039x LaunchPad User Guide SPRUJ31, F280039C pinout map SPRUJ30 and BOOSTXL-3PHGANINV schematic SENS007 Rev A sheet 5.
+- Found a material connector-numbering conflict if read naïvely: SENS007 labels EVM J2/J4 pin 40 as PWM/GPIO, but SPRUJ30 labels LaunchPad J4-40 as GND. Other J4 pins also differ in function (LaunchPad J4-36 is XRSn). The SDK §3.2.12 pairing statement does not by itself explain the physical connector orientation or board revision crosswalk.
+- Analog candidate correspondence: EVM pins 23–29 map VDC/VA/VB/VC/IA/IB/IC, while LaunchPad J3 pins 23–29 are ADC-capable. This is not yet a verified physical net-to-net mapping.
+- The EVM guide's J1-14/16/18 current-sense note and SENS007 combined header numbering are also retained as separate document-specific labels pending crosswalk.
+- Updated the interface/test-plan document and operator queue with a hard no-power hold point until official connector orientation, pin-1 marks and exact board revisions are reconciled.
+- No boards stacked, no continuity measurement, no power applied, no motor operation. This is a documentation-only finding.
