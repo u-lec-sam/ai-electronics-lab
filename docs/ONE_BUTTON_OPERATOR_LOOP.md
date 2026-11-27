@@ -29,10 +29,10 @@
 **Scope:**
 - Verify actual SENS007 and LAUNCHXL-F280039C board revisions and visible pin-1/square-pad marks; verify EVM J5 and LaunchPad JP1/JP2A/JP2B shunt states.
 - Keep JP4–JP7 classified as 3-pin supply-access headers, not isolation links. Review GND/PGND/USB_GND/instrument earth configuration.
-- Resolve LaunchPad pin11 GPIO22/GPIO23 routing and exact SDK board pinmux; inspect OCP/TMP302 configuration and fault handling.
+- Use SPRR444A to map Site-1 J4/J2-11=GPIO23 and pin12=GPIO22; inspect exact SDK project/HAL/SysConfig ownership (the optional GPIO23 command-switch input example may conflict with nEn_uC output); review OCP/TMP302 hardware and fault handling.
 - Obtain motor, encoder, supply current-limit/sink capability, load/inertia, motion profile and cooling requirements before any bench procedure.
 
-**Acceptance criteria:** sample revision/pin-1 and all power-source links are confirmed; GPIO route and SDK configuration are exact; a reviewed guarded, current-limited procedure exists. Existing tests remain unchanged; CI passes.
+**Acceptance criteria:** sample revision/pin-1 and all power-source links are confirmed; GPIO23 SDK ownership is resolved without command-switch conflict; OCP/TMP302 behavior and a reviewed guarded, current-limited procedure are documented. Existing tests remain unchanged; CI passes.
 
 **Blockers:** physical board inspection and actual motor/supply/load/cooling data are not available in this chat. **No stack or power** until the sample-specific checks are completed.
 
