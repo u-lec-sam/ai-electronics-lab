@@ -128,3 +128,11 @@ TI's BOOSTXL-3PHGANINV official page specifies 12–60 V input and 7 A RMS outpu
 - Important unresolved: extracted connector details conflict on exact nEn_uC/nEnable/OE pins (11/12/13/18 appear in different source extractions). Keep enable pin unassigned until direct net tracing in native schematic/CAD or qualified unpowered continuity confirmation. DIR also requires separate confirmation.
 - EVM J5 optional 3.3-V feed, LaunchPad power-domain jumpers, physical pin-1 marks and actual board revisions remain sample-specific checks. GND/PGND and USB/XDS110 earth measurement setup is not signed off.
 - No physical board access, continuity testing, stacking, energization, motor rotation, firmware build, HIL or bench test occurred. No power authorization is granted.
+
+
+## CI for corrected header crosswalk
+
+- GitHub Actions run #89 (ID 46008094544) on exact crosswalk commit `8f8d3dfe8a3643a4d5e781c36e61241c17fc6b1b`: **success**.
+- Scaffold: structure/table validation, recursive-improvement contract tests and C scaffold syntax all passed.
+- KiCad job: succeeded; KiCad CLI/ERC/DRC skipped because native KiCad files are absent.
+- Tests and workflow definitions were not modified. No board inspection, continuity test, stacking, energization or motor operation is claimed.
