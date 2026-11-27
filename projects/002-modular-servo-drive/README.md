@@ -122,3 +122,67 @@ These unknowns intentionally block component ratings and final power-stage desig
 - MCU choice remains an evidence-based candidate, not a frozen part.
 - Missing motor/supply/load requirements are explicit.
 - No schematic, PCB, firmware build, safety certification or hardware validation is claimed.
+
+
+## 7. Evaluation-board comparison (official vendor evidence)
+
+This comparison separates a controller-only evaluation platform from an integrated low-voltage motor-control kit. The two options are not electrically equivalent, and neither is a complete industrial servo drive.
+
+| Item | TI C2000 path | ST STM32G4 path |
+|---|---|---|
+| Controller board | LAUNCHXL-F280039C (TMS320F280039C) | NUCLEO-G431RB in P-NUCLEO-IHM03; NUCLEO-G474RE is a separate higher-resource controller evaluation option |
+| Motor power board | BOOSTXL-3PHGANINV, TI lists it as a 48-V three-phase inverter BoosterPack; separate inverter board | X-NUCLEO-IHM16M1, STSPIN830 three-phase driver board included in P-NUCLEO-IHM03 |
+| MCU features relevant to control | 120-MHz C28x + 120-MHz CLA, 3x 12-bit ADC, 16 PWM channels, 2 eQEP, CAN/CAN-FD, CLB | G431RB: 170-MHz Cortex-M4; G474RE: 170-MHz Cortex-M4, HRTIM (12 PWM outputs), fast ADCs, comparators and op-amps |
+| Feedback/evaluation | LAUNCHXL-F280039C exposes two eQEP connectors; MotorControl SDK and encoder/Hall labs are available | P-NUCLEO-IHM03 supports Hall or encoder input and 1- or 3-shunt current sensing; it is a low-voltage, low-current kit |
+| Power envelope evidence | The BOOSTXL-3PHGANINV is described by TI as a 48-V inverter; exact operating limits, current/thermal derating and board compatibility must be checked in its own user guide before use | X-NUCLEO-IHM16M1 stated nominal range 7–45 VDC, output current up to 1.5 A RMS; this is not a 48-V-rated board |
+| Best use in this project | Stronger candidate for servo-control algorithm and 48-V inverter development; modular controller + inverter separation resembles the intended architecture | Fast, low-energy FOC/encoder learning and bring-up; G474RE can be evaluated for a custom controller but is not the same bundle as the G431RB kit |
+| Main limitation | LaunchPad alone has no motor power stage; BoosterPack does not make the combination a rated industrial servo | P-NUCLEO-IHM03 current and voltage ceiling is below the proposed upper 48-V bus; G431RB kit results do not automatically validate G474RE pin mapping or performance |
+
+**Evidence-based recommendation:** use LAUNCHXL-F280039C as the leading control-platform candidate for the 24–48 V architecture, subject to checking the exact BOOSTXL-3PHGANINV user guide, firmware compatibility, connector mapping and thermal/current limits. Keep the ST P-NUCLEO-IHM03 as a separate low-voltage learning/reference platform (operate only within its published 7–45 V and 1.5 A RMS limits). If comparing the MCU itself rather than a ready kit, evaluate NUCLEO-G474RE with a separately engineered and current-limited low-voltage inverter; do not silently treat it as the P-NUCLEO-IHM03 controller.
+
+Vendor sources (accessed 2026-11-27):
+- TI LAUNCHXL-F280039C product and BoosterPack recommendations: https://www.ti.com/tool/LAUNCHXL-F280039C
+- TI TMS320F280039C product data, datasheet and errata: https://www.ti.com/product/TMS320F280039C
+- ST P-NUCLEO-IHM03 product page: https://www.st.com/en/evaluation-tools/p-nucleo-ihm03.html
+- ST P-NUCLEO-IHM03 data brief (X-NUCLEO-IHM16M1 7–45 VDC, up to 1.5 A RMS, encoder/Hall and current sensing): https://www.st.com/resource/en/data_brief/p-nucleo-ihm03.pdf
+- ST NUCLEO-G474RE product page: https://www.st.com/en/evaluation-tools/nucleo-g474re
+- ST STM32G474RE MCU feature summary: https://www.st.com/en/microcontrollers-microprocessors/stm32g474re.html
+
+## 8. Requirements intake — values intentionally left open
+
+Fill this table from the motor nameplate/datasheet, encoder datasheet, supply specification and mechanical load. Do not substitute guesses. A blank or TBD field is a design blocker for sizing, not permission to choose a convenient value.
+
+| Domain | Required input | Units / evidence | Status |
+|---|---|---|---|
+| Motor identity | Manufacturer, exact model, PMSM/BLDC, winding connection | Datasheet/nameplate | TBD |
+| Motor electrical | Rated voltage, rated phase current RMS, peak current and allowed duration | V, A RMS, A peak, s | TBD |
+| Motor performance | Rated/peak torque, rated/max speed, torque constant, back-EMF constant | N·m, rpm, N·m/A, V/krpm | TBD |
+| Motor model | Pole pairs, phase resistance, Ld/Lq or phase inductance, inertia, temperature sensor | Datasheet or measured method | TBD |
+| Thermal | Winding insulation/class, max winding/case temperature, motor cooling | °C, cooling method | TBD |
+| Encoder | Incremental/absolute, electrical interface, supply, resolution, max frequency, index, direction, protocol/revision | PPR/CPR/bits, V, kHz/MHz | TBD |
+| Encoder mechanics | Alignment, mounting, cable length, shield and connector pinout | Drawing/cable spec | TBD |
+| DC supply | Nominal/min/max voltage, current limit, transient response, isolation/earth arrangement | VDC, A, datasheet | TBD |
+| Regeneration | Can the supply sink current? If not, external braking path/resistor/chopper limits | W, J, ohm, duty | TBD |
+| Mechanical load | Load type, reflected inertia, friction, compliance, backlash, external disturbance | kg·m², N·m | TBD |
+| Motion profile | Torque/speed envelope, accel/decel, positioning accuracy, settling time, overspeed limit | N·m, rpm, rad/s², counts/µm, ms | TBD |
+| Duty | Continuous/intermittent, cycle time, peak duration, starts/stops per hour | %, s, cycles/h | TBD |
+| Environment | Ambient temperature, enclosure/IP, altitude, vibration, contamination | °C, IP, m | TBD |
+| Cooling | Natural convection/fan/heatsink/cold plate, allowable surface temperature | °C, W/K or vendor data | TBD |
+| Interfaces | Commissioning interface, CAN/CAN-FD/RS-485/EtherCAT requirement, I/O count and isolation | Protocol, bit rate, count | TBD |
+| Safety | Guarding, emergency stop system, safe torque-off requirement, risk assessment owner | Standards/system requirement | TBD |
+| Commercial | Prototype budget, preferred vendors, lead-time constraints, quantity | Currency, dates, qty | TBD |
+
+## 9. Power-stage design review gates (before schematic or part selection)
+
+1. **Freeze the electrical envelope from evidence:** derive DC bus min/nominal/max including supply tolerance and regenerative rise; motor phase RMS/peak current and duration; PWM frequency; modulation range; maximum speed and back-EMF. Record assumptions separately from measured values.
+2. **Energy and bus management:** establish whether the bench supply can sink regenerated energy. Calculate worst-case kinetic energy from reflected inertia and speed (E = 1/2 J omega²), repeated-cycle average power, bus capacitor energy headroom, braking resistor pulse/average rating and chopper thermal duty. If these cannot be bounded, prohibit powered deceleration tests.
+3. **Semiconductor and gate-drive margin:** select MOSFET voltage/current ratings from transient bus, switching overshoot, SOA, avalanche/repetitive pulse limits and temperature derating; verify gate-driver UVLO, shoot-through interlock, dead-time, Miller immunity, fault reporting and hardware disable. No rating is selected in this brief.
+4. **Current/voltage measurement:** prefer three phase shunts for first bring-up; define amplifier gain/offset/bandwidth, ADC range, common-mode/transient tolerance, synchronized sample windows, calibration and saturation detection. Measure DC bus independently. Validate sampling at the edges of the intended modulation range.
+5. **Independent protection:** input fuse and current-limited supply, reverse-polarity strategy, hardware overcurrent shutdown, bus over/undervoltage, gate-driver fault, thermal cutout, watchdog and latched fault state. Firmware protection is not the only fast protection path.
+6. **Layout and insulation:** minimize high-di/dt commutation loops, separate power and analog return paths with a deliberate connection strategy, Kelvin-route shunts, protect ADC references, control gate loops, and review creepage/clearance, connector touch safety, PE/shield strategy and EMC against the actual voltage category and applicable standards.
+7. **Thermal validation:** estimate conduction and switching losses using worst-case operating points and temperature-dependent device data; include copper, shunts, driver, connectors and enclosure. Verify heatsink/interface assumptions and perform instrumented thermal tests before continuous rating claims.
+8. **Bring-up sequence:** logic-only power and pin checks → PWM with gate driver disabled → current-sense offset calibration → DC bus with current limit and no motor → low-energy inverter checks → uncoupled motor, low current/speed → encoder direction/commutation checks → guarded load tests. Use an independent emergency stop and physical guarding.
+9. **Safety boundary:** a hardware inhibit/emergency stop circuit in a prototype is not certified STO. No 200/400-V mains input, safety certification, universal encoder support or unattended operation is in scope.
+10. **Release evidence:** signed schematic review, ERC, PCB DRC, creepage/clearance review, BOM lifecycle/derating, firmware build provenance, fault-injection results, thermal measurements and documented test setup are required before release.
+
+**Hold point:** no MOSFET, gate driver, shunt, DC-link capacitor, braking resistor, connector, heatsink or continuous-current rating is selected until the intake table has sufficient motor, supply, regeneration, load and cooling data.
