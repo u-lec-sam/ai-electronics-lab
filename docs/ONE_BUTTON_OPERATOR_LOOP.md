@@ -22,25 +22,25 @@
 
 ## Active next task
 
-### AEL-002: resolve motor/supply/load requirements and compare control MCU evaluation paths
+### AEL-002: verify F280039C-to-inverter evaluation path and interface contract
 
-**Why now:** AEL-002's architecture and benchmark brief is captured, but exact power-stage ratings and MCU selection depend on a real motor, encoder, supply and mechanical load.
+**Why now:** official TI documentation specifies BOOSTXL-3PHGANINV as a 12–60 V, 7 A RMS/phase inverter, but its supported LaunchPad list does not include LAUNCHXL-F280039C. Direct pairing is therefore unverified and must not be assumed. The ST P-NUCLEO-IHM03 remains a separate low-voltage reference (7–45 VDC, up to 1.5 A RMS).
 
 **Scope:**
-- Compare exact TI C2000 F280039C evaluation hardware and STM32G4 evaluation options using official datasheets, SDK support, availability and toolchain constraints.
-- Define the minimum motor/encoder and bench-supply information needed to size the first power stage.
-- Build a parameter intake and selection matrix; keep ratings provisional until values are known.
-- Inspect vendor reference designs for current sensing, gate drive, bus protection and regenerative-energy handling.
-- Do not select power MOSFETs, gate driver, shunts, connectors or thermal limits without a defined electrical envelope.
+- Retrieve the official BOOSTXL-3PHGANINV user's guide, schematic and revision; confirm current/thermal derating, protection behavior, connectors, pin assignments, and all supported LaunchPad/SDK combinations.
+- Compare the supported TI controller alternatives with F280039C and determine whether a custom adapter/software port is justified.
+- Build a sourced controller-to-inverter interface matrix covering PWM, ADC/current sense, bus voltage, fault/enable, encoder, communication, power and ground/isolation domains.
+- Define staged, current-limited bench validation and fault-injection criteria; do not energize an unverified board combination.
+- Keep motor, encoder, supply sink capability, load/inertia, duty and cooling as TBD until supported by actual datasheets or user input.
 
 **Acceptance criteria:**
-- Exact candidate orderable MCU/evaluation boards and official source revisions are compared.
-- Motor, encoder, supply, load, duty-cycle and cooling inputs are explicitly enumerated.
-- The first power-stage envelope is derived only from sourced/confirmed values.
-- Results and remaining blockers are committed to GitHub and CI-tested.
+- Every connector signal and electrical limit is mapped to an official board document and revision; unknowns remain explicit.
+- Officially supported board combinations are distinguished from custom/unverified pairings.
+- Regeneration, hardware inhibit, current limit, thermal stop criteria and guarding are included in the bring-up procedure.
+- Existing tests remain unchanged; CI passes; experiment and project state record the evidence.
 
-**Dependencies / blockers:** motor make/model and encoder, supply voltage/current/sink capability, mechanical load/inertia, desired speed/torque/duty, cooling, communications and budget are not yet specified. Continue with platform comparison and a requirements template without inventing these values.
+**Dependencies / blockers:** motor/encoder model, supply current limit and sink capability, reflected inertia/load, motion profile and cooling are unknown. Do not choose power components or authorize energized tests until the board interface and bench limits are verified.
 
 ### AEL-001: verify STM32G0B1CET6 pin map and provisional power tree (deferred)
 
-Resume STM32G0B1CET6 LQFP48 exact pin/alternate-function verification and provisional power-tree proposal after AEL-002's initial platform/requirements pass, unless a dependency makes it higher priority.
+Resume STM32G0B1CET6 LQFP48 exact pin/alternate-function verification and provisional power-tree proposal after the AEL-002 evaluation-stack interface is established, unless a dependency makes it higher priority.
