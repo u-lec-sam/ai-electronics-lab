@@ -14,6 +14,7 @@ class RepositoryContractTests(unittest.TestCase):
             "docs/ENGINEERING_RULES.md",
             "docs/RECURSIVE_IMPROVEMENT.md",
             "docs/RESEARCH_NOTES.md",
+            "docs/ONE_BUTTON_OPERATOR_LOOP.md",
             "memory/README.md",
             "memory/PROJECT_STATE.md",
             "evals/README.md",
@@ -34,6 +35,19 @@ class RepositoryContractTests(unittest.TestCase):
                 self.assertIn(stage, protocol)
         self.assertIn("must not be self-approved", protocol)
         self.assertIn("model weights", protocol)
+
+    def test_one_button_contract_has_single_active_next_task(self):
+        operator = (ROOT / "docs/ONE_BUTTON_OPERATOR_LOOP.md").read_text(
+            encoding="utf-8"
+        ).lower()
+        for required in (
+            "run next task", "active next task", "acceptance criteria",
+            "refresh github", "not a background daemon",
+            "do not access my local device",
+        ):
+            with self.subTest(text=required):
+                self.assertIn(required, operator)
+        self.assertEqual(operator.count("### ael-001:"), 1)
 
     def test_public_repo_secret_boundary_is_documented(self):
         rules = (ROOT / "docs/ENGINEERING_RULES.md").read_text(

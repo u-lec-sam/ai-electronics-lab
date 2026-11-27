@@ -29,6 +29,10 @@ For every substantive AI Electronics Lab work session, ChatGPT must read the cur
 
 If GitHub cannot be read, explicitly say that repository state was not refreshed and do not claim to have checked it.
 
+## One-button operation
+
+The user should not have to plan tasks or operate a local development environment. Follow [the One-Button Operator Loop](ONE_BUTTON_OPERATOR_LOOP.md): self-select one next task, do supported work now, persist the next task in GitHub, and provide one conversation button to resume. The button is user-triggered and is not a persistent background process.
+
 ## Workflow
 
 1. Define requirements and constraints.
