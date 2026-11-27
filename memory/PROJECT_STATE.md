@@ -101,3 +101,11 @@
 - Confirmed OT: EVM J2/J4-33 OT → LaunchPad J4/J2-33 GPIO48. SENS007 TMP302 OUT feeds OT with a 10-kΩ pull-up to 3V3.
 - Remaining unresolved: SENS007 sheet-5 connector text extraction conflicts on nEn_uC/nEnable mapping (candidate J2/J4 pins 11/12/13/18). Do not guess. DIR and OE also require separate net confirmation. Pin-1 visual mark on actual samples, EVM J5 optional 3.3-V link, LaunchPad JP1/JP4–JP7 power jumper state and GND/PGND/USB earth setup remain physical revision checks.
 - Added corrected matrix and explicit no-power hold point to `BOOSTXL_3PHGANINV_INTERFACE_AND_TEST_PLAN.md`. No hardware inspected, stacked, continuity tested or energized; no motor/firmware test claimed.
+
+
+## CI validation for corrected header crosswalk
+
+- CI run #89, ID 46008094544, exact crosswalk commit `8f8d3dfe8a3643a4d5e781c36e61241c17fc6b1b`: **success**.
+- Scaffold checks passed: repository structure/table validation, repository and recursive-improvement contract tests, and C scaffold syntax.
+- KiCad job succeeded; CLI install/ERC/DRC were skipped because the repository still contains no native KiCad schematic or PCB files.
+- Existing test files and workflow definitions remain unchanged. PR #3 remains open/draft. No hardware validation or power authorization.
