@@ -22,20 +22,23 @@
 
 ## Active next task
 
-### AEL-002: sample-specific no-power inspection and SDK route closure
+### AEL Academy: expand the foundations course and establish a lesson-quality gate
 
-**Why now:** the original rendered SENS007 Rev A schematic resolves the parsed 11/12/13/18 ambiguity: EVM J2/J4-11 is nEn_uC; nEnable is the internal U12 output to U4 OE package pin22; DIR is J2/J4-19 to U4 DIR package pin2. LaunchPad pin11 has a GPIO22/GPIO23 route notation, and sample-specific hardware population remains unknown.
+**Why now:** the user has requested a self-contained Korean course that starts at zero and enables independent end-to-end project execution. The Academy index, teaching specification, 00장 safety/development method, and 01장 electrical foundations have been added. The next highest-value step is to build the mathematical/physical bridge needed for capacitors, inductors, AC, power electronics and motor models.
 
 **Scope:**
-- Verify actual SENS007 and LAUNCHXL-F280039C board revisions and visible pin-1/square-pad marks; verify EVM J5 and LaunchPad JP1/JP2A/JP2B shunt states.
-- Keep JP4–JP7 classified as 3-pin supply-access headers, not isolation links. Review GND/PGND/USB_GND/instrument earth configuration.
-- Use SPRR444A to map Site-1 J4/J2-11=GPIO23 and pin12=GPIO22; inspect exact SDK project/HAL/SysConfig ownership (the optional GPIO23 command-switch input example may conflict with nEn_uC output); review OCP/TMP302 hardware and fault handling.
-- Obtain motor, encoder, supply current-limit/sink capability, load/inertia, motion profile and cooling requirements before any bench procedure.
+- Write the next lesson on mathematical tools for engineering (units/dimensions, scientific notation, algebra, graphs, trigonometry/phasors, vectors, derivatives/integrals and differential-equation intuition) at two levels: intuitive and formal.
+- Add RC/RL transient response with derivations, time constants, energy storage, worked examples, simulation exercises and answer keys.
+- Add a repeatable per-lesson review checklist: correctness, units, derivation, source quality, project mapping, exercises, safety and explicit unknowns.
+- Link the Academy from the repository root and update project memory; keep the curriculum synchronized with actual AEL-002 design gates.
+- Run existing CI unchanged and record the exact tested commit/run. Do not claim the whole textbook is complete.
 
-**Acceptance criteria:** sample revision/pin-1 and all power-source links are confirmed; GPIO23 SDK ownership is resolved without command-switch conflict; OCP/TMP302 behavior and a reviewed guarded, current-limited procedure are documented. Existing tests remain unchanged; CI passes.
+**Acceptance criteria:** lessons are self-contained, use SI units and defined symbols, show intermediate calculations and assumptions, include worked examples/exercises/solutions, and distinguish theory from AEL-002 decisions. Root README links the Academy. Existing tests/CI definitions remain unchanged and CI passes.
 
-**Blockers:** physical board inspection and actual motor/supply/load/cooling data are not available in this chat. **No stack or power** until the sample-specific checks are completed.
+**Blockers:** no physical action is needed for the educational work. AEL-002 hardware remains **NO STACK / NO POWER** until the actual sample revisions, pin-1 orientation, EVM J5, LaunchPad JP1/JP2A/JP2B and grounding are verified; motor/supply/load/cooling requirements remain open.
+
+### AEL-002: sample-specific no-power inspection and requirements intake (gated)
+Resume only when physical inspection and motor/supply/load data can be supplied. Never infer sample jumper states from schematic drawings.
 
 ### AEL-001: verify STM32G0B1CET6 pin map and provisional power tree (deferred)
-
-Resume after AEL-002 evaluation-stack interface is established, unless a dependency makes it higher priority.
+Resume after the AEL-002 evaluation-stack interface is established, unless a dependency makes it higher priority.
