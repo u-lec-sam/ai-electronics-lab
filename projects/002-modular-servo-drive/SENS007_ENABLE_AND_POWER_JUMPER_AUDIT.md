@@ -135,3 +135,41 @@ The SPRUJ26A F280039C setup section says JP1, JP2 and J101 are to be installed f
 - TLV3201 datasheet SBOS561C Rev C: https://www.ti.com/lit/ds/symlink/tlv3201.pdf
 
 **Updated decision:** physical SENS007 enable mapping is confirmed as LaunchPad GPIO23 at Site-1 pin 11; exact SDK application pin ownership/configuration is not confirmed. OCP logic and TMP302 active-low electrical behavior are documented, but dynamic protection/recovery is not validated. No stack or power.
+
+
+## 10. SDK source availability, ePWM Trip Zone, OCP and OT recovery audit (2026-11-27)
+
+### SDK version and source boundary
+TI's 5.02 release notes list the F28003x Universal Lab pairing with LAUNCHXL-F280039C and BOOSTXL-3PHGANINV. TI currently advertises MotorControl SDK 6.00.00.00 (released 2026-03-31); its installer requires export approval and was not downloaded or inspected. The two release contexts must not be conflated.
+
+The full recursive tree of TI's public `TexasInstruments/motor-control-sdk` default branch was inspected. It contains a newer AM263x universal motor-control example but no F28003x `universal_motorcontrol_lab` project/HAL/SysConfig tree. The public C2000Ware core repository contains device/driverlib material, not the missing MotorControl SDK application project. Therefore the exact selected F280039C project's GPIO23 pinmux, command-switch ownership, ePWM setup and recovery ISR are **not verifiable from the inspected public source**. Generic Driverlib documentation is not proof of application configuration.
+
+### GPIO23 conflict disposition
+The physical route is confirmed: SENS007 `nEn_uC` at EVM J2/J4-11 mates to LaunchPad Site-1 J4/J2-11 = GPIO23; GPIO22 is adjacent pin 12. SPRUJ26A's optional command-switch example configures GPIO23 as an input. That configuration conflicts with the SENS007 host enable output if both are enabled. The software conflict is **not resolved** because the exact target project source is unavailable. Design constraint for any future reviewed firmware: reserve GPIO23 exclusively for SENS007 `nEn_uC`; relocate or disable the optional command-switch input. Initialize it to the disable state before changing direction to output. This is a requirement, not a claim about TI's shipped binary.
+
+### ePWM Trip Zone
+TI SPRAD12A documents generic CBC and OST behavior. CBC can clear at a configured counter event; OST remains latched until the source is inactive and software clears the OST flag. The guide shows output action configuration, OSHT enable, interrupt and flag-clear ISR. It does **not** prove the actual F280039C Universal Lab TZ input routing, six PWM output safe-state, CBC/OST selection, interrupt handler, deadband behavior, or operator re-arm policy. All target-project-specific settings remain unverified. Do not assume SENS007's internal OCP signal is routed to an MCU TZ input; the documented EVM OCP chain ends at the PWM buffer OE path.
+
+### OCP latch and recovery
+SENS007 schematic: IA/IB/IC comparators → U16 OR → `IComp`; U12 combines `IComp` with `nEn_uC`; U12 output `nEnable` drives U4 active-low OE. R79 is the 0-ohm OCP path and must remain fitted. This is a **combinational inhibit**, not a documented set-dominant latch. When comparator output deasserts, the OCP input to U12 may deassert too; if host `nEn_uC` remains active, the buffer may re-enable without an MCU-visible OCP reset. The connector crosswalk exposes no dedicated OCP status signal to the MCU. Treat automatic re-enable as a hazard: hold host disable after any suspected OCP event and require supervised explicit fault clear/re-arm after verifying PWM state. No dynamic trip/restart test was performed.
+
+### TMP302 OT latch and recovery
+TMP302 OUT is open-drain active-low and remains low after threshold crossing until temperature falls through the selected 5°C or 10°C hysteresis window. Sensor hysteresis is **not** an MCU software fault latch. OT routes to GPIO48, but no inspected F280039C app source establishes GPIO48 configuration, ISR/polling, software latch, PWM disable, or restart policy. Proposed controller requirement: latch OT low as a fault, force all PWM outputs safe and assert host disable; do not auto-restart when OUT returns high. Require temperature recovery, explicit acknowledgement and controlled re-arm. This is a design requirement pending source review and hazard analysis, not a verified TI firmware behavior.
+
+### Verification boundary
+- Exact SDK app/HAL/SysConfig and ePWM TZ setup: **unverified**.
+- Generic GPIO mux and ePWM CBC/OST mechanisms: documented only.
+- No SDK installer, local filesystem, private repo or user device accessed.
+- No firmware, tests or CI definitions changed; no build, hardware test, OCP injection, thermal test, board stack or power-up.
+- **NO STACK / NO POWER remains mandatory** pending sample revision, pin-1, EVM J5, LaunchPad JP1/JP2A/JP2B/J101 and ground/earth checks plus an approved current-limited procedure.
+
+### Official references
+- MotorControl SDK 5.02 release notes (F28003x Universal Lab + F280039C + BOOSTXL-3PHGANINV): https://software-dl.ti.com/C2000/c2000_apps_public_sw/c2000ware_sdk/motorcontrolsdk/5_02_00_00/release_notes.html
+- MotorControl SDK 6.00 product/release info (2026-03-31; installer export approval): https://www.ti.com/tool/C2000WARE-MOTORCONTROL-SDK
+- TI public motor-control-sdk repository/tree: https://github.com/TexasInstruments/motor-control-sdk
+- TI C2000Ware core SDK: https://github.com/TexasInstruments/c2000ware-core-sdk
+- F28003x GPIO Driverlib API: https://software-dl.ti.com/C2000/docs/C2000_driverlib_api_guide/f28003x/build/html/modules/gpio.html
+- ePWM Developer's Guide SPRAD12A (CBC/OST): https://www.ti.com/lit/an/sprad12a/sprad12a.pdf
+- TMP302 datasheet SBOS488E: https://www.ti.com/lit/ds/symlink/tmp302.pdf
+- SENS007 Rev A schematic: https://www.ti.com/lit/df/sluray0a/sluray0a.pdf
+- BOOSTXL-3PHGANINV User Guide: https://www.ti.com/lit/ug/sluubp1a/sluubp1a.pdf
