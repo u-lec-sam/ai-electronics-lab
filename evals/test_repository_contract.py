@@ -42,8 +42,8 @@ class RepositoryContractTests(unittest.TestCase):
         ).lower()
         for required in (
             "run next task", "active next task", "acceptance criteria",
-            "refresh github", "not background execution",
-            "do not access the user's local device",
+            "refresh github", "not a background daemon",
+            "do not access my local device",
         ):
             with self.subTest(text=required):
                 self.assertIn(required, operator)
