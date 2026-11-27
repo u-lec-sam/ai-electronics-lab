@@ -201,3 +201,15 @@
 - Scaffold job passed repository structure/table validation, repository and recursive-improvement contract tests, and C scaffold syntax.
 - KiCad job completed successfully; KiCad CLI installation, ERC and DRC were correctly skipped because the repository contains no native KiCad schematic/PCB files. This is not an ERC/DRC or electrical validation result.
 - PR #3 remains open and draft; no merge was performed.
+
+
+## Engineering Academy progress — magnetism, induction and motor fundamentals (2026-11-28)
+
+- Added docs/academy/05-magnetism-induction-and-motor-fundamentals.md with beginner intuition and university-level derivations for H/B/flux/permeability, Ampere's law, Faraday/Lenz laws, motional emf, back-EMF, Lorentz force, coil torque, electrical/mechanical angle and pole pairs, three-phase rotating magnetic field, and brushed DC/induction/synchronous/PMSM/BLDC motor distinctions.
+- Includes dimensional checks, five worked calculations, four calculation/model exercises, 15 questions with complete solutions, motor datasheet interpretation checklist, hypothetical-only example, AEL-002 requirements TBD list and explicit NO STACK / NO POWER boundary.
+- PMSM dq torque equation states its Park-transform normalization and peak-current convention; warns that RMS/power-invariant conventions change coefficients. Ke/Kt are not numerically converted without matching line/phase, RMS/peak, waveform and speed definitions.
+- Re-read live Academy chapters 00–04 and LESSON_REVIEW_CHECKLIST.md before authoring. The Academy index and operator loop were updated; next queued task is motor electrical/mechanical model and load requirements.
+- Theory references included: OpenStax University Physics Vol. 2 §§11.1, 11.5, 12.5, 13.1–13.2; MIT OCW Physics II lecture notes; MIT OCW Electric Motors notes; Yale PHYS 201 lecture 11.
+- No specific motor was selected; actual model, pole pairs, winding parameters, Ke/Kt conventions, current/torque/speed limits, encoder, load/inertia, motion profile, supply/regeneration sink and cooling remain TBD.
+- No firmware, schematic, PCB, BOM, local device access, physical inspection, board stack, power-up or motor test occurred. Existing CI definitions unchanged. AEL-002 **NO STACK / NO POWER** remains.
+- Exact final branch SHA and CI result are recorded in the subsequent verification checkpoint below once the final commit run completes.
