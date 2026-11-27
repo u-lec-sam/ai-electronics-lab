@@ -163,3 +163,15 @@
 - Curriculum explicitly includes three-phase AC, line/phase voltage, Y/Delta, active/reactive/apparent power, power factor and harmonics. Clarification: first AEL-002 prototype is externally supplied by 24–48 VDC; it uses a three-phase motor/inverter but does not include a mains three-phase AC rectifier input. Teach grid/three-phase supply theory for understanding and later industrial expansion, but do not accidentally expand first-prototype scope.
 - Every lesson must separate intuition from formal derivation, define variables/units, show assumptions and intermediate calculations, interpret datasheet conditions, map to AEL-002 decisions, include exercises/solutions and objective completion criteria.
 - Safety remains unchanged: actual board revision, pin-1, EVM J5, LaunchPad JP1/JP2A/JP2B and grounding unknown; **NO STACK / NO POWER**. No motor/supply/load/cooling requirements or ratings are frozen.
+
+
+## Engineering Academy progress — mathematics and transient circuits (2026-11-28)
+
+- Added `docs/academy/02-mathematics-and-physics-for-engineers.md`: SI units/dimensions, prefixes, algebra, graphs, degree/radian, sinusoidal functions, vectors, derivatives, integrals, exponentials and differential-equation intuition; worked examples, exercises and explanations.
+- Added `docs/academy/03-rc-rl-transient-response.md`: capacitor/inductor physics and stored energy, derivations of RC charge/discharge and RL current rise/decay, time constants, calculations, component data-sheet selection factors, motor-winding connection, simulation exercises and answer key.
+- Added `docs/academy/LESSON_REVIEW_CHECKLIST.md` with repeatable checks for pedagogy, math/physics, units, derivations, datasheets, project scope, safety, source traceability and CI.
+- Updated Academy index and repository root README. Corrected chapter 01 to distinguish conventional current direction from electron drift and use energy change `ΔE` rather than ambiguous `W` in the voltage definition.
+- Technical cross-check references: OpenStax University Physics Vol. 2 RC circuits (10.5), RL circuits (14.4), Calculus Vol. 2 first-order linear equations (4.5), and RLC energy/ODE discussion (14.6). The equations were checked against these open textbook derivations. Educational examples are idealized and are not AEL-002 ratings.
+- Existing CI/test definitions were not modified. No firmware, schematic, PCB, BOM, physical test, stack, or power-up was performed.
+- AEL-002 **NO STACK / NO POWER** remains mandatory. Sample board revisions, pin-1 orientation, EVM J5, LaunchPad JP1/JP2A/JP2B and grounding remain physically unverified; motor/supply/load/regeneration/cooling requirements remain open.
+- CI evidence for these academy changes is to be added only after a run completes on the exact final commit.
