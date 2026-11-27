@@ -157,3 +157,14 @@ TI's BOOSTXL-3PHGANINV official page specifies 12–60 V input and 7 A RMS outpu
 - Full audit: `projects/002-modular-servo-drive/SENS007_ENABLE_AND_POWER_JUMPER_AUDIT.md`; corrected interface matrix: `projects/002-modular-servo-drive/BOOSTXL_3PHGANINV_INTERFACE_AND_TEST_PLAN.md`.
 - Latest operator queue: sample-specific no-power inspection and LaunchPad GPIO22/GPIO23 route/SDK closure; motor, supply, regeneration, load and cooling requirements remain blockers.
 - GitHub Actions run #102, ID 46014089845, exact commit `334af4c2d906666b4e78bfd341ba799062ebf27a`: **success**. Scaffold repository structure/table validation, contract tests and C syntax passed. KiCad job succeeded; CLI/ERC/DRC skipped because native KiCad files are absent. Tests and CI definitions unchanged.
+
+
+## Follow-up: exact LaunchPad GPIO23 mapping, SDK conflict, OCP and thermal alert (2026-11-27)
+
+- Live refresh: main remains `6ca4716de7ae11e82e23ad2f61271dc9e4d1e899`; PR #3 is open/draft on `agent/ael-002-48v-modular-servo-brief`, pre-update head `cd509226a249956354907dbbc9aa02c79d0a3141`. Latest CI #106 succeeded on that head; #105 also succeeded. Existing tests/workflows are to remain unchanged.
+- Official SPRR444A Rev A resolves header mapping: Site-1 J4/J2-11 = GPIO23 and pin12 = GPIO22. SENS007 nEn_uC at J2/J4-11 maps to GPIO23. Prior phrase "GPIO22/GPIO23 selectable route at pin11" is superseded.
+- SPRUJ26A Rev A §3.2.2 documents board file path and JP1/JP2/J101 setup. Its GPIO23 command-switch sample uses GPIO23 as an input. It is not the inverter nEn output configuration; enabling that optional command-switch setup unchanged conflicts with the required GPIO23 output ownership. Exact SDK project-specific HAL/SysConfig config remains unverified.
+- SENS007 OCP hardware trace: IA/IB/IC → three comparator channels → U16 OR → IComp → U12 OR with nEn_uC → U4 active-low OE. R79 must remain populated; schematic explicitly notes removing it disables OCP. Comparator annotation 2.75/2.85V and guide's 12A/1A description are retained as separate source statements. No dynamic test or current rating claim.
+- TMP302BQDRLRQ1 open-drain active-low OUT, 10k pull-up, OT to GPIO48. Datasheet permits 5C/10C hysteresis; actual configured trip/hysteresis and GND/PGND selection depend on BOM/population. No firmware latch/recovery behavior verified.
+- No local access, physical inspection, firmware build, power, stack, motor test. No test or CI definition changed. No-power hold remains.
+- Full audit: `projects/002-modular-servo-drive/SENS007_ENABLE_AND_POWER_JUMPER_AUDIT.md`.
