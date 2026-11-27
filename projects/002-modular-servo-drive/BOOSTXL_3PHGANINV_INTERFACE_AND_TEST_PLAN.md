@@ -208,3 +208,14 @@ The prior J4-40/GND conflict was an interpretation error, not a documented incom
 ## Enable/power-link audit update
 
 See [SENS007_ENABLE_AND_POWER_JUMPER_AUDIT.md](SENS007_ENABLE_AND_POWER_JUMPER_AUDIT.md) for the rendered-sheet-5 net trace, correction of the J5 designator, LaunchPad JP1/JP2A/JP2B vs JP4–JP7 distinctions, and the remaining sample-specific no-power hold. The SENS007 nEn_uC and DIR header pins are resolved at the schematic level; actual board revisions, pin-1 marks and jumper population remain unverified.
+
+
+## 13. Follow-up: F280039C GPIO23, SDK pin ownership, OCP and thermal audit (2026-11-27)
+
+- Corrected the earlier "GPIO22/GPIO23 selection at pin 11" wording. SPRR444A Rev A sheet 2 and its sheet-6 signal-to-connector map show Site-1 J4/J2-11 = GPIO23 and J4/J2-12 = GPIO22. Since SENS007 `nEn_uC` is EVM J2/J4-11, its physical LaunchPad counterpart is GPIO23. GPIO22 is adjacent pin 12, not an alternate for this net.
+- SPRUJ26A §3.2.2 documents the F280039C board files path and says install JP1, JP2 and J101 for the SDK setup; §3.2.12 documents the EVM pairing. The guide's optional command-switch example uses GPIO23 as an input (pin config GPIO_23_GPIO23, input direction, pull-up, 3-sample qualification). This is not an inverter-enable pinmux definition. Reusing it unchanged for SENS007 would conflict with the required GPIO23 output ownership for `nEn_uC`. Exact installed SDK project/HAL/SysConfig ownership remains unverified; do not assign firmware pinmux until that source is reviewed.
+- OCP chain confirmed from SENS007 sheet 4: IA/IB/IC comparator paths U13/U14/U15 → U16 OR → `IComp`; U12 on sheet 5 ORs `IComp` with `nEn_uC`; U12 output `nEnable` drives active-low U4 OE. R79 is the OCP series link; TI note says remove R79 to disable OCP, so it must remain fitted. Schematic comparator threshold annotation 2.75/2.85 V (100-mV window) is distinct from user guide's 12-A trip/1-A hysteresis description. Neither is a continuous-current rating. No dynamic trip test performed.
+- TMP302BQDRLRQ1 OUT is open-drain active-low, pulled up by R48=10k to 3V3 and routed to OT; LaunchPad Site-1 J4/J2-33 = GPIO48. TMP302 provides pin-selectable trip and 5°C/10°C hysteresis; actual trip setting depends on resistor population and BOM. Schematic says R54=GND default, R53=PGND DNP; as-built population unknown. Firmware fault latch/restart behavior is not proven by TI schematic or SDK guide.
+- Power: SDK guide calls for JP1, JP2 and J101 in its F280039C setup; schematic differentiates JP2A/JP2B XDS110-to-MCU rails. Actual JP1/JP2A/JP2B/J101 and EVM J5 states are unknown. No physical sample inspected.
+- Official references: SPRR444A, SPRUJ26A, SLURAY0A, SLUUBP1A, TMP302 SBOS488E, TLV3201 SBOS561C; full links and trace in `SENS007_ENABLE_AND_POWER_JUMPER_AUDIT.md`.
+- No firmware, test or CI definitions changed. No board mating, measurement, energization or motor test. **NO POWER / NO STACK remains.**
