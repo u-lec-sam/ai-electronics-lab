@@ -140,3 +140,13 @@
 - TMP302BQDRLRQ1 OUT is open-drain active-low with 10k pull-up, OT routes to GPIO48. Trip point/hysteresis depend on configuration resistor population; R54 GND default/R53 PGND DNP per schematic, but as-built population unknown. No MCU fault-latch/restart implementation verified.
 - Updated detailed audit: `projects/002-modular-servo-drive/SENS007_ENABLE_AND_POWER_JUMPER_AUDIT.md`. No physical sample inspected; no power/no stack hold remains.
 - Existing tests and CI definitions unchanged. Candidate CI validation for this documentation update is pending.
+
+
+## SDK source and fault recovery audit (2026-11-27)
+
+- Exact F280039C Universal Lab app/HAL/SysConfig is absent from inspected public TI motor-control-sdk tree. TI 5.02 release notes list F28003x Universal Lab + F280039C + BOOSTXL-3PHGANINV; advertised SDK 6.00 installer was not inspected (export approval).
+- GPIO23 physical route confirmed at Site-1 pin 11; GPIO22 is pin 12. Generic optional command-switch example uses GPIO23 input and conflicts with SENS007 nEn_uC output if both active. Software ownership unresolved without target app source.
+- Generic ePWM CBC/OST docs do not establish target TZ source/action/ISR/re-arm.
+- SENS007 OCP is combinational comparator/OR/U12/U4 OE inhibit, not proven MCU-visible latch. OCP deassertion may re-enable buffer if host enable stays asserted; R79 must remain fitted. Require explicit supervised re-arm.
+- TMP302 active-low OUT has sensor 5°C/10°C hysteresis, not firmware latch. GPIO48 app handling/recovery unverified; require software latch, PWM disable and explicit acknowledgement after cooling.
+- Detailed audit §10 in `projects/002-modular-servo-drive/SENS007_ENABLE_AND_POWER_JUMPER_AUDIT.md`. No SDK installer, firmware, tests, CI definitions or hardware activity. NO STACK / NO POWER.
