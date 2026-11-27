@@ -74,3 +74,13 @@ Create a parameterized control/power interface specification and test plan for t
 ## Correction from detailed inverter-board documentation
 
 TI's BOOSTXL-3PHGANINV official page specifies 12–60 V input and 7 A RMS output per phase, but its supported LaunchPad list does not include LAUNCHXL-F280039C. The board's generic BoosterPack interface alone does not prove validated electrical/software compatibility. F280039C remains a controller candidate, while inverter EVM integration is an open compatibility work item. For initial power-stage tests use a listed LaunchPad or finish a documented pin/voltage/timing/fault-path and SDK port review first. No energized setup is approved.
+
+
+## Final candidate validation
+
+- Candidate commit containing the board comparison, intake table, power-stage review gates and TI compatibility correction: `86495525b45aabce6517db05438f6d1010855efc`.
+- GitHub Actions run #59 (ID 45983937041) on that commit: **success**.
+- Scaffold job: repository structure/table validation passed; all existing repository/recursive-improvement contract tests passed; existing C scaffold syntax check passed.
+- KiCad job: completed successfully with install/ERC/DRC steps **skipped** because the repository still has no native KiCad schematic or PCB files.
+- Changed-file review: only README, operator-loop documentation, experiment record, project-state memory and AEL-002 brief changed; no tests or CI rules were modified.
+- PR #3 remains open and draft; no merge or hardware approval was performed.
