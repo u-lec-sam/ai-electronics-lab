@@ -46,3 +46,8 @@ Minimize user effort. The agent should perform repository research, file editing
 ## Public repository warning
 
 All committed files and history are public. Never commit credentials, private data, or proprietary material without redistribution permission.
+
+
+## Engineering Academy
+
+한국어 기초부터 서보드라이브 설계·제작·검증까지 이어지는 통합 강의노트: [교육과정과 강의노트](docs/academy/README.md).
