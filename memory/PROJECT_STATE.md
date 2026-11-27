@@ -2,55 +2,34 @@
 
 **Snapshot date:** 2026-11-27  
 **Repository:** `u-lec-sam/ai-electronics-lab`  
-**Default branch at snapshot:** `main`  
-**Status:** recursive-improvement and one-button operator contracts merged into main; one-button branch CI passed; main CI run 34 was running at snapshot time.
+**Default branch:** `main`  
+**Baseline main commit before AEL-002 candidate:** `6ca4716de7ae11e82e23ad2f61271dc9e4d1e899`
 
 ## Verified repository state
 
 - Public GitHub repository; connected GitHub integration has read/write permissions.
 - MCU families in scope: STM32, TI MSPM0, C2000, MSP430, ESP32, and future profiles.
-- Active hardware project: AEL-001, STM32G0B1CET6 LQFP48 sensor and I/O reference board.
-- AEL-001 is a preliminary design brief only.
-- No committed native KiCad schematic or PCB was present at the baseline inspection.
-- Firmware is a portable C scaffold, not a flashable target image.
-- CI has a scaffold validation job and conditional KiCad ERC/DRC steps; baseline KiCad files were absent.
-- Latest inspected main commit at baseline: `ccdf16b1fbb3c1b594440d9f7ccc63e05c53b89e`.
-- Six recent GitHub Actions runs were listed; the latest inspected run completed with conclusion `success` for that commit. This confirms the configured workflow completed, not electrical correctness.
+- AEL-001 remains a preliminary STM32G0B1CET6 LQFP48 sensor/I/O controller brief. No native KiCad schematic/PCB or flashable firmware is claimed.
+- AEL-002 has been added on candidate branch `agent/ael-002-48v-modular-servo-brief` as a preliminary modular low-voltage servo-drive concept; not yet merged at this snapshot.
+- AEL-002 benchmark distinguishes LS Mecapion iX7NH network servo from iX7M multi-axis servo.
+- AEL-002 first prototype scope is one axis, external 24–48 VDC bus, three-phase PMSM/BLDC, guarded bench evaluation. No mains power stage or component ratings are frozen.
+- Candidate MCU: TI C2000 F280039C/F28003x; alternative: STM32G4. Neither is frozen.
+- Motor, encoder, supply current limit/regen capability, load/inertia, duty cycle, cooling, communications and budget remain unresolved.
 
-## Open engineering decisions for AEL-001
+## CI baseline
 
-1. Input connector, voltage range, and maximum input current.
-2. Board current budget and 3.3 V load budget.
-3. Regulator selection and thermal/power analysis.
-4. Reverse-polarity, overcurrent, ESD, and transient protection.
-5. Exact MCU pin and alternate-function allocation from the LQFP48 datasheet.
-6. Oscillator/RTC requirements.
-7. Connector pitch, board outline, mounting, and assembly constraints.
+- Latest inspected main workflow run: #35, run ID 45949261831, commit `6ca4716de7ae11e82e23ad2f61271dc9e4d1e899`, conclusion success.
+- Scaffold job: repository validation, contract tests and C syntax check passed.
+- KiCad job: install/ERC/DRC steps skipped because native KiCad files are absent. Overall green CI is not electrical verification.
 
-## Latest scaffold improvement
+## Active project queue
 
-- Candidate branch: `agent/recursive-evaluation-bootstrap`
-- Candidate commit: `558fcbaa3fbb7c5c8dd0ed7a4a8f57084861ab49`
-- GitHub Actions run 19: success.
-- Repository-contract tests, scaffold validation, and C syntax check: passed.
-- KiCad checks: skipped because no native KiCad files exist.
-- Pull request #1: merged into main.
-- Merge commit: `39136ea018436c2699988b307bbc91d5fe28f6b4`.
-- Post-merge GitHub Actions run 23: success.
+1. **AEL-002 — resolve motor/supply/load requirements and compare control MCU evaluation paths.** See `docs/ONE_BUTTON_OPERATOR_LOOP.md`.
+2. AEL-001 — verify STM32G0B1CET6 LQFP48 pin map and establish a provisional power tree after AEL-002's first requirements pass.
 
-## One-button operator loop
+## Evidence and limitations
 
-- Protocol: `docs/ONE_BUTTON_OPERATOR_LOOP.md`.
-- Pull request #2: merged into main.
-- Merge commit: `b322b15e3f85f6b4981964d1dfda9b04f1042fc5`.
-- Candidate CI run 32: success; repository validation, six contract tests, and C syntax check passed.
-- Two earlier candidate CI runs failed because assertions did not match the documented wording. The assertions were corrected; the failures remain in Actions history.
-- KiCad ERC/DRC were skipped because native KiCad files do not yet exist.
-
-## Next action
-
-1. Verify STM32G0B1CET6 LQFP48 package pins, power requirements, and alternate functions from official ST documentation; create a source-linked pin allocation and provisional power-tree proposal.
-
-## Confidence and limitations
-
-This snapshot is a dated summary, not a substitute for live repository reads. Refresh it from GitHub before relying on it. No schematic, PCB, firmware build, or hardware measurement is claimed.
+- AEL-002 research and acceptance boundaries: `projects/002-modular-servo-drive/README.md`.
+- Session experiment record: `docs/experiments/2026-11-27-ael-002-architecture.md`.
+- No schematic, PCB, firmware build, simulation, HIL, hardware measurement, product safety assessment or certification is claimed.
+- This snapshot is a candidate-branch record until the pull request is reviewed and merged.
