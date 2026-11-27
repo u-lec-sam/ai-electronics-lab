@@ -23,10 +23,12 @@ See:
 - Espressif: ESP32
 - Other MCU families through additional platform profiles
 
-## First project
-See [AEL-001: STM32G0B1 Sensor & I/O Controller](projects/001-stm32g0b1-sensor-io/README.md).
+## Projects
 
-**Current status: preliminary design brief only.** No completed schematic, PCB, ERC/DRC result, or flashable firmware is claimed yet.
+- [AEL-001: STM32G0B1 Sensor & I/O Controller](projects/001-stm32g0b1-sensor-io/README.md) — preliminary design brief.
+- [AEL-002: Modular Low-Voltage Servo Drive](projects/002-modular-servo-drive/README.md) — concept/preliminary requirements; 24–48 VDC single-axis prototype scope.
+
+No completed schematic, PCB, ERC/DRC result, flashable firmware, hardware validation, or product certification is claimed for either project.
 
 ## Layout
 - `docs/`: architecture, engineering rules, improvement protocol, research, decisions, experiments
