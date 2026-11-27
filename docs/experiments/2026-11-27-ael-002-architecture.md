@@ -146,3 +146,14 @@ TI's BOOSTXL-3PHGANINV official page specifies 12–60 V input and 7 A RMS outpu
 - LaunchPad SPRR444A Rev A: JP1 is USB↔XDS110 power/ground isolation; JP2A/JP2B bridge XDS110↔target MCU 5-V/3.3-V domains. JP4/JP6 are 3-pin +3V3_MCU headers; JP5/JP7 are 3-pin +5V0_MCU headers (pins1/2 rail, pin3 GND), not isolation jumpers. Actual link/shunt population is not known.
 - SLURAY2 confirms SENS007 board #/Rev A in drawing and shows top/bottom views, but physical pin-1 marks and user's sample revision are not certified. LaunchPad schematic is MCU103 Rev A; actual sample still uninspected.
 - Full trace and source links: `projects/002-modular-servo-drive/SENS007_ENABLE_AND_POWER_JUMPER_AUDIT.md`. No local device access, physical inspection, continuity, stack, power, or motor test. No test or CI definition changed. No-power hold remains.
+
+
+## Superseding status — SENS007 trace and CI #102 (2026-11-27)
+
+- This section supersedes earlier snapshot statements in this file that described EVM enable as unresolved, called the SENS007 optional 3.3-V feed connector J6, or classified LaunchPad JP4–JP7 as isolation jumpers.
+- Direct original SENS007 Rev A sheet-5 visual trace: EVM J2/J4-11 = nEn_uC → U12 input1; IComp → U12 input2; U12 output nEnable → U4 OE package pin22; U4 OE is active-low. DIR = EVM J2/J4-19 → U4 DIR package pin2; R28 pull-up establishes DIR='1' A→B. nEnable is not a connector signal. The apparent pin12/13/18 readings confused U4 package pins with connector numbering.
+- EVM optional LaunchPad 3.3-V feed connector is J5 on SENS007 Rev A sheet2. LaunchPad SPRR444A Rev A: JP1 is USB/XDS110 power-ground boundary; JP2A/JP2B bridge XDS110↔target MCU 5-V/3.3-V; JP4/JP6 are 3.3-V power-access headers, JP5/JP7 are 5-V power-access headers.
+- Actual board revisions, visible pin-1 marks and all jumper/shunt populations are not verified; no boards inspected, mated, continuity-tested or energized. **No power / no stack hold remains.**
+- Full audit: `projects/002-modular-servo-drive/SENS007_ENABLE_AND_POWER_JUMPER_AUDIT.md`; corrected interface matrix: `projects/002-modular-servo-drive/BOOSTXL_3PHGANINV_INTERFACE_AND_TEST_PLAN.md`.
+- Latest operator queue: sample-specific no-power inspection and LaunchPad GPIO22/GPIO23 route/SDK closure; motor, supply, regeneration, load and cooling requirements remain blockers.
+- GitHub Actions run #102, ID 46014089845, exact commit `334af4c2d906666b4e78bfd341ba799062ebf27a`: **success**. Scaffold repository structure/table validation, contract tests and C syntax passed. KiCad job succeeded; CLI/ERC/DRC skipped because native KiCad files are absent. Tests and CI definitions unchanged.
