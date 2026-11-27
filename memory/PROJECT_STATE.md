@@ -213,3 +213,15 @@
 - No specific motor was selected; actual model, pole pairs, winding parameters, Ke/Kt conventions, current/torque/speed limits, encoder, load/inertia, motion profile, supply/regeneration sink and cooling remain TBD.
 - No firmware, schematic, PCB, BOM, local device access, physical inspection, board stack, power-up or motor test occurred. Existing CI definitions unchanged. AEL-002 **NO STACK / NO POWER** remains.
 - Exact final branch SHA and CI result are recorded in the subsequent verification checkpoint below once the final commit run completes.
+
+
+## Engineering Academy chapter 06 (2026-11-28)
+
+- Added `docs/academy/06-motor-electrical-mechanical-and-thermal-models.md`.
+- Reviewed Academy chapters 00–05 and `LESSON_REVIEW_CHECKLIST.md` before authoring.
+- Chapter covers DC equivalent motor equations; PMSM amplitude-invariant Park convention, d/q flux/voltage/torque equations; electrical/mechanical speed; carefully qualified Ke/Kt conversions; torque-speed/current/voltage limits; reflected gear and screw inertia; acceleration torque; copper loss, efficiency, continuous/peak ratings, one-node thermal time constant and duty-cycle RMS current.
+- Added a manufacturer-datasheet intake template and AEL-002 motor/load/supply/regeneration/cooling requirements worksheet. All real motor and drive ratings remain TBD.
+- Mathematical examples are explicitly hypothetical. Source links include TI TIDM-02018 and MathWorks PMSM model references; equations are restated under declared conventions rather than mixed across conventions.
+- No firmware, schematic, PCB, simulation execution, motor test, thermal measurement, physical inspection or power-up is claimed.
+- **NO STACK / NO POWER** remains. The physical sample revision, pin-1 orientation, jumpers, USB/XDS110 and grounding/test configuration remain unverified.
+- Next Academy task: Chapter 07 on DC link, three-phase two-level inverter, phase/line voltage, PWM/SVPWM, dead time, switching/conduction losses, capacitor stress and regenerative energy. Actual component ratings remain TBD.
