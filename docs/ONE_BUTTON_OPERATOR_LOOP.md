@@ -22,22 +22,23 @@
 
 ## Active next task
 
-### AEL Academy: motor electrical model, torque-speed envelope and load requirements
+### AEL Academy: inverter and DC-link power electronics foundations (Chapter 07)
 
-**Why now:** Chapters 00–05 now cover the project process and safety gates, electrical quantities, engineering mathematics, RC/RL transients, AC/three-phase power, magnetism, induction, back-EMF, torque, pole pairs/electrical angle, rotating fields and motor families. The next useful theory-to-requirements step is to translate a *specific candidate motor datasheet and load profile* into a traceable motor/electrical/mechanical model before selecting a power stage or tuning FOC.
+**Why now:** Chapters 00–06 now establish project safety/process, circuit and mathematical foundations, AC/three-phase power, electromagnetism, and a consistent motor electrical/mechanical/thermal model. The next dependency is to connect the motor model to the 3-phase inverter and DC bus before selecting any power devices.
 
 **Scope:**
-- Write a Korean lesson on the DC-equivalent and PMSM dq electrical models, torque-speed curves, mechanical equation (J\,d\omega/dt=T_e-T_L-B\omega-T_f), inertia reflection and acceleration torque.
-- Derive copper loss, mechanical power, efficiency, continuous vs peak torque/current, thermal time constants and duty-cycle constraints.
-- Explain Ke/Kt unit conventions and conversions only when waveform, phase/line, RMS/peak and mechanical/electrical speed definitions are known.
-- Build a motor datasheet intake template and a requirements worksheet for motor, encoder, load inertia, speed/torque profile, supply/regeneration and cooling.
-- Use clearly labeled hypothetical examples only; do not invent an AEL-002 motor model or ratings.
-- Review chapters 00–05 against the checklist; add calculations, worked solutions, simulation-only exercises, source links, index and memory updates.
-- Preserve existing CI definitions and all physical safety gates.
+- Write a Korean lesson on the DC link, two-level three-phase voltage-source inverter, six-switch bridge, phase vs line-line voltage, switching states, PWM and SVPWM fundamentals.
+- Derive modulation and voltage-limit relationships with explicit normalization, DC-bus and phase/line conventions.
+- Explain dead time, switching/conduction loss, ripple current, DC-link capacitor stress, thermal paths, regeneration and overvoltage containment at a conceptual/calculation level.
+- Include unit-checked worked examples, exercises with full solutions, data-sheet interpretation and a power-stage requirements worksheet.
+- Keep actual AEL-002 bus ripple, current, switching frequency, semiconductor, capacitor, braking and thermal ratings TBD until motor/load/supply data and a reviewed architecture exist.
+- Review chapters 00–06 and the lesson checklist; update the Academy index, project memory and this operator task.
+- Preserve existing CI definitions and all safety gates.
 
-**Acceptance criteria:** dynamic equations are dimensionally checked; sign conventions are explicit; reflected inertia and torque-speed limits are correctly defined; all continuous/peak and thermal assumptions are explicit; missing candidate motor/load data remain TBD.
+**Acceptance criteria:** all equations state modulation and voltage conventions; phase/line-line quantities are not mixed; DC-link energy and regeneration are dimensionally checked; losses and thermal assumptions are explicit; no component ratings are invented.
 
-**Blockers:** none for theory. Actual motor model, pole pairs, winding parameters, Ke/Kt conventions, encoder, supply capability, load/inertia, motion profile, regeneration sink and cooling remain unprovided. Hardware remains **NO STACK / NO POWER**.
+**Blockers:** theory work can proceed. Actual motor, load, supply source/sink capability, motion profile and cooling remain unknown. Hardware remains **NO STACK / NO POWER**.
+
 
 ### AEL-002: sample-specific no-power inspection and requirements intake (gated)
 Resume only when physical inspection and motor/supply/load data can be supplied. Never infer sample jumper states from schematic drawings.
