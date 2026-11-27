@@ -112,3 +112,29 @@ The matrix below is the functional contract supported by the EVM guide and schem
 ## 8. Result
 
 F280039C is confirmed as a TI-documented MotorControl SDK evaluation pairing for BOOSTXL-3PHGANINV by SPRUJ26A Rev A, resolving the earlier false-negative inference from the product-page list alone. Exact GPIO/ADC/ePWM pin map, board revision match, power/ground configuration, current/thermal operating point and bench protection behavior remain open. **No power application, motor rotation, or hardware test is authorized or claimed.**
+
+
+## 9. Connector-numbering conflict discovered during F280039C cross-check
+
+The F280039C LaunchPad pinout map (SPRUJ30) and BOOSTXL-3PHGANINV schematic (SENS007 Rev A, sheet 5) cannot safely be treated as a same-number-to-same-number crosswalk without resolving physical orientation and connector-pair correspondence:
+
+- SENS007 sheet 5 labels the EVM J2/J4 connector pins 40 through 35 as PWM/GPIO or Timer_Cap/GPIO inputs, pin 34 as OT, and pins 13/12 as SPI_CS/GPIO associated with enable control.
+- SPRUJ30's F280039C pinout map labels LaunchPad J4-40 as GND, J4-36 as XRSn, and J4-35 as GPIO08. A naïve same-name/same-number mapping would therefore collide with ground/reset signals.
+- The SDK guide SPRUJ26A §3.2.12 says to connect the EVM to the LaunchPad sites J1/J3 and J4/J2, but this sentence alone does not resolve the apparent connector-number/orientation conflict from the two board drawings.
+- On the analog header, SENS007 sheet 5 maps pins 23–29 to VDC, VA, VB, VC, IA, IB, IC; SPRUJ30 lists LaunchPad J3 pins 23–29 as ADC-capable inputs. This looks functionally promising, but the entire board-to-board mapping remains conditional until the connector mating orientation and revision-specific pinout are independently reconciled.
+- The older EVM guide also refers to phase-current equivalent outputs at J1-14/J1-16/J1-18, while SENS007 sheet 5 uses the combined connector numbering shown on the schematic. Treat these as document-specific labels; do not merge them into one pin assignment without a verified crosswalk.
+
+**Hold point:** do not physically stack or power the boards based on header names alone. Resolve this discrepancy using the official assembly drawing, connector pin-1 markers, board-side orientation, exact LaunchPad and EVM revisions, and a pin-by-pin continuity/crosswalk reviewed while both boards are unpowered. The SDK's supported evaluation statement remains true, but this audit has not yet proved that the currently available physical board revisions can be safely connected by direct stacking.
+
+## 10. Exact F280039C resources available for the crosswalk
+
+SPRUJ30 identifies the following candidate LaunchPad resources (these are MCU/header capabilities, not a completed EVM pin map):
+
+- Analog header J3: pin 23 ADCINA6; 24 ADCINA2B/C9; 25 ADCINA3B/C7; 26 ADCINA14/B14/C4; 27 ADCINA11/B10/C0; 28 ADCINA12/B12/C2; 29 ADCINA7/C3.
+- PWM-capable MCU functions shown on the pinout map include PWM1A/B on GPIO0/1, PWM2A/B on GPIO2/3, PWM6A/B on GPIO10/11, PWM7A/B on GPIO12/13, PWM4A/B on GPIO6/7, and PWM5A/B on GPIO16/35. These functions must be cross-checked against the actual BoosterPack header and SDK pinmux, not assumed available on the EVM connector.
+- LaunchPad provides two eQEP encoder connectors, an onboard CAN/CAN-FD transceiver, XDS110 debug, and selectable USB/BoosterPack/external power domains. These do not eliminate the need to verify EVM ground and power-source selection.
+
+Sources:
+- TI F28003x LaunchPad User Guide SPRUJ31: https://www.ti.com/lit/ug/spruj31/spruj31.pdf
+- TI F280039C LaunchPad pinout map SPRUJ30: https://www.ti.com/lit/ml/spruj30/spruj30.pdf
+- TI BOOSTXL-3PhGaNInv schematic SENS007 Rev A: https://www.ti.com/lit/df/sluray0a/sluray0a.pdf
