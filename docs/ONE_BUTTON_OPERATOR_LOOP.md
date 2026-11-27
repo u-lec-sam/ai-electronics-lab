@@ -22,6 +22,25 @@
 
 ## Active next task
 
+### AEL-002: sample-specific no-power inspection and SDK route closure
+
+**Why now:** the original rendered SENS007 Rev A schematic now resolves the parsed 11/12/13/18 ambiguity: EVM J2/J4-11 is nEn_uC; nEnable is the internal U12 output to U4 OE pin22; DIR is J2/J4-19 to U4 DIR pin2. The LaunchPad pin11 GPIO22/GPIO23 route and actual board population still need exact sample/SDK confirmation.
+
+**Scope:**
+- Verify actual SENS007 and LAUNCHXL-F280039C board revisions and visible pin-1/square-pad marks; verify EVM J5 and LaunchPad JP1/JP2A/JP2B shunt states.
+- Keep JP4–JP7 classified as 3-pin supply access headers, not isolation links. Review GND/PGND/USB_GND/instrument earth configuration.
+- Resolve LaunchPad pin11 GPIO22/GPIO23 selectable routing and exact SDK board pinmux; inspect OCP/TMP302 configuration and fault handling.
+- Obtain motor, encoder, supply current-limit/sink capability, load/inertia, motion profile and cooling requirements before any bench procedure.
+
+**Acceptance criteria:** sample revision/pin-1 and all power-source links are confirmed; GPIO route and SDK configuration are exact; a reviewed guarded, current-limited procedure exists. Existing tests remain unchanged; CI passes.
+
+**Blockers:** physical board inspection and actual motor/supply/load/cooling data are not available in this chat. **No stack or power** until the sample-specific checks are completed.
+
+### AEL-001: verify STM32G0B1CET6 pin map and provisional power tree (deferred)
+
+Resume after AEL-002 evaluation-stack interface is established, unless a dependency makes it higher priority.
+
+
 ### AEL-002: verify F280039C-to-inverter evaluation path and interface contract
 
 **Why now:** TI MotorControl SDK SPRUJ26A §3.2.12 and Figure 3-14 explicitly document BOOSTXL-3PHGANINV with LAUNCHXL-F280039C. The previous pin-40/GND conflict was a header-site naming error; official Rev A schematics now establish the analog and six-PWM Site-1 pin crosswalk. The active-low enable net pin remains ambiguous and is the next hard hold point.
