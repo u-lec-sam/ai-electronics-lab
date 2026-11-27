@@ -116,3 +116,15 @@ TI's BOOSTXL-3PHGANINV official page specifies 12–60 V input and 7 A RMS outpu
 - Scaffold: repository structure/table validation, existing repository/recursive-improvement contract tests, and C scaffold syntax all passed.
 - KiCad job: job succeeded; KiCad CLI install and ERC/DRC were skipped because native KiCad schematic/PCB files are absent.
 - Tests and CI definitions were not modified. PR #3 remains open/draft. No electrical or physical validation is claimed.
+
+
+## Corrective official connector crosswalk audit (2026-11-27)
+
+- Reviewed TI BOOSTXL-3PHGANINV assembly drawing SLURAY2 (top and bottom views), PCB overlay SLURAY3, SENS007 Rev A schematic SLURAY0A sheets 2/4/5, LAUNCHXL-F280039C Rev A schematic SPRR444A sheet 2, LaunchPad guide SPRUJ31, pinout map SPRUJ30 and MotorControl SDK guide SPRUJ26A §3.2.12/Figure 3-14.
+- Found and corrected the earlier false pin conflict: F280039C Site-1 uses J1/J3 pins 1–30 and J4/J2 pins 11–40; J4/J2 pin 40 is GPIO0. The earlier GND comparison was a header-site naming/side-view interpretation error.
+- Confirmed the EVM and LaunchPad Site-1 analog pin mapping by same-numbered header pins: EVM J1/J3-23 VDC → LP ADCINA6; 24 VA → ADCINA2/B6/C9; 25 VB → ADCINA3/B9/C7; 26 VC → ADCINA14/B14/C4; 27 IA → ADCINA11/B10/C0; 28 IB → ADCINB12/C2; 29 IC → ADCINA7/C3; 30 VREF → ADCINA1/B7. EVM pins 1/21/22 map 3V3 feed / no connection on +5V / GND.
+- Confirmed six PWM channel order: EVM J2/J4 40→PWM_AH, 39→PWM_AL, 38→PWM_BH, 37→PWM_BL, 36→PWM_CH, 35→PWM_CL; these same-numbered LaunchPad Site-1 pins map to GPIO0/1/2/3/10/11.
+- Confirmed EVM OT on J2/J4-33 maps to LaunchPad J4/J2-33 GPIO48; TMP302 OUT connects to OT and is pulled up to 3V3.
+- Important unresolved: extracted connector details conflict on exact nEn_uC/nEnable/OE pins (11/12/13/18 appear in different source extractions). Keep enable pin unassigned until direct net tracing in native schematic/CAD or qualified unpowered continuity confirmation. DIR also requires separate confirmation.
+- EVM J5 optional 3.3-V feed, LaunchPad power-domain jumpers, physical pin-1 marks and actual board revisions remain sample-specific checks. GND/PGND and USB/XDS110 earth measurement setup is not signed off.
+- No physical board access, continuity testing, stacking, energization, motor rotation, firmware build, HIL or bench test occurred. No power authorization is granted.
