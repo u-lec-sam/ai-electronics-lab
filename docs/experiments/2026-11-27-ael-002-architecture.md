@@ -33,7 +33,8 @@ Create a traceable servo-drive workstream and prevent premature selection of pow
 - Live repository/protocol/state read: completed.
 - Latest main CI run #35: success. Scaffold validation, contract tests and C syntax check passed. KiCad install/ERC/DRC steps were skipped because no native KiCad files exist.
 - Documentation link/source review: recorded in the AEL-002 brief.
-- Candidate branch CI: pending at record creation.
+- Candidate CI run #41 failed in the repository-contract test because the operator-loop edit dropped two asserted contract strings/queue markers. The test was not weakened; the operator document was corrected to preserve the local-device boundary and deferred AEL-001 queue entry.
+- Candidate CI run #43 on final tested candidate commit `2f2d47ec1678043966815d1687eabdccd8ce8bf0`: success. Scaffold validation, repository-contract tests and C syntax check passed; KiCad install/ERC/DRC remained skipped because no native KiCad files exist.
 
 ## Risks and limitations
 
