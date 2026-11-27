@@ -27,10 +27,10 @@
 **Why now:** official TI documentation specifies BOOSTXL-3PHGANINV as a 12–60 V, 7 A RMS/phase inverter, but its supported LaunchPad list does not include LAUNCHXL-F280039C. Direct pairing is therefore unverified and must not be assumed. The ST P-NUCLEO-IHM03 remains a separate low-voltage reference (7–45 VDC, up to 1.5 A RMS).
 
 **Scope:**
-- Retrieve the official BOOSTXL-3PHGANINV user's guide, schematic and revision; confirm current/thermal derating, protection behavior, connectors, pin assignments, and all supported LaunchPad/SDK combinations.
-- Compare the supported TI controller alternatives with F280039C and determine whether a custom adapter/software port is justified.
-- Build a sourced controller-to-inverter interface matrix covering PWM, ADC/current sense, bus voltage, fault/enable, encoder, communication, power and ground/isolation domains.
-- Define staged, current-limited bench validation and fault-injection criteria; do not energize an unverified board combination.
+- Complete the revision-matched F280039C LaunchPad schematic/pinout → BOOSTXL-3PHGANINV connector → SDK configuration map for all six PWM, three phase-current ADC, three phase-voltage ADC, DC-bus ADC, /PWM enable and /PCB OT alert signals.
+- Resolve TI's product-page versus April 2024 SDK LaunchPad list and the 3.5-A SDK table versus 7-A RMS product-page rating; obtain thermal/test conditions and exact SDK release target files.
+- Verify the EVM OCP and TMP302 shutdown path, J6/USB power-source selection, grounding and instrument isolation plan from schematic and non-destructive test evidence.
+- Only after document/revision review, prepare a written, current-limited staged bench test procedure; no energization until motor/supply/regeneration/load/cooling requirements and qualified guarded test setup are approved.
 - Keep motor, encoder, supply sink capability, load/inertia, duty and cooling as TBD until supported by actual datasheets or user input.
 
 **Acceptance criteria:**
