@@ -22,22 +22,22 @@
 
 ## Active next task
 
-### AEL Academy: magnetism, electromagnetic induction and motor fundamentals
+### AEL Academy: motor electrical model, torque-speed envelope and load requirements
 
-**Why now:** Chapters 00–04 establish the engineering process, electrical quantities, mathematics, RC/RL transients, AC phasors, balanced three-phase relationships and power. The next dependency is the physical bridge from three-phase current to rotating magnetic fields, induced voltage and motor torque, before deriving PMSM/BLDC models and FOC.
+**Why now:** Chapters 00–05 now cover the project process and safety gates, electrical quantities, engineering mathematics, RC/RL transients, AC/three-phase power, magnetism, induction, back-EMF, torque, pole pairs/electrical angle, rotating fields and motor families. The next useful theory-to-requirements step is to translate a *specific candidate motor datasheet and load profile* into a traceable motor/electrical/mechanical model before selecting a power stage or tuning FOC.
 
 **Scope:**
-- Write a Korean lesson on magnetic field, flux, flux density, permeability, Ampere's law intuition, Faraday's law and Lenz's law.
-- Derive motional/transformer induced voltage at an introductory level; explain back-EMF, torque production and energy conversion with sign conventions.
-- Explain pole pairs, mechanical/electrical angle, electrical frequency vs rotor speed, and why three-phase winding placement plus phase sequence produces a rotating field.
-- Introduce DC motor, induction motor, synchronous motor, PMSM and BLDC distinctions without prematurely selecting a motor.
-- Add worked calculations, units, exercises/solutions, datasheet interpretation and a safe simulation-only exercise.
-- Review chapters 00–04 against the lesson checklist; record assumptions and source links.
-- Update Academy index, project memory and operator queue; preserve CI definitions and all hardware safety gates.
+- Write a Korean lesson on the DC-equivalent and PMSM dq electrical models, torque-speed curves, mechanical equation (J\,d\omega/dt=T_e-T_L-B\omega-T_f), inertia reflection and acceleration torque.
+- Derive copper loss, mechanical power, efficiency, continuous vs peak torque/current, thermal time constants and duty-cycle constraints.
+- Explain Ke/Kt unit conventions and conversions only when waveform, phase/line, RMS/peak and mechanical/electrical speed definitions are known.
+- Build a motor datasheet intake template and a requirements worksheet for motor, encoder, load inertia, speed/torque profile, supply/regeneration and cooling.
+- Use clearly labeled hypothetical examples only; do not invent an AEL-002 motor model or ratings.
+- Review chapters 00–05 against the checklist; add calculations, worked solutions, simulation-only exercises, source links, index and memory updates.
+- Preserve existing CI definitions and all physical safety gates.
 
-**Acceptance criteria:** Faraday/Lenz signs and units are explicit; mechanical/electrical angle conversion uses pole-pair count; motor examples are dimensionally checked; educational values are not presented as AEL-002 ratings; no wiring or energization instructions are implied.
+**Acceptance criteria:** dynamic equations are dimensionally checked; sign conventions are explicit; reflected inertia and torque-speed limits are correctly defined; all continuous/peak and thermal assumptions are explicit; missing candidate motor/load data remain TBD.
 
-**Blockers:** none for theory/documentation. Actual motor model, pole pairs, winding R/L, back-EMF/torque constants, encoder, supply capability, load/inertia, duty and cooling remain TBD. Hardware remains **NO STACK / NO POWER** pending sample-specific physical inspection and an approved procedure.
+**Blockers:** none for theory. Actual motor model, pole pairs, winding parameters, Ke/Kt conventions, encoder, supply capability, load/inertia, motion profile, regeneration sink and cooling remain unprovided. Hardware remains **NO STACK / NO POWER**.
 
 ### AEL-002: sample-specific no-power inspection and requirements intake (gated)
 Resume only when physical inspection and motor/supply/load data can be supplied. Never infer sample jumper states from schematic drawings.
