@@ -152,3 +152,14 @@
 - Detailed audit §10 in `projects/002-modular-servo-drive/SENS007_ENABLE_AND_POWER_JUMPER_AUDIT.md`. No SDK installer, firmware, tests, CI definitions or hardware activity. NO STACK / NO POWER.
 
 - GitHub Actions run #120, ID 46016354866, exact commit `bd046a78124e8fb6edf2cf4c091ebc9ae4451a5f`: **success**. Repository structure/table validation, recursive-improvement contract tests and C scaffold syntax passed. KiCad job passed; CLI/ERC/DRC skipped because native KiCad schematic/PCB files are absent. Existing tests and CI definitions unchanged.
+
+
+## Engineering Academy baseline (2026-11-28)
+
+- User requested a complete Korean, self-contained learning path from zero to independent design/development/verification of the electronics project, written so a middle-school student can follow while retaining university/industry technical depth.
+- Adopted an integrated textbook + project workflow: each lesson teaches principles, derives equations, explains terms/components/datasheets, gives worked calculations, implementation sequence, exercises/solutions, verification and explicit uncertainty; lesson outputs feed project artifacts.
+- Added `docs/academy/README.md` with staged curriculum: engineering process/safety; math/physics/electrical basics; components and analog/digital circuits; electrical machines and motors; power electronics and power systems; control theory and PMSM/BLDC FOC; MCU/embedded firmware; schematic/PCB/mechanical/BOM; verification/commissioning/fault analysis; industrial expansion and standards.
+- Added `docs/academy/00-learning-and-safety.md` and `docs/academy/01-electricity-and-circuits.md`. This is an initial foundation, not a complete textbook.
+- Curriculum explicitly includes three-phase AC, line/phase voltage, Y/Delta, active/reactive/apparent power, power factor and harmonics. Clarification: first AEL-002 prototype is externally supplied by 24–48 VDC; it uses a three-phase motor/inverter but does not include a mains three-phase AC rectifier input. Teach grid/three-phase supply theory for understanding and later industrial expansion, but do not accidentally expand first-prototype scope.
+- Every lesson must separate intuition from formal derivation, define variables/units, show assumptions and intermediate calculations, interpret datasheet conditions, map to AEL-002 decisions, include exercises/solutions and objective completion criteria.
+- Safety remains unchanged: actual board revision, pin-1, EVM J5, LaunchPad JP1/JP2A/JP2B and grounding unknown; **NO STACK / NO POWER**. No motor/supply/load/cooling requirements or ratings are frozen.
