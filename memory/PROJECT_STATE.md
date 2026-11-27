@@ -3,7 +3,7 @@
 **Snapshot date:** 2026-11-27  
 **Repository:** `u-lec-sam/ai-electronics-lab`  
 **Default branch at snapshot:** `main`  
-**Status:** recursive-improvement memory/evaluation bootstrap passed CI on candidate branch; awaiting integration.
+**Status:** recursive-improvement memory/evaluation bootstrap merged into main; post-merge CI running at snapshot time.
 
 ## Verified repository state
 
@@ -34,11 +34,13 @@
 - GitHub Actions run 19: success.
 - Repository-contract tests, scaffold validation, and C syntax check: passed.
 - KiCad checks: skipped because no native KiCad files exist.
-- Pull request: https://github.com/u-lec-sam/ai-electronics-lab/pull/1
+- Pull request #1: merged into main.
+- Merge commit: `39136ea018436c2699988b307bbc91d5fe28f6b4`.
+- Post-merge GitHub Actions run 23 was in progress when this snapshot was updated.
 
 ## Next actions
 
-1. Integrate the tested scaffold improvement.
+1. Confirm post-merge CI completes successfully.
 2. Research the exact STM32G0B1CET6 package pinout and power requirements.
 3. Produce a traceable pin-allocation proposal and power-tree design before schematic capture.
 
