@@ -69,3 +69,8 @@ Resolve the minimum motor/supply/load requirements and compare exact C2000 F2800
 ## Next experiment
 
 Create a parameterized control/power interface specification and test plan for the chosen evaluation stack, then verify the BOOSTXL-3PHGANINV operating limits and exact connector mapping against its official user guide before any energized setup.
+
+
+## Correction from detailed inverter-board documentation
+
+TI's BOOSTXL-3PHGANINV official page specifies 12–60 V input and 7 A RMS output per phase, but its supported LaunchPad list does not include LAUNCHXL-F280039C. The board's generic BoosterPack interface alone does not prove validated electrical/software compatibility. F280039C remains a controller candidate, while inverter EVM integration is an open compatibility work item. For initial power-stage tests use a listed LaunchPad or finish a documented pin/voltage/timing/fault-path and SDK port review first. No energized setup is approved.
