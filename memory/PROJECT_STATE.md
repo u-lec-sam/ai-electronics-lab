@@ -185,3 +185,11 @@
 - Theory cross-check sources: OpenStax University Physics Vol. 2 §§15.2–15.4; U.S. DOE Electrical Science Handbook DOE-HDBK-1011/3-92, Three-Phase Circuits; MIT OCW 6.622 Lecture 21; NCEES FE Reference Handbook, Balanced Three-Phase Systems. Links are included in the lesson.
 - Updated Academy index and this operator queue. Existing CI workflow/test definitions were not changed. Exact-commit CI for the new lesson is pending and must be checked before claiming validation.
 - No firmware, schematic, PCB, BOM, component ratings, local device access, physical inspection, board stack, power-up or hardware test occurred. AEL-002 NO STACK / NO POWER remains mandatory; motor/supply/load/regeneration/cooling requirements remain open.
+
+
+## Post-write verification checkpoint — Academy chapter 04 (2026-11-28)
+
+- Live branch verification confirms chapter 04 exists, the Academy index links it, the operator loop now queues the magnetism/induction/motor-fundamentals lesson, and this project memory contains the AC/three-phase progress record.
+- Chapter 04 blob SHA: f9fae8b77bd5dfdec6fcc7a5a22851a38456042c. The branch currently includes all three metadata/index updates and the new lesson.
+- The first push and PR CI runs for the lesson-only commit e79f79ee2c16122d8ba4336b644247b0ed9f92fc succeeded (#155 push, #156 pull_request). Later index/operator/memory commits caused their superseded runs to be cancelled; a fresh run on the final consolidated branch HEAD is required before claiming final CI success.
+- CI workflow definition was inspected and is not being changed. No KiCad files or physical validation are introduced by this lesson.
