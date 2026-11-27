@@ -79,3 +79,59 @@ SPRR444A Rev A distinguishes the parts by function:
 ## 7. Verification boundary
 
 This is a documentary schematic tracing result, not confirmation of the user's physical board. No electrical tests, firmware changes, native CAD edits, tests, or CI definitions were modified.
+
+
+## 8. Follow-up audit — GPIO23 mapping, SDK software boundary, OCP and thermal behavior (2026-11-27)
+
+### 8.1 Corrected LaunchPad header interpretation
+
+A direct reading of TI SPRR444A Rev A sheet 2 (Site-1 J4/J2 header) and the MCU signal-to-connector table on sheet 6 resolves the prior ambiguous shorthand:
+
+| Physical Site-1 header | MCU signal | SPRR444A connector mapping | SENS007 function when stacked |
+|---|---|---|---|
+| J4/J2-11 | GPIO23 | GPIO23 → J2_11 | `nEn_uC` request |
+| J4/J2-12 | GPIO22 | GPIO22 → J2_12 | Not the SENS007 `nEn_uC` net |
+| J4/J2-19 | GPIO5_BP | GPIO5 → J2_19 | U4 DIR |
+
+Thus **SENS007 J2/J4-11 mates to LaunchPad Site-1 J4/J2-11 = GPIO23**, not a GPIO22/GPIO23 selectable route. GPIO22 is on the adjacent physical pin 12. Earlier notes describing a GPIO22/GPIO23 selection at pin 11 are superseded and incorrect.
+
+### 8.2 SDK pin-mux evidence and unresolved firmware conflict
+
+TI MotorControl SDK guide SPRUJ26A Rev A §3.2.12 documents the F280039C + BOOSTXL-3PHGANINV evaluation pairing and stack sites. The same guide's §3.2.2 identifies C2000Ware board files under `boards/LaunchPads/LAUNCHXL_F280039C` and says to install LaunchPad jumpers JP1, JP2 and J101 for power/debug; it does **not** publish the actual BOOSTXL `nEn_uC` GPIO output configuration or its exact generated SysConfig/HAL files in the guide.
+
+The guide's command-switch example separately shows `MTR1_CMD_SWITCH_GPIO 23` with `GPIO_setPinConfig(GPIO_23_GPIO23)`, input direction, pull-up and 3-sample qualification. This is an example for an optional command switch, not proof that the inverter enable is configured that way. Because the physical SENS007 enable request is also on GPIO23, enabling that command-switch example unchanged would create a same-pin direction/function conflict (input vs required output). **Do not enable/reuse that optional command-switch GPIO until the exact installed MotorControl SDK project, build symbols, HAL source and SysConfig output are inspected.**
+
+The official public MotorControl SDK documentation establishes board pairing and a generic GPIO23 example, but the exact project-specific pin-mux and runtime ownership of GPIO23 for this EVM pairing remains **unverified**. No firmware source was available in the repository and no SDK installer/project was locally accessed. GPIO22 is not an alternate for SENS007 pin 11 based on the published LaunchPad schematic.
+
+### 8.3 Hardware OCP chain
+
+SENS007 Rev A sheet 4 documents three current comparator channels:
+- IA/IB/IC each enter a filtered comparator input path (20-ohm input resistor, 2.2-nF filter capacitor, 10-kΩ series resistor, 332-kΩ positive-feedback resistor).
+- U13/U14/U15 comparator outputs ICompA/B/C feed U16, an SN74LVC1G332 four-input OR gate, whose output is `IComp`.
+- The comparator reference is `CompRef`, derived from VREF through R78=54.9-kΩ and R77=274-kΩ, with C71=2.2-nF.
+- Schematic annotation gives comparator thresholds 2.75-V and 2.85-V (100-mV hysteresis window). The EVM guide separately states a nominal 12-A trip threshold and 1-A hysteresis. These are source-described protection values, not a continuous motor-current rating; the guide value should not be extrapolated to arbitrary board revision, thermal conditions or motor operating limits.
+- On sheet 5, U12 ORs `nEn_uC` and `IComp` to produce `nEnable`; U12 output drives U4 active-low OE. In normal logic, host request low and no OCP output low permit buffer enable; either host disable high or OCP high forces U12 output high and disables the PWM buffer. R79 is the 0-ohm OCP path; TI's schematic note says removing R79 disables OCP. **Do not remove/bypass R79.**
+
+This is a documentary logic trace only. Comparator polarity, analog trip calibration against real phase current, propagation timing, fault persistence/recovery and actual hardware shutdown under switching conditions have not been measured. The EVM guide's 12-A/1-A figure and schematic's voltage thresholds are retained as different levels of evidence.
+
+### 8.4 TMP302 thermal alert
+
+SENS007 Rev A sheet 2 identifies U6 as TMP302BQDRLRQ1; OUT pin 3 drives net OT with R48=10-kΩ pull-up to 3V3. The LaunchPad Site-1 J4/J2-33 route is GPIO48. TMP302 datasheet SBOS488E specifies open-drain, active-low OUT and selectable trip points/hysteresis. The schematic's TRIPSET0/TRIPSET1 resistor network and HYSTSET configuration must be checked against the released BOM/as-built resistor population before claiming the actual board trip temperature/hysteresis. The schematic also states R54 (GND) is default and R53 (PGND) is DNP for the TMP302 ground reference; sample population remains unverified.
+
+Firmware should treat OT low as a latched thermal fault and inhibit PWM; clearing must require the alert to deassert plus an explicit safe reset policy. This is a proposed control requirement, not behavior proven in the supplied TI firmware. TMP302 itself returns high only after the configured hysteresis window is crossed on cooling; the MCU latch/restart policy is not established by the sensor datasheet.
+
+### 8.5 Power isolation cross-check update
+
+The SPRUJ26A F280039C setup section says JP1, JP2 and J101 are to be installed for the TI Universal Lab power/debug setup. SPRR444A Rev A details the split JP2A/JP2B power paths between XDS110 and target MCU; JP1 separates USB-side and XDS110-side power/ground. These published setup instructions do not establish the as-received shunt population and are not a substitute for a sample-specific no-power inspection. Keep the existing separate EVM J5 feed warning, and do not infer USB, XDS110, MCU GND, PGND or instrument earth isolation from a jumper label alone.
+
+## 9. Sources for this follow-up
+
+- SPRR444A Rev A, Site-1 header table and MCU-to-connector signal map: https://www.ti.com/lit/df/sprr444a/sprr444a.pdf
+- MotorControl SDK Universal Project and Lab SPRUJ26A Rev A, §3.2.2, §3.2.12 and GPIO23 command-switch example: https://www.ti.com/lit/ug/spruj26a/spruj26a.pdf
+- C2000Ware core SDK official repository (F28003x driverlib and board metadata): https://github.com/TexasInstruments/c2000ware-core-sdk
+- SENS007 Rev A sheets 2/4/5: https://www.ti.com/lit/df/sluray0a/sluray0a.pdf
+- BOOSTXL-3PHGANINV User Guide SLUUBP1A Rev A: https://www.ti.com/lit/ug/sluubp1a/sluubp1a.pdf
+- TMP302 datasheet SBOS488E Rev E: https://www.ti.com/lit/ds/symlink/tmp302.pdf
+- TLV3201 datasheet SBOS561C Rev C: https://www.ti.com/lit/ds/symlink/tlv3201.pdf
+
+**Updated decision:** physical SENS007 enable mapping is confirmed as LaunchPad GPIO23 at Site-1 pin 11; exact SDK application pin ownership/configuration is not confirmed. OCP logic and TMP302 active-low electrical behavior are documented, but dynamic protection/recovery is not validated. No stack or power.
