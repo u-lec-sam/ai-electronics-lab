@@ -1,7 +1,6 @@
 # Current Project State
 
-**Snapshot date:** 2026-11-27  
-**Repository:** `u-lec-sam/ai-electronics-lab`  
+**Snapshot date:** 2026-11-27 (updated after live branch review)nics-lab`  
 **Default branch:** `main`  
 **Baseline main commit before AEL-002 candidate:** `6ca4716de7ae11e82e23ad2f61271dc9e4d1e899`
 
@@ -17,6 +16,13 @@
 - AEL-002 candidate PR #3: https://github.com/u-lec-sam/ai-electronics-lab/pull/3 (draft, awaiting review; not merged).
 - Candidate CI run #43 on commit `2f2d47ec1678043966815d1687eabdccd8ce8bf0`: success. Run #41 failed due to a contract regression in the operator document; the assertions were preserved and the document corrected. Run #43 then passed.
 - Motor, encoder, supply current limit/regen capability, load/inertia, duty cycle, cooling, communications and budget remain unresolved.
+
+## AEL-002 evaluation update
+
+- TI controller path: LAUNCHXL-F280039C; candidate inverter module: BOOSTXL-3PHGANINV (TI describes it as a 48-V three-phase inverter). Exact current, thermal and interface limits remain to be verified from the module user guide.
+- ST reference path: P-NUCLEO-IHM03 = NUCLEO-G431RB + X-NUCLEO-IHM16M1; ST data brief specifies 7–45 VDC and up to 1.5 A RMS, so it is not a 48-V board. NUCLEO-G474RE is a separate controller evaluation board, not assumed plug-compatible with that kit.
+- Added a comprehensive motor/encoder/supply/load/duty/cooling/interface/safety intake table and power-stage design-review gates. All motor/power ratings remain TBD.
+- No components, schematic, PCB, firmware build, simulation or energized tests are claimed.
 
 ## CI baseline
 
