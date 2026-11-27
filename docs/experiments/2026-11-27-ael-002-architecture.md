@@ -168,3 +168,14 @@ TI's BOOSTXL-3PHGANINV official page specifies 12–60 V input and 7 A RMS outpu
 - TMP302BQDRLRQ1 open-drain active-low OUT, 10k pull-up, OT to GPIO48. Datasheet permits 5C/10C hysteresis; actual configured trip/hysteresis and GND/PGND selection depend on BOM/population. No firmware latch/recovery behavior verified.
 - No local access, physical inspection, firmware build, power, stack, motor test. No test or CI definition changed. No-power hold remains.
 - Full audit: `projects/002-modular-servo-drive/SENS007_ENABLE_AND_POWER_JUMPER_AUDIT.md`.
+
+
+## SDK/HAL availability and PWM/fault recovery audit (2026-11-27)
+
+- TI MotorControl SDK 5.02 release notes list F28003x Universal Lab with LAUNCHXL-F280039C + BOOSTXL-3PHGANINV. TI advertises 6.00.00.00 (Mar 31 2026), but installer requires export approval and was not inspected.
+- Inspected full recursive tree of TI public `motor-control-sdk`: no F28003x Universal Lab app/HAL/SysConfig project; current universal example found is AM263x. C2000Ware core is generic device/driverlib, not the missing application source. Exact GPIO23 pinmux, command-switch ownership, ePWM TZ configuration and recovery ISR remain unverified.
+- GPIO23 command-switch input example conflicts with SENS007 GPIO23 nEn_uC output if both enabled. Reserve GPIO23 for nEn_uC; relocate/disable command-switch input in future source-reviewed firmware.
+- SPRAD12A CBC/OST is generic peripheral behavior, not evidence of target app settings.
+- SENS007 OCP comparator OR/U12/U4 OE is combinational inhibit, not documented MCU-visible latch; deassertion may restore PWM buffer if host enable stays asserted. R79 must remain. Require host disable and deliberate supervised re-arm.
+- TMP302 OUT active-low open-drain with 5°C/10°C sensor hysteresis is not firmware latch. GPIO48 handler, PWM disable and restart logic unverified; proposed policy is software latch, PWM safe state and explicit acknowledgement/re-arm after cooling.
+- No local files/device, SDK installer, firmware, tests or CI definitions changed; no hardware interaction. NO STACK / NO POWER remains. Details in audit §10.
