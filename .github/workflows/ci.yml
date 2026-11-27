@@ -8,9 +8,14 @@ on:
 permissions:
   contents: read
 
+concurrency:
+  group: electronics-lab-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   scaffold:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -18,11 +23,15 @@ jobs:
           python-version: "3.12"
       - name: Validate repository structure and tables
         run: python scripts/validate_project.py
+      - name: Test repository and recursive-improvement contracts
+        run: python -m unittest discover -s evals -p 'test_*.py' -v
       - name: Check C scaffold syntax
         run: gcc -std=c11 -Wall -Wextra -Werror -fsyntax-only projects/001-stm32g0b1-sensor-io/firmware/src/main.c
 
   kicad:
+    if: ${{ hashFiles('projects/**/*.kicad_sch', 'projects/**/*.kicad_pcb') != '' }}
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
       - name: Install KiCad CLI
