@@ -89,3 +89,15 @@
 - GitHub Actions runs #79 (ID 46005035231) and #80 (ID 46005039591) on that exact commit: **success**.
 - Both runs: repository structure/table validation passed; repository and recursive-improvement contract tests passed; C scaffold syntax passed; KiCad CLI install/ERC/DRC skipped because no native KiCad schematic/PCB exists.
 - Existing test files and CI workflow were not changed. PR #3 remains open/draft; no merge.
+
+
+## Corrected F280039C/SENS007 Site-1 header crosswalk (2026-11-27)
+
+- Live refresh confirmed main remains on the AEL-001 queue; AEL-002 changes remain on draft PR #3 branch `agent/ael-002-48v-modular-servo-brief`. Latest pre-change CI runs #82/#83 on `ea7e20974c2230b001c421688fe3443b34b1f983` succeeded. No test/workflow files changed in this task.
+- Corrected previous false conflict: LAUNCHXL-F280039C SPRR444A Rev A sheet 2 explicitly defines Site-1 J1/J3 pins 1–30 and J4/J2 pins 11–40. Pin 40 is GPIO0, not GND. The prior GND claim mixed header site naming.
+- TI MotorControl SDK SPRUJ26A Rev A §3.2.12 explicitly says connect BOOSTXL-3PHGANINV to LAUNCHXL-F280039C J1/J3 and J4/J2; Figure 3-14 shows the supported stack.
+- Confirmed by SENS007 Rev A sheet 5 + SPRR444A Site-1: EVM J1/J3 pins 23–30 (VDC, VA, VB, VC, IA, IB, IC, VREF) map to LaunchPad J1/J3 same-number pins and ADC-capable MCU nets; pins 1, 21, 22 map to +3V3 feed, NC +5V, and GND.
+- Confirmed six PWM paths: EVM J2/J4 pins 40,39,38,37,36,35 → LaunchPad Site-1 J4/J2 same-number pins → GPIO0, GPIO1, GPIO2, GPIO3, GPIO10, GPIO11 → EVM PWM_AH, PWM_AL, PWM_BH, PWM_BL, PWM_CH, PWM_CL in order.
+- Confirmed OT: EVM J2/J4-33 OT → LaunchPad J4/J2-33 GPIO48. SENS007 TMP302 OUT feeds OT with a 10-kΩ pull-up to 3V3.
+- Remaining unresolved: SENS007 sheet-5 connector text extraction conflicts on nEn_uC/nEnable mapping (candidate J2/J4 pins 11/12/13/18). Do not guess. DIR and OE also require separate net confirmation. Pin-1 visual mark on actual samples, EVM J5 optional 3.3-V link, LaunchPad JP1/JP4–JP7 power jumper state and GND/PGND/USB earth setup remain physical revision checks.
+- Added corrected matrix and explicit no-power hold point to `BOOSTXL_3PHGANINV_INTERFACE_AND_TEST_PLAN.md`. No hardware inspected, stacked, continuity tested or energized; no motor/firmware test claimed.
