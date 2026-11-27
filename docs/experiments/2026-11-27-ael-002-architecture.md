@@ -136,3 +136,13 @@ TI's BOOSTXL-3PHGANINV official page specifies 12–60 V input and 7 A RMS outpu
 - Scaffold: structure/table validation, recursive-improvement contract tests and C scaffold syntax all passed.
 - KiCad job: succeeded; KiCad CLI/ERC/DRC skipped because native KiCad files are absent.
 - Tests and workflow definitions were not modified. No board inspection, continuity test, stacking, energization or motor operation is claimed.
+
+
+## SENS007 enable and LaunchPad power-link audit (2026-11-27)
+
+- Original TI SENS007 Rev A schematic sheet 5 was visually traced. J2/J4-11 = nEn_uC → U12 SN74LVC1G32 input1. IComp enters U12 input2. U12 output nEnable drives U4 SN74AVC8T245 OE pin22. Therefore nEnable is an internal logic net, not a header signal; U4 OE is active-low. U4 package pins11/12/13 are GND and pin18 is B4, explaining the OCR candidate confusion. DIR is J2/J4-19 → U4 DIR pin2, R28 10-kΩ pull-up, DIR='1' A→B.
+- LAUNCHXL-F280039C SPRR444A Rev A Site-1 pin11 route is labelled GPIO22/GPIO23; pin19 is GPIO5_BP. Do not select one GPIO22/23 route without checking board routing/SDK configuration.
+- EVM SENS007 Rev A optional 3.3-V LaunchPad feed connector is J5 (2-pin), confirmed on schematic sheet2; earlier J6 mention was incorrect for this schematic revision.
+- LaunchPad SPRR444A Rev A: JP1 is USB↔XDS110 power/ground isolation; JP2A/JP2B bridge XDS110↔target MCU 5-V/3.3-V domains. JP4/JP6 are 3-pin +3V3_MCU headers; JP5/JP7 are 3-pin +5V0_MCU headers (pins1/2 rail, pin3 GND), not isolation jumpers. Actual link/shunt population is not known.
+- SLURAY2 confirms SENS007 board #/Rev A in drawing and shows top/bottom views, but physical pin-1 marks and user's sample revision are not certified. LaunchPad schematic is MCU103 Rev A; actual sample still uninspected.
+- Full trace and source links: `projects/002-modular-servo-drive/SENS007_ENABLE_AND_POWER_JUMPER_AUDIT.md`. No local device access, physical inspection, continuity, stack, power, or motor test. No test or CI definition changed. No-power hold remains.
