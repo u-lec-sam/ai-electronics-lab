@@ -60,3 +60,15 @@
 
 - Candidate commit `40f3e1cb59b2cf607312ff180d4cf559760e4d27` — GitHub Actions run #62 (ID 45983994095): success.
 - Repository validation, existing contract tests and C scaffold syntax passed. KiCad install/ERC/DRC were skipped because no native KiCad files exist.
+
+
+## BOOSTXL-3PHGANINV interface review (2026-11-27)
+
+- Official TI source correction: SPRUJ26A Rev A (April 2024) §3.2.12 and Table 3-1 explicitly list LAUNCHXL-F280025C, LAUNCHXL-F280039C and LAUNCHXL-F2800137 for BOOSTXL-3PHGANINV. F280039C is therefore a documented MotorControl SDK pairing, not automatically a custom integration.
+- TI product page separately lists F280049C, F28379D and F280025C. Preserve this discrepancy; do not conflate product-page recommendations with the 2024 Universal Lab's specific inverter table.
+- EVM guide SLUUBP1A Rev A and schematic SENS007 Rev A reviewed. Functional interface includes six PWM, three phase-current, three phase-voltage, DC-bus voltage, active-low PWM enable, active-low PCB over-temperature alert and 3.3-V supply.
+- EVM current sensing: 5-mΩ inline shunts, INA240 gain 20 V/V, 1.65-V midpoint; current output polarity inversion is noted for J1-14/J1-16/J1-18. OCP TLV3201 threshold is stated as 12 A with 1-A hysteresis; not an operating-current rating.
+- Power: 12–60 V input, LM5017 5-V rail, 3.3-V LDO/reference. EVM J6 supplies 3.3 V to LaunchPad J1-1, max 300 mA; remove J6 for USB-powered debug to avoid dual-source/backfeed.
+- Rating discrepancy: TI product page says 7 A RMS/phase, whereas SPRUJ26A Table 3-1 says 3.5 A for the EVM. Thermal/test conditions must be resolved; neither is assumed as a safe continuous application rating.
+- Added `projects/002-modular-servo-drive/BOOSTXL_3PHGANINV_INTERFACE_AND_TEST_PLAN.md` with controller comparison, sourced interface contract, unresolved pin-map fields, and staged test gates.
+- No exact F280039C GPIO/ADC/ePWM mapping is claimed yet. No motor/encoder/supply/load/cooling selected; no power applied or hardware test claimed.
