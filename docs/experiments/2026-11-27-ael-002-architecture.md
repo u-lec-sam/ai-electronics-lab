@@ -84,3 +84,16 @@ TI's BOOSTXL-3PHGANINV official page specifies 12–60 V input and 7 A RMS outpu
 - KiCad job: completed successfully with install/ERC/DRC steps **skipped** because the repository still has no native KiCad schematic or PCB files.
 - Changed-file review: only README, operator-loop documentation, experiment record, project-state memory and AEL-002 brief changed; no tests or CI rules were modified.
 - PR #3 remains open and draft; no merge or hardware approval was performed.
+
+
+## Follow-up: BOOSTXL-3PHGANINV user guide, schematic and SDK compatibility audit
+
+- Official documents reviewed: BOOSTXL-3PhGaNInv EVM User Guide SLUUBP1A Rev A (April 2018); SENS007 schematic Rev A; Motor Control SDK Universal Project and Lab SPRUJ26A Rev A (April 2024); TI BOOSTXL-3PHGANINV and LAUNCHXL-F280039C product pages.
+- Key correction: SPRUJ26A §3.2.12 and Table 3-1 explicitly name LAUNCHXL-F280039C, F280025C and F2800137 for this inverter. F280039C is an officially documented TI SDK evaluation path. The previous compatibility note based solely on the product page is superseded.
+- Product-page supported list differs (F280049C, F28379D, F280025C); kept as a separate evidence set rather than assuming all are interchangeable in the 2024 Universal Lab project.
+- Interface captured: six complementary PWM; three inline phase-current ADC; three phase-voltage ADC; DC bus ADC; active-low /PWM enable; active-low /PCB OT alert; 3.3-V LaunchPad rail. EVM guide gives J1-14/J1-16/J1-18 current-feedback polarity caveat.
+- Analog/power facts: 5-mΩ shunts, INA240 gain 20 V/V, 1.65-V midpoint; 12–60 V bus, LM5017 5-V rail, LP38691 3.3-V LDO, REF3333; J6 LaunchPad 3.3-V feed max 300 mA; no simultaneous J6 and USB-powered LaunchPad. OCP TLV3201 threshold 12 A / 1-A hysteresis; TMP302 active-low overtemperature alert.
+- Rating conflict: product page says 7 A RMS/phase; SDK Table 3-1 says 3.5 A. No continuous-current conclusion made.
+- Added source-linked controller/interface matrix and V0–V8 staged validation plan in `projects/002-modular-servo-drive/BOOSTXL_3PHGANINV_INTERFACE_AND_TEST_PLAN.md`.
+- Exact F280039C LaunchPad pin mapping, board revision correlation, OCP/thermal dynamic verification, and grounding/measurement strategy remain open. No energization, motor rotation, firmware build, HIL or physical test is claimed.
+- Tests/CI definitions were not edited. The current pre-change branch head is checked against Actions run #66; the post-change run is pending.
