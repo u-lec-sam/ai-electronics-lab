@@ -1,0 +1,12 @@
+Ref,Qty,Category,Proposed part/value,Status,Notes
+U1,1,MCU,STM32G0B1CET6,Proposed,Confirm current datasheet and exact package symbol/footprint
+U2,1,Regulator,3.3V regulator TBD,Open,Select after load and thermal budget
+J1,1,Power connector,DC input connector TBD,Open,Voltage/current rating and connector type TBD
+J2,1,Debug connector,SWD header TBD,Proposed,SWDIO SWCLK GND VTref NRST
+J3,1,Console connector,UART header TBD,Proposed,TX RX GND
+J4,1,Sensor connector,I2C header TBD,Proposed,SDA SCL 3V3 GND
+J5,1,Expansion connector,SPI/GPIO header TBD,Open,Pinout and pitch TBD
+F1,1,Protection,Input fuse or current limiter TBD,Open,Select from supply and load specification
+D1,1,Protection,Reverse polarity/TVS solution TBD,Open,Select after input transient requirements
+C*,TBD,Passives,Decoupling and bulk capacitors TBD,Open,Follow MCU and regulator datasheets
+R*,TBD,Passives,Pull-ups and boot/reset resistors TBD,Open,Calculate values from interface requirements
