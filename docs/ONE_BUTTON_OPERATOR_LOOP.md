@@ -16,7 +16,7 @@
 ## Autonomy boundaries
 
 - User approval is standing preference for routine, reversible repository work, but does not grant new platform permissions.
-- Do not access the user's local computer, filesystem, browser profile, or private accounts beyond explicitly connected tools.
+- Do not access my local device or the user's local computer, filesystem, browser profile, or private accounts beyond explicitly connected tools.
 - Do not incur costs, publish sensitive information, expose credentials, change account permissions, or make consequential physical/electrical safety decisions without appropriate authorization and safeguards.
 - Never claim background execution. GitHub Actions runs only configured deterministic workflows.
 
@@ -41,6 +41,6 @@
 
 **Dependencies / blockers:** motor make/model and encoder, supply voltage/current/sink capability, mechanical load/inertia, desired speed/torque/duty, cooling, communications and budget are not yet specified. Continue with platform comparison and a requirements template without inventing these values.
 
-### Deferred: AEL-001 pin and power-tree verification
+### AEL-001: verify STM32G0B1CET6 pin map and provisional power tree (deferred)
 
 Resume STM32G0B1CET6 LQFP48 exact pin/alternate-function verification and provisional power-tree proposal after AEL-002's initial platform/requirements pass, unless a dependency makes it higher priority.
