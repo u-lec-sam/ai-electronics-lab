@@ -22,20 +22,21 @@
 
 ## Active next task
 
-### AEL Academy: expand the foundations course and establish a lesson-quality gate
+### AEL Academy: AC circuits, phasors, RMS and three-phase fundamentals
 
-**Why now:** the user has requested a self-contained Korean course that starts at zero and enables independent end-to-end project execution. The Academy index, teaching specification, 00장 safety/development method, and 01장 electrical foundations have been added. The next highest-value step is to build the mathematical/physical bridge needed for capacitors, inductors, AC, power electronics and motor models.
+**Why now:** Academy chapters 00–03 now cover development/safety, electrical basics, engineering mathematics, and RC/RL transients. The next dependency is AC waveform analysis, phase, impedance and three-phase power, which are needed before explaining inverter switching and motor phase quantities.
 
 **Scope:**
-- Write the next lesson on mathematical tools for engineering (units/dimensions, scientific notation, algebra, graphs, trigonometry/phasors, vectors, derivatives/integrals and differential-equation intuition) at two levels: intuitive and formal.
-- Add RC/RL transient response with derivations, time constants, energy storage, worked examples, simulation exercises and answer keys.
-- Add a repeatable per-lesson review checklist: correctness, units, derivation, source quality, project mapping, exercises, safety and explicit unknowns.
-- Link the Academy from the repository root and update project memory; keep the curriculum synchronized with actual AEL-002 design gates.
-- Run existing CI unchanged and record the exact tested commit/run. Do not claim the whole textbook is complete.
+- Write a Korean lesson on periodic signals, frequency/period/angular frequency, phase, peak/peak-to-peak/RMS, average power, and the limits of sinusoidal RMS shortcuts.
+- Derive sinusoidal R/L/C impedance and phase relationships with a clear sign convention and phasor explanation.
+- Explain three-phase 120-electrical-degree relationships, line/phase voltage and current for balanced Y/Delta systems, active/reactive/apparent power and power factor; distinguish balanced sinusoidal assumptions from PWM/nonlinear drive input.
+- Add worked examples, diagrams or calculation tables, exercises and full solutions; connect to AEL-002's DC-fed three-phase inverter without expanding its first prototype to mains AC input.
+- Review chapters 00–03 with the Academy checklist; fix errors and preserve source traceability.
+- Update Academy index, project memory and CI evidence. Keep CI definitions and safety hold unchanged.
 
-**Acceptance criteria:** lessons are self-contained, use SI units and defined symbols, show intermediate calculations and assumptions, include worked examples/exercises/solutions, and distinguish theory from AEL-002 decisions. Root README links the Academy. Existing tests/CI definitions remain unchanged and CI passes.
+**Acceptance criteria:** all equations define symbols/units and assumptions; line/phase relationships are derived, not memorized; examples are independently checkable; power-factor claims distinguish displacement factor and true power factor when harmonics exist; no mains wiring instructions or power-up authorization are implied.
 
-**Blockers:** no physical action is needed for the educational work. AEL-002 hardware remains **NO STACK / NO POWER** until the actual sample revisions, pin-1 orientation, EVM J5, LaunchPad JP1/JP2A/JP2B and grounding are verified; motor/supply/load/cooling requirements remain open.
+**Blockers:** none for theory/documentation. Hardware remains **NO STACK / NO POWER** pending sample-specific revision, pin-1, EVM J5, LaunchPad JP1/JP2A/JP2B and grounding checks; motor/supply/load/regeneration/cooling requirements remain open.
 
 ### AEL-002: sample-specific no-power inspection and requirements intake (gated)
 Resume only when physical inspection and motor/supply/load data can be supplied. Never infer sample jumper states from schematic drawings.
