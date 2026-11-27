@@ -130,3 +130,13 @@
 - Full audit: `projects/002-modular-servo-drive/SENS007_ENABLE_AND_POWER_JUMPER_AUDIT.md`; corrected interface matrix: `projects/002-modular-servo-drive/BOOSTXL_3PHGANINV_INTERFACE_AND_TEST_PLAN.md`.
 - Latest operator queue: sample-specific no-power inspection and LaunchPad GPIO22/GPIO23 route/SDK closure; motor, supply, regeneration, load and cooling requirements remain blockers.
 - GitHub Actions run #102, ID 46014089845, exact commit `334af4c2d906666b4e78bfd341ba799062ebf27a`: **success**. Scaffold repository structure/table validation, contract tests and C syntax passed. KiCad job succeeded; CLI/ERC/DRC skipped because native KiCad files are absent. Tests and CI definitions unchanged.
+
+
+## GPIO23 / OCP / TMP302 follow-up (2026-11-27)
+
+- Corrected prior shorthand: SPRR444A Rev A Site-1 J4/J2-11 = GPIO23; J4/J2-12 = GPIO22. SENS007 J2/J4-11 `nEn_uC` therefore physically maps to LaunchPad GPIO23, not a selectable GPIO22/GPIO23 path.
+- SPRUJ26A Rev A §3.2.2 calls for JP1, JP2 and J101 in the F280039C Universal Lab setup; §3.2.12 documents BOOSTXL-3PHGANINV. Its GPIO23 command-switch example configures GPIO23 as an input. That optional example is not proof of inverter enable configuration and conflicts with using GPIO23 as the SENS007 `nEn_uC` output if enabled unchanged. Exact SDK app/HAL/SysConfig ownership remains unverified.
+- SENS007 OCP: three comparator outputs U13/U14/U15 → U16 OR → IComp; U12 combines IComp with nEn_uC; U12 output drives active-low U4 OE. R79 is the OCP link and must not be removed. Schematic comparator threshold annotation 2.75/2.85V differs in representation from EVM guide 12A/1A protection description; no current rating inferred and no dynamic test.
+- TMP302BQDRLRQ1 OUT is open-drain active-low with 10k pull-up, OT routes to GPIO48. Trip point/hysteresis depend on configuration resistor population; R54 GND default/R53 PGND DNP per schematic, but as-built population unknown. No MCU fault-latch/restart implementation verified.
+- Updated detailed audit: `projects/002-modular-servo-drive/SENS007_ENABLE_AND_POWER_JUMPER_AUDIT.md`. No physical sample inspected; no power/no stack hold remains.
+- Existing tests and CI definitions unchanged. Candidate CI validation for this documentation update is pending.
