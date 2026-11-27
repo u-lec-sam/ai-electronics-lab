@@ -193,3 +193,11 @@
 - Chapter 04 blob SHA: f9fae8b77bd5dfdec6fcc7a5a22851a38456042c. The branch currently includes all three metadata/index updates and the new lesson.
 - The first push and PR CI runs for the lesson-only commit e79f79ee2c16122d8ba4336b644247b0ed9f92fc succeeded (#155 push, #156 pull_request). Later index/operator/memory commits caused their superseded runs to be cancelled; a fresh run on the final consolidated branch HEAD is required before claiming final CI success.
 - CI workflow definition was inspected and is not being changed. No KiCad files or physical validation are introduced by this lesson.
+
+
+## Exact-commit CI result — Academy chapter 04 (2026-11-28)
+
+- Final consolidated content/index/operator/memory checkpoint commit 772af027361c6d40391c2b1a6a0f318bb8961db8 was validated by GitHub Actions run #162 (ID 46074054416): **success** on the exact SHA.
+- Scaffold job passed repository structure/table validation, repository and recursive-improvement contract tests, and C scaffold syntax.
+- KiCad job completed successfully; KiCad CLI installation, ERC and DRC were correctly skipped because the repository contains no native KiCad schematic/PCB files. This is not an ERC/DRC or electrical validation result.
+- PR #3 remains open and draft; no merge was performed.
