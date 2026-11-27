@@ -22,22 +22,24 @@
 
 ## Active next task
 
-### AEL Academy: inverter and DC-link power electronics foundations (Chapter 07)
+### AEL Academy: field-oriented control and PMSM current control (Chapter 08)
 
-**Why now:** Chapters 00–06 now establish project safety/process, circuit and mathematical foundations, AC/three-phase power, electromagnetism, and a consistent motor electrical/mechanical/thermal model. The next dependency is to connect the motor model to the 3-phase inverter and DC bus before selecting any power devices.
+**Why now:** Chapters 05–07 now establish motor electromagnetic behavior, its electrical/mechanical/thermal model, and the inverter's realizable voltage vectors and limits. The next dependency is to derive how the controller converts measured phase currents into torque-producing d/q current commands and safely realizes them through PWM.
 
 **Scope:**
-- Write a Korean lesson on the DC link, two-level three-phase voltage-source inverter, six-switch bridge, phase vs line-line voltage, switching states, PWM and SVPWM fundamentals.
-- Derive modulation and voltage-limit relationships with explicit normalization, DC-bus and phase/line conventions.
-- Explain dead time, switching/conduction loss, ripple current, DC-link capacitor stress, thermal paths, regeneration and overvoltage containment at a conceptual/calculation level.
-- Include unit-checked worked examples, exercises with full solutions, data-sheet interpretation and a power-stage requirements worksheet.
-- Keep actual AEL-002 bus ripple, current, switching frequency, semiconductor, capacitor, braking and thermal ratings TBD until motor/load/supply data and a reviewed architecture exist.
-- Review chapters 00–06 and the lesson checklist; update the Academy index, project memory and this operator task.
-- Preserve existing CI definitions and all safety gates.
+- Write a Korean lesson on three-phase current vectors, Clarke and Park transforms, inverse transforms, normalization conventions, and electrical angle.
+- Derive PMSM d/q current dynamics and torque production under the chapter 06 convention; distinguish surface PMSM and interior PMSM.
+- Explain cascaded current/speed/position loops, PI design intuition, decoupling/feed-forward, saturation, anti-windup, sampling and PWM/ADC synchronization.
+- Explain current sensing offsets, scaling, phase order, polarity, reconstruction, ADC timing, noise and calibration evidence.
+- Connect voltage-vector saturation to SVPWM limits from chapter 07; explain field weakening only as a bounded future topic.
+- Include dimensional checks, worked examples, exercises with complete solutions, firmware state-flow and verification templates.
+- Keep actual AEL-002 motor parameters, current limits, PWM rate, ADC timing and controller gains TBD until verified source/sample data exist.
+- Review chapters 00–07 and the lesson checklist; update index, project memory and operator queue.
+- Preserve existing CI definitions and **NO STACK / NO POWER**.
 
-**Acceptance criteria:** all equations state modulation and voltage conventions; phase/line-line quantities are not mixed; DC-link energy and regeneration are dimensionally checked; losses and thermal assumptions are explicit; no component ratings are invented.
+**Acceptance criteria:** transforms are invertible under the stated normalization; electrical/mechanical angle and pole pairs are consistent; torque equations match chapter 06; control-loop signs and saturation are explicit; no hardware rating or unverified firmware setting is invented.
 
-**Blockers:** theory work can proceed. Actual motor, load, supply source/sink capability, motion profile and cooling remain unknown. Hardware remains **NO STACK / NO POWER**.
+**Blockers:** theory and offline calculations can proceed. Actual motor/encoder/current-sensor parameters, board revision and timing remain unverified. Hardware remains **NO STACK / NO POWER**.
 
 
 ### AEL-002: sample-specific no-power inspection and requirements intake (gated)
