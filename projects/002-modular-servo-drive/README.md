@@ -186,3 +186,17 @@ Fill this table from the motor nameplate/datasheet, encoder datasheet, supply sp
 10. **Release evidence:** signed schematic review, ERC, PCB DRC, creepage/clearance review, BOM lifecycle/derating, firmware build provenance, fault-injection results, thermal measurements and documented test setup are required before release.
 
 **Hold point:** no MOSFET, gate driver, shunt, DC-link capacitor, braking resistor, connector, heatsink or continuous-current rating is selected until the intake table has sufficient motor, supply, regeneration, load and cooling data.
+
+
+## 10. Critical compatibility clarification — BOOSTXL-3PHGANINV
+
+A deeper read of TI's official BOOSTXL-3PHGANINV product page changes the evaluation recommendation:
+
+- TI specifies a 12–60 V input range and 7 A RMS output current per phase; the product is described as a 48-V/10-A three-phase GaN inverter. Treat 7 A RMS/phase as the published output-current figure, not as an automatically safe continuous rating in every enclosure or ambient condition. Thermal derating and test conditions must be confirmed in the EVM guide.
+- The same TI page's supported LaunchPad list names LAUNCHXL-F280049C, LAUNCHXL-F28379D and LAUNCHXL-F280025C; it does **not** list LAUNCHXL-F280039C. The F280039C LaunchPad's generic BoosterPack connector does not establish validated electrical/software compatibility with this inverter.
+- Therefore do not represent LAUNCHXL-F280039C + BOOSTXL-3PHGANINV as an officially supported plug-and-play pair. Treat it as a custom integration requiring pin-by-pin mapping, voltage-level review, PWM/ADC timing verification, fault-path verification and a software port, or select one of the explicitly listed LaunchPads for initial EVM bring-up.
+- The F280039C remains a strong MCU candidate on its own (C28x/CLA, ADC, ePWM, eQEP, CAN/CAN-FD); this does not resolve board-level integration.
+
+Source: TI BOOSTXL-3PHGANINV official page, product overview/features and supported LaunchPad list: https://www.ti.com/tool/BOOSTXL-3PHGANINV (accessed 2026-11-27).
+
+**Updated recommendation:** preserve F280039C as the target-MCU candidate, but split evaluation into (A) control algorithm/peripheral evaluation on LAUNCHXL-F280039C, and (B) inverter power-stage evaluation using a TI-listed supported LaunchPad, or a documented custom adapter/port after compatibility review. No energized pairing is approved by this document.
