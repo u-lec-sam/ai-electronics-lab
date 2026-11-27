@@ -4,9 +4,11 @@ AI-first, GitHub-centered electronics design and iterative-improvement workspace
 
 ## Operating principle
 
-At the start of every substantive lab session, ChatGPT refreshes and reads the current GitHub repository before planning or editing. The repository is the durable project memory and source of truth. Improvements follow the documented READ → BASELINE → DIAGNOSE → PROPOSE → TEST → REVIEW → INTEGRATE → RECORD loop.
+At the start of every substantive lab session, ChatGPT refreshes and reads the current GitHub repository before planning or editing. The repository is the durable project memory and source of truth. Improvements follow the documented recursive-improvement loop.
 
 The improvement target includes both engineering artifacts and the agent scaffold that produces them: retrieval, memory, procedures, tools, CI, and evaluation. This does not modify the hosted ChatGPT model weights.
+
+**Low-effort operation:** ChatGPT chooses and performs the next safe task, maintains one prioritized next action, and ends substantive progress reports with one **Run next task** button. The button resumes work only when pressed; it is not a background daemon. See [One-Button Operator Loop](docs/ONE_BUTTON_OPERATOR_LOOP.md).
 
 See:
 - [Architecture](docs/ARCHITECTURE.md)
