@@ -22,23 +22,23 @@
 
 ## Active next task
 
-### AEL Academy: implementable FOC current-loop design and tuning (Chapter 16)
+### AEL Academy: speed/position outer loops and motion-reference architecture (Chapter 17)
 
-**Why now:** Chapters 08 and 15 define the FOC transforms and current measurement chain. The next dependency is to turn calibrated, timestamped phase-current samples into a stable, bounded current controller whose voltage command respects the inverter and timing limits.
+**Why now:** Chapter 16 establishes the current loop as the inner torque-producing actuator. The next dependency is to define speed/position loops, trajectory shaping, current/torque limits, cascade bandwidth separation and command arbitration without assuming unknown motor/load parameters.
 
 **Scope:**
-- Derive continuous and discrete PMSM d/q current-loop PI controllers and state the plant assumptions.
-- Compare forward Euler, backward Euler and Tustin discretization; document coefficient quantization and numeric limits.
-- Explain cross-coupling decoupling/feed-forward, back-EMF compensation, and when parameter mismatch makes them harmful.
-- Derive voltage-vector and modulation saturation, d/q priority, anti-windup and integrator reset/hold behavior.
-- Include sample-to-actuation delay, PWM update point, ADC/ISR latency, current-sensor filter delay and phase margin.
-- Work through current-loop bandwidth and stability examples with uncertainty in Rs, Ld/Lq, flux linkage and DC bus.
-- Define host/SIL test vectors, parameter sweeps, fault cases and acceptance templates; do not claim target or motor validation.
-- Keep actual motor parameters, current limits, PWM/ADC timings and MCU/SDK settings TBD until evidence.
+- Derive mechanical speed and position plant models using inertia, friction, torque constant and load disturbance.
+- Design outer PI/PID structures with current/torque command output and explicit units.
+- Explain cascade bandwidth separation, sample-rate ratios, latency and outer-loop anti-windup.
+- Define trajectory generators, acceleration/jerk limits, command ramps, feed-forward and setpoint continuity.
+- Integrate torque/current envelope, voltage feasibility, thermal/duty constraints, regeneration and DC-bus limits.
+- Define local/remote command arbitration, mode transitions, enable/disable and fault response.
+- Include fully solved virtual calculations, host/SIL tests, parameter sweeps and fault-injection templates.
+- Keep actual motor inertia, friction, torque constant, load profile, current/torque envelope, encoder limits and loop periods TBD until evidence.
 
-**Acceptance criteria:** fully solved dimensional calculations; explicit discrete-time equations and saturation semantics; tests for sign, step response, noise, delay, parameter mismatch and invalid current samples; claim-level source register updates; CI passes on exact final SHA.
+**Acceptance criteria:** traceable loop equations and units; explicit rate/latency and saturation semantics; robust corner analysis; tests for step/ramp/reversal, load disturbance, limit arbitration, stale command, mode transition and fault; source register updated; CI passes on exact final SHA.
 
-**Blockers:** exact motor datasheet/identified Rs, Ld/Lq, flux linkage, current envelope, PWM frequency, ADC aperture and target control-update schedule remain unverified.
+**Blockers:** actual motor and load data, torque/current limits, thermal envelope, encoder range, command interface, PWM/current-loop period and approved motion profile remain unverified.
 
 ### AEL-002: sample-specific no-power inspection and requirements intake (gated)
 Resume only when physical inspection and motor/supply/load data can be supplied. Never infer sample jumper states from schematic drawings.
