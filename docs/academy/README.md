@@ -190,6 +190,7 @@
 - [05장 — 자기장, 전자기 유도와 전동기의 작동 원리](05-magnetism-induction-and-motor-fundamentals.md)
 - [06장 — 모터의 전기·기계·열 모델과 정격 해석](06-motor-electrical-mechanical-and-thermal-models.md)
 - [07장 — DC 링크와 2레벨 3상 전압형 인버터](07-dc-link-and-three-phase-inverter.md)
+- [08장 — 3상 전류 벡터, Clarke/Park 변환과 PMSM FOC](08-clarke-park-pmsm-foc.md)
 - [강의노트 품질 검토 체크리스트](LESSON_REVIEW_CHECKLIST.md)
 
-**진행 상태:** 00~07장과 품질 체크리스트가 작성된 초기판이다. 07장은 DC 링크 에너지·전력 균형, 2레벨 VSI 8개 상태, pole/phase/line 전압, SPWM/SVPWM 변조 한계와 dwell time, 데드타임, 반도체 손실, 커패시터 리플/ESR, 회생 에너지를 다룬다. 실제 AEL-002 전압·전류·PWM 주파수·반도체·커패시터·브레이크·열 정격은 TBD로 유지한다. 전체 교재 완성으로 간주하지 않는다. 각 장은 실제 프로젝트의 의존성과 다음 안전한 개발 작업에 맞춰 순차적으로 확장한다.
+**진행 상태:** 00~08장과 품질 체크리스트가 작성된 초기판이다. 08장은 진폭 불변 Clarke/Park와 역변환, 전기각·극쌍수, PMSM d/q 전압·토크 모델, SPMSM/IPMSM, 전류 PI·디커플링·전압 벡터 포화·anti-windup, 속도/위치 루프, PWM/ADC 동기화, 전류 센서 보정 및 펌웨어/검증 템플릿을 다룬다. 07장은 DC 링크와 2레벨 VSI/SVPWM 기초를 제공한다. 실제 AEL-002 모터·센서 파라미터, 전류 한계, PWM/ADC 타이밍, 제어기 이득은 TBD로 유지한다. 전체 교재 완성이나 실물 검증으로 간주하지 않는다. 각 장은 실제 프로젝트 의존성과 다음 안전한 개발 작업에 맞춰 순차적으로 확장한다.
