@@ -22,23 +22,23 @@
 
 ## Active next task
 
-### AEL Academy: current sensing and analog front-end for motor control (Chapter 15)
+### AEL Academy: implementable FOC current-loop design and tuning (Chapter 16)
 
-**Why now:** Chapters 08–14 define FOC, sensors, MCU timing, robust firmware, communications, system verification and gate-drive architecture. Accurate and diagnosable current feedback is the next essential link between the inverter power stage and the FOC current loop.
+**Why now:** Chapters 08 and 15 define the FOC transforms and current measurement chain. The next dependency is to turn calibrated, timestamped phase-current samples into a stable, bounded current controller whose voltage command respects the inverter and timing limits.
 
 **Scope:**
-- Compare low-side single/dual/three-shunt, inline phase sensing, DC-link sensing and isolated current sensing.
-- Explain shunt selection, Kelvin routing, pulse power, TCR, tolerance, parasitic inductance and common-mode constraints.
-- Compare current-sense amplifier, differential amplifier, isolated amplifier and Hall-based sensor classes.
-- Derive gain/offset/bandwidth/noise/anti-alias filter and ADC acquisition settling budgets.
-- Integrate ADC aperture, PWM switching noise, sample-window placement, amplifier recovery and Chapter 10 timing.
-- Define offset/gain/polarity calibration, phase matching, uncertainty, saturation/invalid status and comparator hardware OCP path.
-- Cross-check claims against standards, exact manufacturer datasheets/reference manuals and independent professional sources.
-- Keep exact AEL-002 shunt/amplifier/sensor, ADC route, gain, bandwidth, current limit and calibration values TBD.
+- Derive continuous and discrete PMSM d/q current-loop PI controllers and state the plant assumptions.
+- Compare forward Euler, backward Euler and Tustin discretization; document coefficient quantization and numeric limits.
+- Explain cross-coupling decoupling/feed-forward, back-EMF compensation, and when parameter mismatch makes them harmful.
+- Derive voltage-vector and modulation saturation, d/q priority, anti-windup and integrator reset/hold behavior.
+- Include sample-to-actuation delay, PWM update point, ADC/ISR latency, current-sensor filter delay and phase margin.
+- Work through current-loop bandwidth and stability examples with uncertainty in Rs, Ld/Lq, flux linkage and DC bus.
+- Define host/SIL test vectors, parameter sweeps, fault cases and acceptance templates; do not claim target or motor validation.
+- Keep actual motor parameters, current limits, PWM/ADC timings and MCU/SDK settings TBD until evidence.
 
-**Acceptance criteria:** source register contains claim-level cross-checks; calculations include tolerances and uncertainty; measurement interface has unit/range/validity/timestamp; hardware fast-trip path is distinguished from software ADC diagnostics; no target-specific setting is invented.
+**Acceptance criteria:** fully solved dimensional calculations; explicit discrete-time equations and saturation semantics; tests for sign, step response, noise, delay, parameter mismatch and invalid current samples; claim-level source register updates; CI passes on exact final SHA.
 
-**Blockers:** exact inverter schematic, shunt placement, MCU/ADC route, current range and board revision remain unverified.
+**Blockers:** exact motor datasheet/identified Rs, Ld/Lq, flux linkage, current envelope, PWM frequency, ADC aperture and target control-update schedule remain unverified.
 
 ### AEL-002: sample-specific no-power inspection and requirements intake (gated)
 Resume only when physical inspection and motor/supply/load data can be supplied. Never infer sample jumper states from schematic drawings.
