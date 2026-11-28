@@ -22,23 +22,23 @@
 
 ## Active next task
 
-### AEL Academy: power semiconductor and gate-driver architecture (Chapter 14)
+### AEL Academy: current sensing and analog front-end for motor control (Chapter 15)
 
-**Why now:** Chapters 07–13 cover DC link, inverter operation, FOC, sensing, real-time firmware, communications and integration verification. The next dependency is understanding the switching devices, gate-drive requirements and hardware protection chain before any power-stage BOM or schematic can be responsibly selected.
+**Why now:** Chapters 08–14 define FOC, sensors, MCU timing, robust firmware, communications, system verification and gate-drive architecture. Accurate and diagnosable current feedback is the next essential link between the inverter power stage and the FOC current loop.
 
 **Scope:**
-- Compare silicon MOSFET, GaN and IGBT operating regions and device-selection parameters without selecting an AEL part.
-- Explain gate charge, Miller plateau, dv/dt, di/dt, common-source inductance, gate loop and power loop.
-- Derive deadtime, shoot-through and body-diode/reverse-conduction trade-offs.
-- Compare bootstrap, isolated and charge-pump gate supplies; UVLO, negative gate bias and Miller clamp where applicable.
-- Explain overcurrent, short-circuit/desaturation, comparator, gate-driver fault, hardware latch and independent inhibit paths.
-- Build worst-case loss/thermal and fault propagation calculations with clearly hypothetical values.
-- Cross-check every critical claim against applicable standards, exact manufacturer datasheets/reference manuals and independent professional sources.
-- Keep actual AEL-002 device/BOM, gate driver, DC bus, current, gate resistor, deadtime, protection thresholds and timing TBD.
+- Compare low-side single/dual/three-shunt, inline phase sensing, DC-link sensing and isolated current sensing.
+- Explain shunt selection, Kelvin routing, pulse power, TCR, tolerance, parasitic inductance and common-mode constraints.
+- Compare current-sense amplifier, differential amplifier, isolated amplifier and Hall-based sensor classes.
+- Derive gain/offset/bandwidth/noise/anti-alias filter and ADC acquisition settling budgets.
+- Integrate ADC aperture, PWM switching noise, sample-window placement, amplifier recovery and Chapter 10 timing.
+- Define offset/gain/polarity calibration, phase matching, uncertainty, saturation/invalid status and comparator hardware OCP path.
+- Cross-check claims against standards, exact manufacturer datasheets/reference manuals and independent professional sources.
+- Keep exact AEL-002 shunt/amplifier/sensor, ADC route, gain, bandwidth, current limit and calibration values TBD.
 
-**Acceptance criteria:** source register complete for critical claims; assumptions and operating conditions explicit; calculations independently checked; fault chain and verification matrix defined; no device ratings or board settings inferred.
+**Acceptance criteria:** source register contains claim-level cross-checks; calculations include tolerances and uncertainty; measurement interface has unit/range/validity/timestamp; hardware fast-trip path is distinguished from software ADC diagnostics; no target-specific setting is invented.
 
-**Blockers:** exact motor, DC supply, board revision, candidate semiconductor/driver and cooling remain unverified. Generic education and requirements templates can proceed.
+**Blockers:** exact inverter schematic, shunt placement, MCU/ADC route, current range and board revision remain unverified.
 
 ### AEL-002: sample-specific no-power inspection and requirements intake (gated)
 Resume only when physical inspection and motor/supply/load data can be supplied. Never infer sample jumper states from schematic drawings.
