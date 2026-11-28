@@ -238,3 +238,17 @@
 - No firmware, schematic, PCB, simulation execution, hardware inspection, motor test, thermal measurement or power-up is claimed.
 - **NO STACK / NO POWER** remains. No local device or filesystem access was used.
 - Next Academy task: Chapter 08 on Clarke/Park transforms, PMSM d/q current dynamics, FOC current loop, cascaded speed/position loops, sampling and PWM/ADC synchronization.
+
+
+## Engineering Academy Chapter 08 — FOC theory and verification plan (2026-11-28)
+
+- Added \`docs/academy/08-clarke-park-pmsm-foc.md\` (25,339 characters).
+- Reviewed the live Academy index, corrected Chapter 00 filename (\`00-learning-and-safety.md\`), Chapters 01–07, the lesson quality checklist, operator protocol, current project state, PR #3 and existing CI workflow before authoring.
+- Chapter 08 declares the amplitude-invariant Clarke/Park convention and inverse transforms; derives electrical/mechanical angle conversion, PMSM d/q voltage dynamics, SPMSM/IPMSM torque; explains current PI, cross-coupling feed-forward, vector voltage saturation, anti-windup, cascaded speed/position loops, PWM/ADC synchronization, current-sensor offset/scale/polarity/reconstruction/calibration, firmware state flow and verification templates.
+- Includes dimensional checks, four worked examples, twelve fully solved exercises, a TBD requirements matrix, SIL/software verification checklist and an explicitly gated real-hardware test plan.
+- Cross-check convention: amplitude-invariant Clarke/Park means phase-current peak equals the balanced alpha-beta vector magnitude; instantaneous power and torque equations retain the 3/2 factor. The inverse transforms and norm-preservation checks are stated.
+- Real motor type/parameters, Rs/Ld/Lq/psi_f, pole pairs, encoder, sensor/ADC details, current limits, PWM/ADC timing, PI gains and WCET remain **TBD**. Example values are educational only.
+- No firmware build, SIL/HIL execution, motor simulation, hardware inspection, calibration, board stack or power-up is claimed.
+- Existing CI workflow file remains unchanged; its branch blob SHA remains \`7af60d723f8b98c2eeb1767c7251a8978fa3cfb3\`.
+- **NO STACK / NO POWER** remains. No local device/filesystem access was used.
+- Next Academy task: Chapter 09 on encoder/Hall/resolver feedback, angle sensing, electrical-angle offset/alignment, interpolation, startup and sensor diagnostics, with all actual AEL-002 sensor selections and pin mappings TBD.
