@@ -266,3 +266,17 @@
 - Existing CI workflow remains unchanged. Branch workflow blob SHA: \`7af60d723f8b98c2eeb1767c7251a8978fa3cfb3\`.
 - No local device/filesystem access. No sensor inspection, alignment, calibration, firmware build, SIL/HIL execution, motor test, stack or power-up was performed.
 - **NO STACK / NO POWER** remains.
+
+
+## Engineering Academy Chapter 10 — MCU timing and real-time execution (2026-11-28)
+
+- Added \`docs/academy/10-mcu-timing-interrupts-dma-realtime.md\` (17,989 characters).
+- Re-read live PR #3, branch state, CI workflow, operating protocol, Academy 00–09, Academy index and lesson quality checklist before authoring.
+- Covers clock tree/CDC, timer/prescaler/counter wrap, capture/compare, QEP quadrature x1/x2/x4, input synchronization/filter delay, interrupt priority/nesting/latency/jitter, critical section/race/atomic snapshot, DMA double buffering/ownership/cache coherency, PWM time-base, ADC SOC/aperture/acquisition/conversion, timestamp-based rotor-angle prediction, FOC scheduling, utilization/response time/WCET, deadline miss/overrun and watchdog.
+- Includes ASCII timing/state diagrams, equations and dimensional checks, hypothetical calculations, 12 fully solved exercises, TBD configuration matrix, timing verification matrix, fault-injection test matrix and hardware gate.
+- Chapter 08/09 integration: predict electrical rotor angle at ADC aperture from sensor timestamp and speed; preserve Chapter 08 amplitude-invariant Clarke/Park convention and define shadow-load timing separately from CPU computation completion.
+- AEL-002 MCU order code/revision, clock tree, pin mux, QEP/eCAP/ePWM/ADC routing, interrupt priorities, DMA channels, PWM/ADC rates, ISR budget and WCET remain **TBD** pending exact board/SDK evidence. No peripheral route or hardware setting was invented.
+- Existing CI workflow unchanged; branch workflow SHA remains \`7af60d723f8b98c2eeb1767c7251a8978fa3cfb3\`.
+- No firmware build, static timing proof, SIL/HIL, oscilloscope measurement, physical inspection, sensor calibration, motor test, stack or power-up is claimed.
+- **NO STACK / NO POWER** remains. No local device/filesystem access was used.
+- Next task: Chapter 11 on embedded C architecture, memory model, fixed-point/numeric robustness, HAL/driver boundaries, state machines, fault handling and testable firmware interfaces; keep target-specific code/configuration TBD until exact MCU/SDK evidence is verified.
