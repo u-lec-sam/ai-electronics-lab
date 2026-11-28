@@ -22,23 +22,24 @@
 
 ## Active next task
 
-### AEL Academy: embedded firmware architecture and robust C foundations (Chapter 11)
+### AEL Academy: embedded communications and diagnostic services (Chapter 12)
 
-**Why now:** Chapters 08–10 define the control equations, sensor feedback contract and real-time scheduling. The next safe dependency is to define maintainable, testable firmware layers and robust data/numeric/concurrency contracts before target-specific peripheral code.
+**Why now:** Chapter 11 establishes portable C, module boundaries, state/fault policy, parameter validation and test seams. The next dependency is to define robust external command/telemetry and service interfaces without allowing communication code to bypass the control and safety state machines.
 
 **Scope:**
-- Teach embedded C integer widths, signedness, overflow, fixed-point/Q formats, floating-point limits, scaling and saturation.
-- Explain memory map, stack/heap/static storage, linker sections, startup/reset, const/volatile/atomic and compiler optimization.
-- Define HAL/LL/driver/middleware/control/application boundaries and hardware abstraction interfaces.
-- Cover state machines, event handling, fault latching, parameter validation/CRC/versioning and safe defaults.
-- Include coding patterns, interface contracts, unit-test seams, static-analysis checklist, code-review template and fully solved exercises.
-- Connect ADC/encoder timestamps, DMA ownership, ISR/task boundaries and FOC cycle timing from Chapters 08–10.
-- Keep AEL-002 target-specific compiler, ABI, memory map, peripheral drivers, build flags and numeric formats TBD until exact MCU/SDK/toolchain evidence is verified.
+- Explain UART framing, RS-485 electrical/network concepts, half-duplex direction control, termination/bias and physical-layer versus protocol boundaries.
+- Explain CAN/CAN-FD frames, identifiers/arbitration, bit timing concepts, bus load, error counters, error-passive/bus-off and recovery.
+- Define serialization, endian, version/length/CRC, sequence counters, timestamps, timeout and stale-command rejection.
+- Separate command, telemetry, diagnostics, parameter transfer and firmware-update responsibilities.
+- Define safe command semantics: explicit arm, command limits, freshness, acknowledgement, fault latch and controlled re-arm.
+- Include communication state machines, fault-injection cases, bus-load calculations, fully solved exercises and verification templates.
+- Connect Chapter 08–11 FOC timing, sensor validity, DMA ownership, parameter schema and fault records.
+- Keep actual AEL-002 transceiver, connector, pin mux, baud/bit rate, CAN identifier map, network topology, isolation, SDK and protocol profile TBD until board/BOM/SDK evidence is verified.
 - Update Academy index, project memory and operator queue; preserve CI and **NO STACK / NO POWER**.
 
-**Acceptance criteria:** C examples avoid undefined behavior; arithmetic has explicit range/overflow analysis; module interfaces are testable without hardware; fault paths and parameter validation are deterministic; no target-specific setting is invented.
+**Acceptance criteria:** physical layer is not confused with protocol; framing is unambiguous; corrupted/stale/replayed/out-of-range commands are rejected; bus-off and timeout have deterministic state transitions; communications cannot independently clear a latched safety fault; all actual AEL-002 wiring/rates remain TBD without evidence.
 
-**Blockers:** General architecture and portable C can proceed. Exact MCU/SDK/compiler/build system and motor numeric ranges remain unverified. Hardware remains **NO STACK / NO POWER**.
+**Blockers:** Generic protocol architecture can proceed. Exact board transceiver, isolation, connector/pinout, network peer and product protocol requirements remain unverified. Hardware remains **NO STACK / NO POWER**.
 
 ### AEL-002: sample-specific no-power inspection and requirements intake (gated)
 Resume only when physical inspection and motor/supply/load data can be supplied. Never infer sample jumper states from schematic drawings.
