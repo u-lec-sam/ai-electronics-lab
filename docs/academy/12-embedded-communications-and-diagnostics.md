@@ -563,10 +563,13 @@ F280039C 또는 STM32G4가 후보라는 사실만으로 UART/CAN instance, pin m
 
 1. Texas Instruments, [The RS-485 Design Guide (SLLA272D Rev. D)](https://www.ti.com/lit/an/slla272d/slla272d.pdf) — differential signaling, half/full duplex, driver direction, termination/stub, fail-safe.
 2. Texas Instruments, [Fail-safe biasing design](https://www.ti.com/document-viewer/lit/html/SSZT656) — open/short/idle bus와 receiver bias.
-3. CAN in Automation, [CAN FD — the basic idea](https://www.can-cia.org/fileadmin/cia/documents/proceedings/2015_bendermann.pdfcan-knowledge/can-fd-the-basic-idea) — payload, BRS, arbitration/data phase, CRC.
+3. CAN in Automation, [CAN FD — the basic idea](https://can-cia.org/can-knowledge/can-fd-the-basic-idea) — payload, BRS, arbitration/data phase, CRC.
 4. CAN in Automation, [Technical documents](https://can-cia.org/cia-groups/technical-documents) — CiA 601 CAN-FD physical interface/controller/system design과 bit timing/clock tolerance.
-5. ISO 11898-1, CAN data link layer and physical coding sublayer — frame, arbitration, error detection/confinement. 적용 edition을 명시한다.
-6. CAN in Automation, [CAN bit-rate estimation proceedings](https://can-cia.org/) — message cycle/frame length 기반 bus load 개념.
+5. ISO 11898-1:2024, CAN data link layer and physical coding sublayer — 적용 edition과 관련 정오표를 확인한 뒤 frame/arbitration/error confinement의 normative 근거로 사용한다. 공개 CiA 자료는 표준 원문을 대체하지 않는다.
+6. Microchip, [MCP25xxFD Family Reference Manual](https://ww1.microchip.com/downloads/en/DeviceDoc/MCP251XXFD-CAN-FD-Controller-Module-Family-Reference-Manual-20005678B.pdf) — CAN FD controller의 TEC/REC와 error-active/error-passive/bus-off 구현 예. 2015 edition과 해당 controller family에 한정된 구현 참고자료다.
+7. TI, [ISO15/ISO35 RS-485 transceiver datasheet](https://www.ti.com/lit/ds/symlink/iso15.pdf) — half/full-duplex topology, enable pins, termination application example. 해당 부품군의 예시이지 AEL-002 BOM 근거가 아니다.
+8. TI, [RS-485 transceiver FAQ](https://www.ti.com/document-viewer/lit/html/SSZT500) — termination, cable impedance matching에 대한 보조 설명.
+9. CAN in Automation, [CiA 601 series: CAN FD guidelines and recommendations](https://can-cia.org/can-knowledge/cia-601-series-can-fd-guidelines-and-recommendations) — physical interface, controller, system design, clock tolerance와 bit-timing evaluation. Technical report와 later drafts의 publication status를 구분한다.
 
 일반 원리 출처는 AEL-002의 실제 MCU peripheral, transceiver, pin mux, wiring, network bit rate, isolation, SDK integration을 입증하지 않는다.
 
