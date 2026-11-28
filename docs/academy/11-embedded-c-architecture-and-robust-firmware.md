@@ -211,22 +211,21 @@ x_{real}=x_{Q15}/32768,\qquad
 int16_t q15_mul(int16_t a, int16_t b)
 {
     int32_t product = (int32_t)a * (int32_t)b;
-    int32_t rounded;
-
-    if (product >= 0) {
-        rounded = product + 16384;
-    } else {
-        rounded = product - 16384;
-    }
-
-    int32_t result = rounded / 32768; /* C 정수 나눗셈은 0 방향 절삭 */
+    int64_t magnitude = (product >= 0)
+                       ? (int64_t)product
+                       : -(int64_t)product;
+    int32_t rounded_magnitude =
+        (int32_t)((magnitude + 16384) / 32768);
+    int32_t result = (product >= 0)
+                   ? rounded_magnitude
+                   : -rounded_magnitude;
     if (result > INT16_MAX) result = INT16_MAX;
     if (result < INT16_MIN) result = INT16_MIN;
     return (int16_t)result;
 }
 ~~~
 
-rounding tie 정책과 −1×−1의 포화 동작을 테스트로 고정한다. product의 최댓값은 \((-32768)(-32768)=1,073,741,824\)로 int32_t 범위 안이지만, 다른 누산 연산을 추가하면 재검산한다.
+이 코드는 절댓값을 넓은 signed type으로 계산해 음수의 0 방향 절삭 문제를 피하고, nearest rounding(동률은 0에서 먼 방향)으로 복원한다. rounding tie 정책과 −1×−1의 포화 동작을 테스트로 고정한다. product의 최댓값은 \((-32768)(-32768)=1,073,741,824\)로 int32_t 범위 안이지만, 다른 누산 연산을 추가하면 재검산한다.
 
 ### 4.4 FOC에서 fixed-point가 요구하는 분석
 
