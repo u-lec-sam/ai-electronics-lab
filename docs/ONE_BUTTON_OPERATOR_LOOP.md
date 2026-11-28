@@ -22,25 +22,23 @@
 
 ## Active next task
 
-### AEL Academy: MCU real-time control infrastructure (Chapter 10)
+### AEL Academy: embedded firmware architecture and robust C foundations (Chapter 11)
 
-**Why now:** Chapter 08 defines FOC/PWM/ADC control needs and Chapter 09 defines the sensor timing/data contract. The next dependency is to understand MCU timers, QEP/capture, interrupts, DMA, ADC/PWM triggering, scheduling, latency and worst-case execution time before selecting actual peripheral routes or target-specific code.
+**Why now:** Chapters 08–10 define the control equations, sensor feedback contract and real-time scheduling. The next safe dependency is to define maintainable, testable firmware layers and robust data/numeric/concurrency contracts before target-specific peripheral code.
 
 **Scope:**
-- Write a Korean lesson on MCU clock trees, timer counters/prescalers, capture/compare, QEP/quadrature decoding, input synchronization and digital filtering.
-- Explain interrupt architecture, priorities, nesting, latency, jitter, critical sections, atomic snapshots and race conditions.
-- Cover DMA data movement, buffer ownership, double buffering and cache/coherency caveats where relevant.
-- Derive PWM time-base and ADC trigger relationships, center/edge-aligned sampling windows, conversion/acquisition time, sensor timestamps and control-loop latency.
-- Explain deterministic scheduling, ISR/task partitioning, WCET measurement/analysis, deadline misses, watchdog and overrun response.
-- Include timing diagrams in text/ASCII, equations, dimensional checks, worked hypothetical calculations, exercises with complete solutions, firmware state flow and verification templates.
-- Connect encoder/Hall/Resolver timestamps from Chapter 09 to Park angle prediction and current-loop sampling from Chapter 08.
-- Keep actual AEL-002 MCU selection/configuration, clocks, peripheral pin mux, QEP/eCAP/ePWM/ADC routes, interrupt priorities, DMA channels, PWM/ADC rates, ISR budgets and WCET **TBD** until exact board/SDK evidence is verified.
-- Review Academy 00–09 and the quality checklist; update index, project memory and next task.
-- Preserve existing CI definitions and **NO STACK / NO POWER**.
+- Teach embedded C integer widths, signedness, overflow, fixed-point/Q formats, floating-point limits, scaling and saturation.
+- Explain memory map, stack/heap/static storage, linker sections, startup/reset, const/volatile/atomic and compiler optimization.
+- Define HAL/LL/driver/middleware/control/application boundaries and hardware abstraction interfaces.
+- Cover state machines, event handling, fault latching, parameter validation/CRC/versioning and safe defaults.
+- Include coding patterns, interface contracts, unit-test seams, static-analysis checklist, code-review template and fully solved exercises.
+- Connect ADC/encoder timestamps, DMA ownership, ISR/task boundaries and FOC cycle timing from Chapters 08–10.
+- Keep AEL-002 target-specific compiler, ABI, memory map, peripheral drivers, build flags and numeric formats TBD until exact MCU/SDK/toolchain evidence is verified.
+- Update Academy index, project memory and operator queue; preserve CI and **NO STACK / NO POWER**.
 
-**Acceptance criteria:** timing equations are dimensionally correct; event-to-sample latency is explicit; ADC aperture and PWM switching noise are not conflated; ISR concurrency and fault response are testable; no MCU pin or peripheral assignment is invented.
+**Acceptance criteria:** C examples avoid undefined behavior; arithmetic has explicit range/overflow analysis; module interfaces are testable without hardware; fault paths and parameter validation are deterministic; no target-specific setting is invented.
 
-**Blockers:** theory, timing budgets and software tests can proceed. Exact board revision, MCU SDK version, pin mux and peripheral allocation remain unverified. Hardware remains **NO STACK / NO POWER**.
+**Blockers:** General architecture and portable C can proceed. Exact MCU/SDK/compiler/build system and motor numeric ranges remain unverified. Hardware remains **NO STACK / NO POWER**.
 
 ### AEL-002: sample-specific no-power inspection and requirements intake (gated)
 Resume only when physical inspection and motor/supply/load data can be supplied. Never infer sample jumper states from schematic drawings.
