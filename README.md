@@ -50,4 +50,4 @@ All committed files and history are public. Never commit credentials, private da
 
 ## Engineering Academy
 
-한국어 기초부터 서보드라이브 설계·제작·검증까지 이어지는 통합 강의노트: [교육과정과 강의노트](docs/academy/README.md).
+한국어 기초부터 서보드라이브 설계·제작·검증까지 이어지는 00~16장까지 작성된 통합 강의노트(이론·계산·검증 계획; 실물 검증 완료 의미 아님): [교육과정과 강의노트](docs/academy/README.md).
