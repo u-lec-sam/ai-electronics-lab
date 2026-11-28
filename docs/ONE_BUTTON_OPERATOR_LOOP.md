@@ -22,25 +22,24 @@
 
 ## Active next task
 
-### AEL Academy: field-oriented control and PMSM current control (Chapter 08)
+### AEL Academy: encoder, rotor-angle feedback and sensor diagnostics (Chapter 09)
 
-**Why now:** Chapters 05–07 now establish motor electromagnetic behavior, its electrical/mechanical/thermal model, and the inverter's realizable voltage vectors and limits. The next dependency is to derive how the controller converts measured phase currents into torque-producing d/q current commands and safely realizes them through PWM.
+**Why now:** Chapter 08 defines the FOC transform and control loops, but their correctness depends on a trustworthy rotor electrical angle. The next dependency is to understand encoder/Hall/resolver feedback, angle conventions, alignment, interpolation, startup and sensor fault detection before binding any algorithm to MCU pins.
 
 **Scope:**
-- Write a Korean lesson on three-phase current vectors, Clarke and Park transforms, inverse transforms, normalization conventions, and electrical angle.
-- Derive PMSM d/q current dynamics and torque production under the chapter 06 convention; distinguish surface PMSM and interior PMSM.
-- Explain cascaded current/speed/position loops, PI design intuition, decoupling/feed-forward, saturation, anti-windup, sampling and PWM/ADC synchronization.
-- Explain current sensing offsets, scaling, phase order, polarity, reconstruction, ADC timing, noise and calibration evidence.
-- Connect voltage-vector saturation to SVPWM limits from chapter 07; explain field weakening only as a bounded future topic.
+- Write a Korean lesson on incremental encoder A/B/Z, absolute encoders, Hall sensors and resolver fundamentals; distinguish position, speed and electrical angle.
+- Derive mechanical-to-electrical angle conversion, pole-pair mapping, direction, zero offset, wraparound and multi-turn handling.
+- Explain encoder edge counting, x1/x2/x4 decoding, speed estimation, timestamping, interpolation and quantization/noise limits.
+- Explain Hall sector resolution and commutation/FOC angle limitations; explain resolver signal chain and demodulation at conceptual level.
+- Cover startup alignment and index acquisition risks, sensor plausibility, missing edges, illegal transitions, CRC/status/timeout and redundant cross-checks.
 - Include dimensional checks, worked examples, exercises with complete solutions, firmware state-flow and verification templates.
-- Keep actual AEL-002 motor parameters, current limits, PWM rate, ADC timing and controller gains TBD until verified source/sample data exist.
-- Review chapters 00–07 and the lesson checklist; update index, project memory and operator queue.
+- Keep actual AEL-002 sensor type/model, resolution, interface, pin mapping, electrical offset, speed range and timing TBD until sample and source evidence exist.
+- Review Academy 00–08 and the quality checklist; update index, project memory and next task.
 - Preserve existing CI definitions and **NO STACK / NO POWER**.
 
-**Acceptance criteria:** transforms are invertible under the stated normalization; electrical/mechanical angle and pole pairs are consistent; torque equations match chapter 06; control-loop signs and saturation are explicit; no hardware rating or unverified firmware setting is invented.
+**Acceptance criteria:** angle conventions are internally consistent; direction and pole-pair conversion are testable; quantization/timing limits are quantified; startup and fault behavior are explicit; no actual sensor or pin assignment is invented.
 
-**Blockers:** theory and offline calculations can proceed. Actual motor/encoder/current-sensor parameters, board revision and timing remain unverified. Hardware remains **NO STACK / NO POWER**.
-
+**Blockers:** theory and offline calculations can proceed. Actual encoder/sensor sample, board revision, pin map and timing remain unverified. Hardware remains **NO STACK / NO POWER**.
 
 ### AEL-002: sample-specific no-power inspection and requirements intake (gated)
 Resume only when physical inspection and motor/supply/load data can be supplied. Never infer sample jumper states from schematic drawings.
