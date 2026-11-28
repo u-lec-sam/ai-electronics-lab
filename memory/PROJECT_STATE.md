@@ -295,3 +295,10 @@
 - Updated Academy index and project state. The live operator protocol already queues Chapter 11 (embedded firmware architecture and robust C foundations), so its active task was preserved rather than overwritten.
 - Existing CI workflow definition unchanged. No local device/filesystem access, firmware build/download, simulation, SIL/HIL, board inspection, signal measurement, motor test, stack or power-up was performed.
 - **NO STACK / NO POWER** remains mandatory.
+
+
+## Chapter 10 consolidation note (2026-11-28)
+
+- The Academy index now points to one canonical Chapter 10: \`docs/academy/10-mcu-real-time-timing-and-scheduling.md\`.
+- Consolidated additional timing-requirement and software fault-injection matrices plus supplementary references into the canonical lesson; removed the duplicate alternate Chapter 10 file to avoid two competing curricula entries.
+- The operator protocol's live next task remains Chapter 11 (embedded firmware architecture and robust C foundations).
