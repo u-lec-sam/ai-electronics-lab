@@ -1,43 +1,47 @@
 # One-Button Operator Loop
 
-**Goal:** the user should not need to plan, remember, copy commands, or manage repository files. The user-facing interaction for routine work is one button: **Run next task**.
+**Goal:** the user should not need to plan tasks or manage repository files. The user-facing interaction for routine work is one button: **Run next task**.
 
 ## Contract for every assistant turn in this project
 
-1. **Self-plan first.** Read the live repository and current project state. Select the highest-value safe next task using dependencies, blockers, evidence, and project goals. Do not ask the user what to do when a safe next step can be chosen.
-2. **Do useful work now.** A button click starts a work cycle; it is not a substitute for doing work in the current turn. Complete all safe, supported work that fits the current turn.
-3. **Keep one active next task.** Update this file when the priority changes. The task must be a concrete verb-led action with scope, rationale, acceptance criteria, and dependencies. Avoid presenting a long to-do menu to the user.
-4. **Make the next action clickable.** End substantive progress reports with one prominent ChatGPT action button labeled **Run next task**. The button submits this fixed instruction as a new user turn: `Continue AI Electronics Lab autonomously. First read the latest GitHub repository state and operating protocol, inspect current CI and the active next task, then execute the highest-priority safe task. Update GitHub memory and the next-task queue with verified results. Do not access my local device. Ask only if a physical action, missing essential requirement, or consequential safety/cost/security decision is unavoidable.`
-5. **No false persistence claims.** The button is a conversation action, not a background daemon. It only runs after the user presses it. ChatGPT must still refresh GitHub on every activation; never rely on chat memory alone.
+1. **Self-plan first.** Read the live repository and current project state. Select the highest-value safe next task using dependencies, blockers, evidence, and project goals.
+2. **Do useful work now.** A button click starts a work cycle; it is not a substitute for doing work in the current turn.
+3. **Keep one active next task.** Update this file when the priority changes. The task must be concrete, scoped, and include rationale, acceptance criteria, and blockers.
+4. **Make the next action clickable.** End substantive progress reports with one prominent ChatGPT action button labeled **Run next task**. It submits a continuation instruction as a new user turn.
+5. **No false persistence claims.** The button is a conversation action, not a background daemon. It only runs after the user presses it. Refresh GitHub on every activation.
 6. **No repeated setup.** Do not ask the user to paste repo URLs, file contents, shell commands, or test output when connected tools can retrieve them.
-7. **One blocker question at most.** If work is blocked by an essential unknown or a real-world action, ask only the single most important question. Otherwise continue with safe independent tasks.
-8. **Report briefly.** State what changed, what was verified, what remains unverified, and the next task. Avoid long plans unless requested.
+7. **One blocker question at most.** Ask only when a physical action, essential missing requirement, or consequential safety/cost/security decision prevents safe progress.
+8. **Report briefly.** State changes, verified results, unverified items, and the next task.
 
 ## Autonomy boundaries
 
 - User approval is standing preference for routine, reversible repository work, but does not grant new platform permissions.
-- Do not access the user's local computer, filesystem, browser profile, or private accounts beyond explicitly connected tools.
-- Do not incur costs, publish sensitive information, expose credentials, change account permissions, or make consequential physical/electrical safety decisions without appropriate explicit authorization and safeguards.
-- A button click cannot authorize unsafe actions or bypass policy.
-- Never claim work continued between conversations. GitHub Actions may run only the deterministic workflows actually configured.
+- Do not access my local device or the user's local computer, filesystem, browser profile, or private accounts beyond explicitly connected tools.
+- Do not incur costs, publish sensitive information, expose credentials, change account permissions, or make consequential physical/electrical safety decisions without appropriate authorization and safeguards.
+- Never claim background execution. GitHub Actions runs only configured deterministic workflows.
 
 ## Active next task
 
-### AEL-001: verify MCU package pins and establish power-tree proposal
+### AEL Academy: speed/position outer loops and motion-reference architecture (Chapter 17)
 
-**Why now:** the recursive memory and CI scaffold is in place. The active hardware project remains a preliminary brief; exact LQFP48 pin allocation and power design are prerequisites to trustworthy KiCad capture.
+**Why now:** Chapter 16 establishes the current loop as the inner torque-producing actuator. The next dependency is to define speed/position loops, trajectory shaping, current/torque limits, cascade bandwidth separation and command arbitration without assuming unknown motor/load parameters.
 
 **Scope:**
-- Retrieve current official STM32G0B1xE datasheet/reference manual and package pinout evidence.
-- Confirm STM32G0B1CET6 exact package and pin availability, power pins, decoupling requirements, reset/boot/debug pins, and candidate alternate functions.
-- Draft a source-linked pin-allocation table and a power-tree proposal with explicit assumptions and unresolved requirements.
-- Do not create fabrication claims or guess pins/footprints.
+- Derive mechanical speed and position plant models using inertia, friction, torque constant and load disturbance.
+- Design outer PI/PID structures with current/torque command output and explicit units.
+- Explain cascade bandwidth separation, sample-rate ratios, latency and outer-loop anti-windup.
+- Define trajectory generators, acceleration/jerk limits, command ramps, feed-forward and setpoint continuity.
+- Integrate torque/current envelope, voltage feasibility, thermal/duty constraints, regeneration and DC-bus limits.
+- Define local/remote command arbitration, mode transitions, enable/disable and fault response.
+- Include fully solved virtual calculations, host/SIL tests, parameter sweeps and fault-injection templates.
+- Keep actual motor inertia, friction, torque constant, load profile, current/torque envelope, encoder limits and loop periods TBD until evidence.
 
-**Acceptance criteria:**
-- Each assigned MCU signal maps to an exact datasheet pin and supported alternate function.
-- Power pins, grounds, decoupling, reset, boot, and SWD are accounted for from official documentation.
-- Conflicts and unverified details are clearly marked.
-- BOM and interface plan remain consistent.
-- Results are committed to GitHub and tested where applicable.
+**Acceptance criteria:** traceable loop equations and units; explicit rate/latency and saturation semantics; robust corner analysis; tests for step/ramp/reversal, load disturbance, limit arbitration, stale command, mode transition and fault; source register updated; CI passes on exact final SHA.
 
-**Dependencies / blockers:** input voltage/current and board load budget are not yet specified. Use conservative explicitly marked provisional assumptions; do not finalize regulator selection or thermal claims without a budget.
+**Blockers:** actual motor and load data, torque/current limits, thermal envelope, encoder range, command interface, PWM/current-loop period and approved motion profile remain unverified.
+
+### AEL-002: sample-specific no-power inspection and requirements intake (gated)
+Resume only when physical inspection and motor/supply/load data can be supplied. Never infer sample jumper states from schematic drawings.
+
+### AEL-001: verify STM32G0B1CET6 pin map and provisional power tree (deferred)
+Resume after AEL-002 integration interfaces are established, unless a dependency makes it higher priority.

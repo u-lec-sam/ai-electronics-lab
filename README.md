@@ -23,10 +23,12 @@ See:
 - Espressif: ESP32
 - Other MCU families through additional platform profiles
 
-## First project
-See [AEL-001: STM32G0B1 Sensor & I/O Controller](projects/001-stm32g0b1-sensor-io/README.md).
+## Projects
 
-**Current status: preliminary design brief only.** No completed schematic, PCB, ERC/DRC result, or flashable firmware is claimed yet.
+- [AEL-001: STM32G0B1 Sensor & I/O Controller](projects/001-stm32g0b1-sensor-io/README.md) — preliminary design brief.
+- [AEL-002: Modular Low-Voltage Servo Drive](projects/002-modular-servo-drive/README.md) — concept/preliminary requirements; 24–48 VDC single-axis prototype scope.
+
+No completed schematic, PCB, ERC/DRC result, flashable firmware, hardware validation, or product certification is claimed for either project.
 
 ## Layout
 - `docs/`: architecture, engineering rules, improvement protocol, research, decisions, experiments
@@ -44,3 +46,8 @@ Minimize user effort. The agent should perform repository research, file editing
 ## Public repository warning
 
 All committed files and history are public. Never commit credentials, private data, or proprietary material without redistribution permission.
+
+
+## Engineering Academy
+
+한국어 기초부터 서보드라이브 설계·제작·검증까지 이어지는 00~16장까지 작성된 통합 강의노트(이론·계산·검증 계획; 실물 검증 완료 의미 아님): [교육과정과 강의노트](docs/academy/README.md).
