@@ -68,18 +68,18 @@ TI RS-485 Design Guide는 120 Ω 케이블의 양 끝 종단, 짧은 stub, half-
 
 교육용으로 케이블 특성 임피던스 120 Ω, 양 끝 종단 각각 120 Ω이라 가정하면 단순 DC 등가 종단은
 
-\\[
-R_{eq}=120\\parallel120=60\\ \\Omega
-\\]
+\[
+R_{eq}=120\parallel120=60\ \Omega
+\]
 
 bias network가 5 V—680 Ω—차동 60 Ω 부하—680 Ω—GND의 단순 직렬 등가라고 가정하면
 
-\\[
-I=5/(680+60+680)=3.52\\ mA
-\\]
-\\[
-V_{diff}=I\\times60=0.211\\ V
-\\]
+\[
+I=5/(680+60+680)=3.52\ mA
+\]
+\[
+V_{diff}=I\times60=0.211\ V
+\]
 
 약 211 mV다. 수신기 threshold와 저항·전원 공차를 고려하면 margin이 부족할 수 있다. 이 예제는 교육용 단순 모델이며 실제 bias 저항 선정값이 아니다.
 
@@ -103,9 +103,9 @@ ID 설계에서는 시간 민감 제어/보호 상태 메시지를 높은 우선
 
 Nominal bit time은 개념적으로 다음 구간의 합이다.
 
-\\[
+\[
 t_{bit}=t_{SYNC}+t_{PROP}+t_{PH1}+t_{PH2}
-\\]
+\]
 
 SYNC_SEG는 edge 동기화, PROP_SEG는 cable/transceiver propagation 보상, PHASE_SEG1/2는 sample point 전후의 위상 보정에 쓰인다. 실제 prescaler, time quantum, SJW, sample point, oscillator tolerance, transceiver delay, cable topology를 MCU reference manual과 network design으로 확인한다. bitrate 숫자만 맞춘다고 통신이 안정적이지 않다.
 
@@ -119,20 +119,20 @@ CAN FD data phase 속도는 controller뿐 아니라 모든 node transceiver, cab
 
 ### 4.5 Bus load 근사
 
-\\[
-L=\\frac{\\sum_i N_i f_i}{R}
-\\]
+\[
+L=\frac{\sum_i N_i f_i}{R}
+\]
 
 N_i는 stuffing 등을 반영한 frame wire bit 수, f_i는 초당 전송 frame 수, R은 bus bit/s다.
 
 교육용으로 Classical CAN frame 한 개를 stuffing 포함 130 bit라 가정한다. 500 kbit/s bus에서 1 kHz 메시지 2개와 100 Hz 메시지 4개가 있다면
 
-\\[
-B=130(2\\times1000+4\\times100)=260000\\ bit/s
-\\]
-\\[
-L=260000/500000=0.52=52\\%
-\\]
+\[
+B=130(2\times1000+4\times100)=260000\ bit/s
+\]
+\[
+L=260000/500000=0.52=52\%
+\]
 
 이 값은 평균 부하 근사다. 실제 worst-case response time에는 arbitration, release jitter, burst, stuffing worst case, retransmission, error frame, intermission과 priority blocking을 반영한다. 평균 52%만으로 deadline 충족을 증명할 수 없다. CAN FD는 nominal/data phase bit 수를 각 bitrate로 나눠 전송시간을 계산한다.
 
@@ -209,9 +209,9 @@ length 확인 전에 payload를 읽거나 CRC 범위를 계산하지 않는다. 
 
 16-bit sequence의 modular difference:
 
-\\[
-\\Delta=(new-old)\\bmod 2^{16}
-\\]
+\[
+\Delta=(new-old)\bmod 2^{16}
+\]
 
 0<Δ<32768이면 new가 앞선 것으로 판단한다. Δ=0은 duplicate, Δ=32768은 모호하므로 reject, Δ>32768은 old/replay로 취급한다. 이 방식은 비교 사이 sequence gap이 half-range보다 작다는 가정이 필요하다. 장시간 단절 뒤에는 새 session/handshake로 baseline을 재설정한다.
 
@@ -344,9 +344,9 @@ FAULT_LATCH -- supervised clear only ------------> DISARMED
 
 8-N-1, 115200 baud, payload 24 byte, header 10 byte, CRC 2 byte, delimiter 2 byte, escaping 없음으로 가정한다. 총 38 byte × 10 bit = 380 bit다.
 
-\\[
-T=380/115200=0.0032986\\ s\\approx3.30\\ ms
-\\]
+\[
+T=380/115200=0.0032986\ s\approx3.30\ ms
+\]
 
 이론상 최대 약 303 frame/s다. turnaround, task scheduling, gap, escaping, retry는 제외했다.
 
@@ -358,12 +358,12 @@ T=380/115200=0.0032986\\ s\\approx3.30\\ ms
 
 frame=130 bit, 500 kbit/s, 1 kHz 메시지 2개, 100 Hz 메시지 4개:
 
-\\[
-B=130(2\\times1000+4\\times100)=260000\\ bit/s
-\\]
-\\[
-L=260000/500000=52\\%
-\\]
+\[
+B=130(2\times1000+4\times100)=260000\ bit/s
+\]
+\[
+L=260000/500000=52\%
+\]
 
 남은 48%가 전부 가용한 것은 아니다. error/retry/burst와 response-time margin을 확보해야 한다.
 
@@ -371,12 +371,12 @@ L=260000/500000=52\\%
 
 교육용으로 arbitration/control 40 bit @500 kbit/s, data+CRC 관련 600 bit @2 Mbit/s, ACK/EOF/intermission 20 bit @500 kbit/s라 가정한다. stuffing은 bit count에 이미 포함했다고 가정한다.
 
-\\[
+\[
 T=40/500000+600/2000000+20/500000
-\\]
-\\[
-T=80+300+40=420\\ \\mu s
-\\]
+\]
+\[
+T=80+300+40=420\ \mu s
+\]
 
 규격 frame의 실제 bit count가 아니라 서로 다른 bitrate 구간을 계산하는 예다. 실제 계산에는 ID, DLC, CRC, stuff bits, BRS, controller timing을 반영한다.
 
@@ -384,9 +384,9 @@ T=80+300+40=420\\ \\mu s
 
 old=65530, new=4인 16-bit counter:
 
-\\[
-\\Delta=(4-65530)\\bmod65536=10
-\\]
+\[
+\Delta=(4-65530)\bmod65536=10
+\]
 
 0<10<32768이므로 새 frame이다. old=100, new=99이면 Δ=65535이므로 old frame으로 reject한다.
 
@@ -563,7 +563,7 @@ F280039C 또는 STM32G4가 후보라는 사실만으로 UART/CAN instance, pin m
 
 1. Texas Instruments, [The RS-485 Design Guide (SLLA272D Rev. D)](https://www.ti.com/lit/an/slla272d/slla272d.pdf) — differential signaling, half/full duplex, driver direction, termination/stub, fail-safe.
 2. Texas Instruments, [Fail-safe biasing design](https://www.ti.com/document-viewer/lit/html/SSZT656) — open/short/idle bus와 receiver bias.
-3. CAN in Automation, [CAN FD — the basic idea](https://can-cia.org/can-knowledge/can-fd-the-basic-idea) — payload, BRS, arbitration/data phase, CRC.
+3. CAN in Automation, [CAN FD — the basic idea](https://www.can-cia.org/fileadmin/cia/documents/proceedings/2015_bendermann.pdfcan-knowledge/can-fd-the-basic-idea) — payload, BRS, arbitration/data phase, CRC.
 4. CAN in Automation, [Technical documents](https://can-cia.org/cia-groups/technical-documents) — CiA 601 CAN-FD physical interface/controller/system design과 bit timing/clock tolerance.
 5. ISO 11898-1, CAN data link layer and physical coding sublayer — frame, arbitration, error detection/confinement. 적용 edition을 명시한다.
 6. CAN in Automation, [CAN bit-rate estimation proceedings](https://can-cia.org/) — message cycle/frame length 기반 bus load 개념.
