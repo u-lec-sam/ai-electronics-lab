@@ -280,3 +280,18 @@
 - No firmware build, static timing proof, SIL/HIL, oscilloscope measurement, physical inspection, sensor calibration, motor test, stack or power-up is claimed.
 - **NO STACK / NO POWER** remains. No local device/filesystem access was used.
 - Next task: Chapter 11 on embedded C architecture, memory model, fixed-point/numeric robustness, HAL/driver boundaries, state machines, fault handling and testable firmware interfaces; keep target-specific code/configuration TBD until exact MCU/SDK evidence is verified.
+
+
+## Engineering Academy Chapter 10 — MCU real-time timing and scheduling (2026-11-28)
+
+- Added \`docs/academy/10-mcu-real-time-timing-and-scheduling.md\` (47,049 characters).
+- Re-read live Academy chapters 00–09, the lesson review checklist, Academy index, operator protocol, project state, PR #3 and current CI workflow before authoring.
+- Chapter 10 covers generic clock-tree/PLL relationships, timer prescalers/ticks/period/overflow, input capture/output compare, QEP quadrature and x1/x2/x4, M/T speed estimation, asynchronous input synchronization/metastability/digital qualification, interrupt architecture/priority/nesting/latency/jitter, critical sections/race conditions/atomic snapshots, DMA double-buffer ownership/cache coherency, PWM time-base/ADC SOC/acquisition/conversion/aperture timing, sensor timestamp alignment to the Chapter 08 FOC Park transform, WCET/response-time/utilization/deadline misses, watchdog and overrun handling.
+- Includes text timing diagrams, equations and dimensional checks, fully worked hypothetical calculations, 12 exercises with complete solutions, integrated firmware dataflow/pseudocode, TBD matrix, clock/timer/QEP/interrupt/ADC/DMA/FOC/fault verification templates and review questions.
+- Cross-chapter timing contract: sensor measurement timestamp \(t_m\), ADC effective aperture \(t_s\), and PWM active-output update \(t_u\) are distinct. Park uses angle predicted to \(t_s\); output-application delay to \(t_u\) is a separate control-delay problem. The lesson explicitly avoids treating conversion-complete or ISR-entry time as the analog sample time.
+- Clock/counter equations are generic models with endpoint semantics and prescaler encoding subject to the exact MCU TRM. ADC settling equation is an ideal first-order approximation, not a substitute for device minimum acquisition time or source-impedance validation.
+- Actual AEL-002 MCU/board/revision, oscillator/PLL/clock tree, pin mux, QEP/eCAP/ePWM/ADC routes, interrupt priorities/nesting, DMA channel, cache/coherency policy, PWM/ADC rates and aperture, ISR budget/WCET, watchdog and overrun policy remain **TBD** until exact board/SDK evidence is available.
+- Official TI references checked for C2000 peripheral overview and F28003x SYSCTL/ePWM/ADC DriverLib API concepts. These documents do not prove the project's actual board routing or installed SDK version.
+- Updated Academy index and project state. The live operator protocol already queues Chapter 11 (embedded firmware architecture and robust C foundations), so its active task was preserved rather than overwritten.
+- Existing CI workflow definition unchanged. No local device/filesystem access, firmware build/download, simulation, SIL/HIL, board inspection, signal measurement, motor test, stack or power-up was performed.
+- **NO STACK / NO POWER** remains mandatory.
