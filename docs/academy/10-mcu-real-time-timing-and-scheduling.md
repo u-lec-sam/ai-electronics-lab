@@ -1269,6 +1269,40 @@ SOC부터 PWM active update까지의 가상 경로는
 
 ### 16.7 Fault/overrun 검증 기록
 
+
+### 추가 timing requirement matrix
+
+| ID | 경로 | 기준 시각 | 측정/검증 방법 | 결과 |
+|---|---|---|---|---|
+| TIM-01 | PWM event → ADC SOC | time-base event | timer trace / SOC flag | TBD |
+| TIM-02 | SOC → ADC aperture | 실제 sample aperture | ADC TRM + 계측 | TBD |
+| TIM-03 | aperture → result valid | aperture | ADC flag + timer | TBD |
+| TIM-04 | sensor edge → capture | physical edge | pulse generator / logic analyzer | TBD |
+| TIM-05 | capture → coherent snapshot | capture timestamp | cycle counter / sequence | TBD |
+| TIM-06 | ADC result → FOC start | result valid | cycle counter | TBD |
+| TIM-07 | FOC start → PWM shadow write | ISR entry | cycle counter | TBD |
+| TIM-08 | shadow write → active PWM | load event | scope / logic analyzer | TBD |
+| TIM-09 | sensor event → actuation | sensor timestamp | synchronized capture | TBD |
+
+### 추가 software fault-injection matrix
+
+| ID | 주입 조건 | 기대 결과 |
+|---|---|---|
+| RT-01 | timer wrap | modular elapsed time 정상 |
+| RT-02 | 불법 A/B transition | diagnostic 증가, 각도 유효성 재평가 |
+| RT-03 | 입력 glitch / 최소 pulse | filter 요구조건대로 reject/pass |
+| RT-04 | capture overflow | sample invalid 또는 overrun fault |
+| RT-05 | ADC acquisition 부족 | sample quality fail 또는 진단 검출 |
+| RT-06 | DMA 소비 지연 | ownership violation/overrun 검출 |
+| RT-07 | high-priority interrupt 폭주 | latency/jitter 상한 확인, deadline 보호 |
+| RT-08 | FOC 실행시간 증가 | deadline miss 검출 및 정의된 안전 전이 |
+| RT-09 | 필수 task 정지 | supervisor가 watchdog feed 중단 |
+| RT-10 | PWM load miss | stale update 검출 |
+| RT-11 | sensor timestamp stale/reversal | angle prediction invalid |
+| RT-12 | CPU reset 중 PWM/enable | 독립 inhibit가 안전 상태 유지 |
+
+각 시험 기록에는 MCU/revision, board/schematic revision, SDK/compiler/build/linker map, clock tree, pin mux 근거, PWM/ADC timing, interrupt priority/nesting, DMA route/buffer/cache, 시험 조건, 계측기 bandwidth/sample rate/calibration, min/mean/max/jitter/overrun, raw trace, commit SHA와 재현 절차를 남긴다.
+
 - [ ] 높은 우선순위 interrupt storm을 주입했다.
 - [ ] 긴 critical section 또는 의도적 CPU load를 주입했다.
 - [ ] DMA buffer 소비 지연과 overrun을 주입했다.
@@ -1503,6 +1537,10 @@ U=\frac4{40}+\frac{10}{1000}+\frac{30}{2000}
 3. Texas Instruments, [F28003x DriverLib API Guide — ePWM](https://software-dl.ti.com/C2000/docs/C2000_driverlib_api_guide/f28003x/build/html/modules/epwm.html) — time-base, compare, event trigger 및 ADC SOC 관련 API.
 4. Texas Instruments, [F28003x DriverLib API Guide — ADC](https://software-dl.ti.com/C2000/docs/C2000_driverlib_api_guide/f28003x/build/html/modules/adc.html) — SOC trigger, channel, sample window와 ADC API.
 5. Texas Instruments, [TMS320F28003x product documentation](https://www.ti.com/product/TMS320F280039C) — 정확한 device datasheet, TRM, silicon errata와 관련 문서의 최신 개정 확인 진입점.
+
+6. Texas Instruments, [C2000 ePWM Developer's Guide](https://www.ti.com/lit/an/sprad12a/sprad12a.pdf) — ePWM time-base와 ADC trigger 구조 보충 자료.
+7. Texas Instruments, [Optimizing Real Time Control Applications (AM263Px MCU+ SDK)](https://software-dl.ti.com/mcu-plus-sdk/esd/AM263PX/09_02_00_56/exports/docs/api_guide_am263px/OPTIMIZING_REAL_TIME_CONTROL_APPLICATIONS.html) — sensing/processing/PWM 경로와 실시간 성능 분석 관점. AM263Px의 ARM R5F cycle 수나 peripheral semantics를 C2000/STM32에 일반화하지 않는다.
+8. Arm, [Cortex-M exception entry and return](https://developer.arm.com/documentation/dui0552/a/the-cortex-m3-processor/exception-model/exception-entry-and-return) — Cortex-M exception model 참고이며 C28x 또는 다른 core의 latency 수치 근거가 아니다.
 
 ### 적용 주의
 
