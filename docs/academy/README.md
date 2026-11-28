@@ -191,6 +191,7 @@
 - [06장 — 모터의 전기·기계·열 모델과 정격 해석](06-motor-electrical-mechanical-and-thermal-models.md)
 - [07장 — DC 링크와 2레벨 3상 전압형 인버터](07-dc-link-and-three-phase-inverter.md)
 - [08장 — 3상 전류 벡터, Clarke/Park 변환과 PMSM FOC](08-clarke-park-pmsm-foc.md)
+- [09장 — 엔코더·Hall·Resolver와 회전자 위치 피드백](09-rotor-position-sensors-and-feedback.md)
 - [강의노트 품질 검토 체크리스트](LESSON_REVIEW_CHECKLIST.md)
 
-**진행 상태:** 00~08장과 품질 체크리스트가 작성된 초기판이다. 08장은 진폭 불변 Clarke/Park와 역변환, 전기각·극쌍수, PMSM d/q 전압·토크 모델, SPMSM/IPMSM, 전류 PI·디커플링·전압 벡터 포화·anti-windup, 속도/위치 루프, PWM/ADC 동기화, 전류 센서 보정 및 펌웨어/검증 템플릿을 다룬다. 07장은 DC 링크와 2레벨 VSI/SVPWM 기초를 제공한다. 실제 AEL-002 모터·센서 파라미터, 전류 한계, PWM/ADC 타이밍, 제어기 이득은 TBD로 유지한다. 전체 교재 완성이나 실물 검증으로 간주하지 않는다. 각 장은 실제 프로젝트 의존성과 다음 안전한 개발 작업에 맞춰 순차적으로 확장한다.
+**진행 상태:** 00~09장과 품질 체크리스트가 작성된 초기판이다. 09장은 증분형 A/B/Z, x1/x2/x4, 단회전·다회전 절대 엔코더, Hall 6섹터, Resolver SIN/COS 동기 복조, 기계각·전기각·오프셋, 속도 추정·타임스탬프·보간·양자화, CRC·timeout·센서 진단·이중화와 펌웨어 상태흐름을 다룬다. 실제 AEL-002 센서 모델·분해능·인터페이스·핀 매핑·방향·전기각 오프셋·속도 범위·타이밍·진단 임계값은 TBD다. 전체 교재 완성이나 실물 검증으로 간주하지 않는다. 각 장은 실제 프로젝트 의존성과 다음 안전한 개발 작업에 맞춰 순차적으로 확장한다.
