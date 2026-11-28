@@ -375,19 +375,20 @@ V_{lim}(k)=m\frac{V_{dc,meas}(k)}{\sqrt3}
 Parallel PI의 integral state가 voltage 단위인 경우:
 
 \[
-u_u[k]=K_pe[k]+x[k]
+u_{PI,u}[k]=K_pe[k]+x[k],\qquad
+v_{dq,u}[k]=u_{PI,u}[k]+v_{FF}[k]
 \]
 
 \[
-u_s[k]=\operatorname{sat}(u_u[k]+\mathrm{FF})
+v_{dq,s}[k]=\operatorname{VectorLimit}(v_{dq,u}[k])
 \]
 
 \[
 x[k+1]=x[k]+K_iT_se[k]
-+\frac{T_s}{T_t}(u_s[k]-u_u[k])
++\frac{T_s}{T_t}(v_{dq,s}[k]-v_{dq,u}[k])
 \]
 
-\(T_t\)는 tracking time constant이며 \(K_{aw}=1/T_t\)다. Feed-forward가 saturation 앞/뒤 어느 지점에 포함되는지 구현 정의를 고정하고, anti-windup residual은 controller contribution과 actuator-applied command 사이의 차이로 일관되게 구성한다. Vector saturation이면 d/q residual을 함께 사용한다.
+\(T_t\)는 tracking time constant이며 \(K_{aw}=1/T_t\)다. Feed-forward를 포함한 전체 unsaturated voltage vector와 실제 적용 가능한 saturated vector의 차이를 residual로 사용한다. 두 축의 integral state에는 각각 해당 d/q residual을 반영한다. 구현에 따라 anti-windup residual을 PI-only domain으로 환산한다면 그 변환식을 명시하고 검증한다.
 
 ### 6.2 Conditional integration
 
