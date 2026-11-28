@@ -507,30 +507,30 @@ Physical double-pulse testing and power-stage fault injection are high-energy en
 ## 13. Official/professional source cross-check
 
 ### 13.1 Silicon MOSFET gate physics and drive
-- Infineon, *Gate drive for power MOSFETs in switching applications*, AN_2203_PL18_2204_004502, V1.0, 2022-04-20. Sections 2–6 cover gate limits, gate charge, drive current and high-side/isolated drivers. Scope explicitly focuses on silicon MOSFETs; it does not cover IGBT/WBG devices.
-- Infineon, *Gate Driver Requirements for MOSFETs, IGBTs, SiC MOSFETs and GaN HEMTs* — device-dependent gate voltage, UVLO, source/sink current, CMTI and protection selection overview.
-- onsemi, AND9987/D — Miller capacitance induced turn-on and active Miller clamp example for IGBT. Example values are not universal.
+- Infineon, [*Gate drive for power MOSFETs in switching applications*](https://www.infineon.com/assets/row/public/documents/24/42/infineon-gate-drive-for-power-mosfets-in-switchtin-applications-applicationnotes-en.pdf), AN_2203_PL18_2204_004502, V1.0, 2022-04-20. Sections 2–6 cover gate limits, gate charge, drive current and high-side/isolated drivers. Scope explicitly focuses on silicon MOSFETs; it does not cover IGBT/WBG devices.
+- Infineon, [Gate Driver Requirements for MOSFETs, IGBTs, SiC MOSFETs and GaN HEMTs](https://www.infineon.com/product-information/gate-driver-requirements-mosfet-igbt-sic-gan) — device-dependent gate voltage, UVLO, source/sink current, CMTI and protection selection overview.
+- onsemi, [AND9987/D](https://www.onsemi.com/pub/collateral/and9987-d.pdf) — Miller capacitance induced turn-on and active Miller clamp example for IGBT. Example values are not universal.
 
 ### 13.2 GaN drive and layout
-- TI, SLUAAM3, *GaN Driver Schematic and Layout Recommendations*, August 2022 — GaN half-bridge gate driver schematic, bypassing, bootstrap and low-parasitic layout.
-- TI, SLLA456, *Optimizing Gate Driver Layout for LiDAR Applications*, February 2020 — gate/power loop coupling and parasitic inductance; use as layout physics reference, not motor-drive design recipe.
-- EPC, AN003, *Accurately Measuring High Speed GaN Transistors* and EPC *Driving eGaN Transistors for Maximum Performance* — GaN-specific gate-drive, measurement and reverse conduction considerations. Device-family specifics must not be generalized.
-- Infineon, *Optimizing PCB layout for CoolGaN power transistors* — low gate threshold, Miller current and parasitic-induced false turn-on. Manufacturer technology-specific guidance.
+- TI, [SLUAAM3, *GaN Driver Schematic and Layout Recommendations*](https://www.ti.com/document-viewer/lit/html/SLUAAM3), August 2022 — GaN half-bridge gate driver schematic, bypassing, bootstrap and low-parasitic layout.
+- TI, [SLLA456, *Optimizing Gate Driver Layout for LiDAR Applications*](https://www.ti.com/lit/an/slla456/slla456.pdf), February 2020 — gate/power loop coupling and parasitic inductance; use as layout physics reference, not motor-drive design recipe.
+- EPC, [AN003, *Accurately Measuring High Speed GaN Transistors*](https://epc-co.com/epc/Portals/0/epc/documents/product-training/Using_GaN_r4.pdf) and [*Driving eGaN Transistors for Maximum Performance*](https://epc-co.com/epc/Portals/0/epc/documents/articles/EPC_Driving_eGaN_Transistors_fro_Maximum_Performance.pdf) — GaN-specific gate-drive, measurement and reverse conduction considerations. Device-family specifics must not be generalized.
+- Infineon, [*Optimizing PCB layout for CoolGaN power transistors*](https://www.infineon.com/row/public/documents/24/42/infineon-coolgan-high-voltage-power-transistors-for-pcb-layout-optimization-applicationnotes-en.pdf) — low gate threshold, Miller current and parasitic-induced false turn-on. Manufacturer technology-specific guidance.
 
 ### 13.3 Miller clamp, DESAT, OCP and driver fault
-- TI, SLYA091, *Does My Design Need a Miller Clamp?*, December 2024 — clamp selection and parasitic path considerations.
-- ST, STGAP4S datasheet DS13833 Rev. 6, December 2024 — one isolated driver example with programmable DESAT/OCP, UVLO/OVLO, soft turn-off, Miller clamp and diagnostic outputs. This part is a reference example, not AEL-002 selection.
+- TI, [SLYA091, *Does My Design Need a Miller Clamp?*](https://www.ti.com/document-viewer/lit/html/SLYA091), December 2024 — clamp selection and parasitic path considerations.
+- ST, [STGAP4S datasheet DS13833 Rev. 6](https://www.st.com/resource/en/datasheet/stgap4s.pdf), December 2024 — one isolated driver example with programmable DESAT/OCP, UVLO/OVLO, soft turn-off, Miller clamp and diagnostic outputs. This part is a reference example, not AEL-002 selection.
 - onsemi, AND9987/D — IGBT parasitic turn-on/Miller clamp.
 - Infineon gate-driver feature and parameter guides — DESAT, soft-off, active shutdown, UVLO, CMTI and propagation-delay selection.
 
 ### 13.4 Bootstrap supply
-- Infineon, AN-1123, *Bootstrap Network Analysis*, Rev. 1.01, 2024-11-20 — bootstrap charge, refresh limitations, integrated bootstrap behavior.
-- ST, AN5789 Rev. 1, March 2022 — bootstrap capacitor/diode selection.
-- Infineon, *Using monolithic high-voltage gate drivers* — bootstrap capacitor and high-side bias constraints.
+- Infineon, [AN-1123, *Bootstrap Network Analysis*](https://www.infineon.com/dgdl/Infineon-Bootstrap_Network_Analysis-ApplicationNotes-v01_00-EN.pdf?fileId=5546d462533600a40153559692661096), Rev. 1.01, 2024-11-20 — bootstrap charge, refresh limitations, integrated bootstrap behavior.
+- ST, [AN5789 Rev. 1](https://www.st.com/resource/en/application_note/an5789-considerations-on-bootstrap-circuitry-for-gate-drivers-stmicroelectronics.pdf), March 2022 — bootstrap capacitor/diode selection.
+- Infineon, [*Using monolithic high-voltage gate drivers*](https://www.infineon.com/assets/row/public/documents/24/42/infineon-using-monolithic-high-voltage-gate-drivers-applicationnotes-en.pdf) — bootstrap capacitor and high-side bias constraints.
 
 ### 13.5 Drive safety standards
-- IEC 61800-5-1:2022, corrected version including corrigenda through 2025-12 — adjustable-speed PDS electrical, thermal, fire, mechanical and energy hazard requirements. Scope catalogue checked; full normative text not reviewed clause-by-clause.
-- IEC 61800-5-2:2016+AMD1:2026 — functional safety of safety-related power drive systems. Scope/catalogue only; no STO implementation, certification or compliance is claimed.
+- [IEC 61800-5-1:2022](https://webstore.iec.ch/en/publication/62103), corrected version including corrigenda through 2025-12 — adjustable-speed PDS electrical, thermal, fire, mechanical and energy hazard requirements. Scope catalogue checked; full normative text not reviewed clause-by-clause.
+- [IEC 61800-5-2:2016+AMD1:2026](https://webstore.iec.ch/en/publication/117563) — functional safety of safety-related power drive systems. Scope/catalogue only; no STO implementation, certification or compliance is claimed.
 
 출처 적용 원칙:
 1. Infineon silicon MOSFET note를 GaN/IGBT의 세부 정격 근거로 사용하지 않는다.
