@@ -22,27 +22,24 @@
 
 ## Active next task
 
-### AEL Academy: embedded communications and diagnostic services (Chapter 12)
+### AEL Academy: system integration and verification architecture (Chapter 13)
 
-**Why now:** Chapter 11 establishes portable C, module boundaries, state/fault policy, parameter validation and test seams. The next dependency is to define robust external command/telemetry and service interfaces without allowing communication code to bypass the control and safety state machines.
+**Why now:** Chapters 08–12 define FOC, sensor feedback, real-time scheduling, robust C, communications and diagnostic services. The next safe dependency is an end-to-end integration contract that proves timing, data validity, state transitions and fault response are testable without assuming target hardware.
 
 **Scope:**
-- Explain UART framing, RS-485 electrical/network concepts, half-duplex direction control, termination/bias and physical-layer versus protocol boundaries.
-- Explain CAN/CAN-FD frames, identifiers/arbitration, bit timing concepts, bus load, error counters, error-passive/bus-off and recovery.
-- Define serialization, endian, version/length/CRC, sequence counters, timestamps, timeout and stale-command rejection.
-- Separate command, telemetry, diagnostics, parameter transfer and firmware-update responsibilities.
-- Define safe command semantics: explicit arm, command limits, freshness, acknowledgement, fault latch and controlled re-arm.
-- Include communication state machines, fault-injection cases, bus-load calculations, fully solved exercises and verification templates.
-- Connect Chapter 08–11 FOC timing, sensor validity, DMA ownership, parameter schema and fault records.
-- Keep actual AEL-002 transceiver, connector, pin mux, baud/bit rate, CAN identifier map, network topology, isolation, SDK and protocol profile TBD until board/BOM/SDK evidence is verified.
-- Update Academy index, project memory and operator queue; preserve CI and **NO STACK / NO POWER**.
+- Derive end-to-end timing/latency budgets from ADC/PWM sampling through FOC, sensor timestamp, communication ingress/egress and telemetry.
+- Define interface contracts and traceability from requirements to host tests, SIL, HIL and eventual hardware tests.
+- Define deterministic fault-injection, scheduler overload, communication loss, sensor invalidity, parameter corruption and fault-latch race tests.
+- Specify evidence levels and release gates; distinguish host CI, target build, simulation, HIL and physical verification.
+- Keep all actual AEL-002 MCU/SDK, bus timing, hardware ratings, wiring and safety settings TBD until evidence is available.
+- Update Academy index, project memory and operator queue; preserve existing CI and **NO STACK / NO POWER**.
 
-**Acceptance criteria:** physical layer is not confused with protocol; framing is unambiguous; corrupted/stale/replayed/out-of-range commands are rejected; bus-off and timeout have deterministic state transitions; communications cannot independently clear a latched safety fault; all actual AEL-002 wiring/rates remain TBD without evidence.
+**Acceptance criteria:** every critical interface has units/range/validity/timestamp/ownership/deadline; safety faults have traceable detection-to-safe-state paths; test cases identify evidence level and pass criteria; no host/CI result is represented as hardware validation.
 
-**Blockers:** Generic protocol architecture can proceed. Exact board transceiver, isolation, connector/pinout, network peer and product protocol requirements remain unverified. Hardware remains **NO STACK / NO POWER**.
+**Blockers:** generic integration/test architecture can proceed. Actual target/compiler, motor/load, board revision, transceiver/network and physical stop characteristics remain unverified.
 
 ### AEL-002: sample-specific no-power inspection and requirements intake (gated)
 Resume only when physical inspection and motor/supply/load data can be supplied. Never infer sample jumper states from schematic drawings.
 
 ### AEL-001: verify STM32G0B1CET6 pin map and provisional power tree (deferred)
-Resume after the AEL-002 evaluation-stack interface is established, unless a dependency makes it higher priority.
+Resume after AEL-002 integration interfaces are established, unless a dependency makes it higher priority.
