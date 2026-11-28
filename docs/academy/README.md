@@ -193,6 +193,7 @@
 - [08장 — 3상 전류 벡터, Clarke/Park 변환과 PMSM FOC](08-clarke-park-pmsm-foc.md)
 - [09장 — 엔코더·Hall·Resolver와 회전자 위치 피드백](09-rotor-position-sensors-and-feedback.md)
 - [10장 — MCU 시간 기반 주변장치와 실시간 FOC 실행 구조](10-mcu-real-time-timing-and-scheduling.md)
+- [11장 — 임베디드 C 아키텍처와 견고한 펌웨어 기반](11-embedded-c-architecture-and-robust-firmware.md)
 - [강의노트 품질 검토 체크리스트](LESSON_REVIEW_CHECKLIST.md)
 
-**진행 상태:** 00~10장과 품질 체크리스트가 작성된 초기판이다. 09장은 증분형 A/B/Z, x1/x2/x4, 단회전·다회전 절대 엔코더, Hall 6섹터, Resolver SIN/COS 동기 복조, 기계각·전기각·오프셋, 속도 추정·타임스탬프·보간·양자화, CRC·timeout·센서 진단·이중화와 펌웨어 상태흐름을 다룬다. 실제 AEL-002 센서 모델·분해능·인터페이스·핀 매핑·방향·전기각 오프셋·속도 범위·타이밍·진단 임계값은 TBD다. 10장은 clock tree, timer/capture/compare/QEP, interrupt/atomicity, DMA ownership, PWM/ADC aperture, FOC 지연 보상, WCET/watchdog를 다룬다. MCU별 설정·라우팅·주파수·실행시간은 TBD다. 전체 교재 완성이나 실물 검증으로 간주하지 않는다. 각 장은 실제 프로젝트 의존성과 다음 안전한 개발 작업에 맞춰 순차적으로 확장한다.
+**진행 상태:** 00~11장과 품질 체크리스트가 작성된 초기판이다. 09장은 증분형 A/B/Z, x1/x2/x4, 단회전·다회전 절대 엔코더, Hall 6섹터, Resolver SIN/COS 동기 복조, 기계각·전기각·오프셋, 속도 추정·타임스탬프·보간·양자화, CRC·timeout·센서 진단·이중화와 펌웨어 상태흐름을 다룬다. 실제 AEL-002 센서 모델·분해능·인터페이스·핀 매핑·방향·전기각 오프셋·속도 범위·타이밍·진단 임계값은 TBD다. 10장은 clock tree, timer/capture/compare/QEP, interrupt/atomicity, DMA ownership, PWM/ADC aperture, FOC 지연 보상, WCET/watchdog를 다룬다. MCU별 설정·라우팅·주파수·실행시간은 TBD다. 11장은 integer range/signedness/overflow, fixed/floating point, memory model·stack/heap·linker/startup, const/volatile/atomic, HAL/driver/control/application 계층, 상태기계·fault latch, parameter CRC/versioning, host unit-test seam, static analysis와 code review를 다룬다. 실제 compiler·ABI·SDK·memory map·Q format·build flags는 TBD다. 전체 교재 완성이나 실물 검증으로 간주하지 않는다. 각 장은 실제 프로젝트 의존성과 다음 안전한 개발 작업에 맞춰 순차적으로 확장한다.
