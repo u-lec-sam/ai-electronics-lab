@@ -53,6 +53,17 @@
 - [ ] 출처 전문을 확인하지 못했으면 공개 초록/범위 이상으로 주장하지 않는다.
 - [ ] 출처를 확인하지 못한 사실을 출처가 있는 것처럼 쓰지 않는다.
 
+## H. 전류 센싱·아날로그 프런트엔드 (해당 장에 적용)
+- [ ] shunt 위치별 전류 관측 창과 blind window를 PWM 상태별로 검토했다.
+- [ ] shunt 전력·pulse energy·TCR·공차·terminal temperature·기생 인덕턴스를 검토했다.
+- [ ] Kelvin sense node와 differential input routing, 입력 RC 대칭성을 검토했다.
+- [ ] amplifier common-mode/transient/CMTI, recovery, output swing, bandwidth, offset/gain drift를 정확한 조건으로 검토했다.
+- [ ] anti-alias filter phase delay와 ADC S+H settling/kickback/source impedance를 함께 계산했다.
+- [ ] PWM edge/blanking/valid sample window/ADC capture timestamp/FOC deadline을 연결했다.
+- [ ] offset/gain/polarity/phase calibration과 uncertainty budget의 가정을 기록했다.
+- [ ] fast hardware comparator trip과 ADC/software diagnostic을 분리하고 latch/re-arm을 검토했다.
+- [ ] exact MCU datasheet/TRM/errata 및 silicon revision 적용성을 확인하거나 TBD로 남겼다.
+
 ## G. 변경 및 CI
 - [ ] 기존 장의 수식·기호·단위와 용어 일관성을 확인했다.
 - [ ] 변경된 링크와 목차를 확인했다.
