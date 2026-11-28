@@ -22,21 +22,23 @@
 
 ## Active next task
 
-### AEL Academy: system integration and verification architecture (Chapter 13)
+### AEL Academy: power semiconductor and gate-driver architecture (Chapter 14)
 
-**Why now:** Chapters 08–12 define FOC, sensor feedback, real-time scheduling, robust C, communications and diagnostic services. The next safe dependency is an end-to-end integration contract that proves timing, data validity, state transitions and fault response are testable without assuming target hardware.
+**Why now:** Chapters 07–13 cover DC link, inverter operation, FOC, sensing, real-time firmware, communications and integration verification. The next dependency is understanding the switching devices, gate-drive requirements and hardware protection chain before any power-stage BOM or schematic can be responsibly selected.
 
 **Scope:**
-- Derive end-to-end timing/latency budgets from ADC/PWM sampling through FOC, sensor timestamp, communication ingress/egress and telemetry.
-- Define interface contracts and traceability from requirements to host tests, SIL, HIL and eventual hardware tests.
-- Define deterministic fault-injection, scheduler overload, communication loss, sensor invalidity, parameter corruption and fault-latch race tests.
-- Specify evidence levels and release gates; distinguish host CI, target build, simulation, HIL and physical verification.
-- Keep all actual AEL-002 MCU/SDK, bus timing, hardware ratings, wiring and safety settings TBD until evidence is available.
-- Update Academy index, project memory and operator queue; preserve existing CI and **NO STACK / NO POWER**.
+- Compare silicon MOSFET, GaN and IGBT operating regions and device-selection parameters without selecting an AEL part.
+- Explain gate charge, Miller plateau, dv/dt, di/dt, common-source inductance, gate loop and power loop.
+- Derive deadtime, shoot-through and body-diode/reverse-conduction trade-offs.
+- Compare bootstrap, isolated and charge-pump gate supplies; UVLO, negative gate bias and Miller clamp where applicable.
+- Explain overcurrent, short-circuit/desaturation, comparator, gate-driver fault, hardware latch and independent inhibit paths.
+- Build worst-case loss/thermal and fault propagation calculations with clearly hypothetical values.
+- Cross-check every critical claim against applicable standards, exact manufacturer datasheets/reference manuals and independent professional sources.
+- Keep actual AEL-002 device/BOM, gate driver, DC bus, current, gate resistor, deadtime, protection thresholds and timing TBD.
 
-**Acceptance criteria:** every critical interface has units/range/validity/timestamp/ownership/deadline; safety faults have traceable detection-to-safe-state paths; test cases identify evidence level and pass criteria; no host/CI result is represented as hardware validation.
+**Acceptance criteria:** source register complete for critical claims; assumptions and operating conditions explicit; calculations independently checked; fault chain and verification matrix defined; no device ratings or board settings inferred.
 
-**Blockers:** generic integration/test architecture can proceed. Actual target/compiler, motor/load, board revision, transceiver/network and physical stop characteristics remain unverified.
+**Blockers:** exact motor, DC supply, board revision, candidate semiconductor/driver and cooling remain unverified. Generic education and requirements templates can proceed.
 
 ### AEL-002: sample-specific no-power inspection and requirements intake (gated)
 Resume only when physical inspection and motor/supply/load data can be supplied. Never infer sample jumper states from schematic drawings.
