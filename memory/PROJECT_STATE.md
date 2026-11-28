@@ -252,3 +252,17 @@
 - Existing CI workflow file remains unchanged; its branch blob SHA remains \`7af60d723f8b98c2eeb1767c7251a8978fa3cfb3\`.
 - **NO STACK / NO POWER** remains. No local device/filesystem access was used.
 - Next Academy task: Chapter 09 on encoder/Hall/resolver feedback, angle sensing, electrical-angle offset/alignment, interpolation, startup and sensor diagnostics, with all actual AEL-002 sensor selections and pin mappings TBD.
+
+
+## Engineering Academy Chapter 09 — rotor position sensing (2026-11-28)
+
+- Added \`docs/academy/09-rotor-position-sensors-and-feedback.md\` (30,898 characters).
+- Re-read live branch/PR #3, current CI checks, operator loop, Academy index, Chapters 00–08, and the lesson quality checklist before authoring.
+- Chapter 09 covers incremental A/B/Z quadrature, PPR versus CPR and x1/x2/x4 decoding, index acquisition and its distinction from electrical zero, single-turn/multi-turn absolute encoders, Gray/binary coding, serial frame validation and CRC, three-Hall six-sector sensing/interpolation, Resolver excitation and synchronous SIN/COS demodulation, atan2 and amplitude diagnostics, mechanical/electrical angle and pole pairs, speed M/T methods, timer timestamps/wrap, interpolation/extrapolation, quantization/jitter/delay error budgets, signal integrity, plausibility diagnostics, dual-sensor residuals, FOC data contract, firmware states and test templates.
+- Includes derivations, dimensional checks, four worked example groups, twelve fully solved exercises, TBD requirements matrix, software/SIL test scenarios, hardware-gate checklist, and source links.
+- Convention cross-check: \`theta_e = wrap(p * theta_m + theta_0)\`; resolver electrical cycles are not presumed equal to motor pole pairs; Hall sectors are 60 electrical degrees only under the stated ideal three-Hall assumption; PPR/CPR definitions are not conflated.
+- Actual AEL-002 sensor type/model/revision, PPR/CPR/bit resolution, interface, wiring/pin map, sensor supply, direction, motor pole pairs, electrical offset, speed range, edge/frame rates, timer/ADC timing, error thresholds and redundancy policy remain **TBD**.
+- Updated Academy index, project state and operator loop. Next task is Chapter 10 on MCU timers/QEP/capture/interrupts/DMA, PWM/ADC scheduling and real-time execution budgets.
+- Existing CI workflow remains unchanged. Branch workflow blob SHA: \`7af60d723f8b98c2eeb1767c7251a8978fa3cfb3\`.
+- No local device/filesystem access. No sensor inspection, alignment, calibration, firmware build, SIL/HIL execution, motor test, stack or power-up was performed.
+- **NO STACK / NO POWER** remains.
