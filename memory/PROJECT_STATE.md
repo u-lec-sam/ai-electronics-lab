@@ -318,3 +318,20 @@
 - Updated Academy index, project memory and operator queue. Next task: Chapter 12 on embedded communications and diagnostic services (UART/RS-485, CAN/CAN-FD, framing/serialization, arbitration, timeouts, bus-off/error recovery, command freshness/sequence, parameter transport and safe command semantics); keep exact physical interface, transceiver, baud/bit rate, pin mux, SDK and network topology TBD until evidence is available.
 - Existing CI workflow unchanged (branch blob SHA \`7af60d723f8b98c2eeb1767c7251a8978fa3cfb3\`). No local device/filesystem access, target build, static analysis run, SIL/HIL, hardware inspection, measurement, motor test, stack or power-up is claimed.
 - **NO STACK / NO POWER** remains mandatory.
+
+
+## Engineering Academy Chapter 12 — embedded communications and diagnostics (2026-11-28)
+
+- Added `docs/academy/12-embedded-communications-and-diagnostics.md` on branch `agent/ael-002-48v-modular-servo-brief`.
+- Re-read the live PR #3, branch/head, operator protocol, Academy index, quality checklist, project state, CI workflow and Academy 00–11 lesson sources before authoring. PR #3 was open/draft/not merged at review time.
+- Chapter 12 covers UART asynchronous framing/throughput, RS-485 differential physical layer, half-duplex DE/RE and UART transmission-complete ordering, termination/bias/stub/common-mode considerations; Classical CAN and CAN-FD frame fields, identifiers, non-destructive arbitration, bit timing, BRS, bus-load estimation, error-active/error-passive/bus-off and bounded recovery.
+- Defines an educational delimiter/escape framing example and explicit little-endian serialization schema with version, type, flags, sequence, timestamp, payload length, payload and CRC-16/CCITT-FALSE parameters/test vector. Distinguishes link ACK from application received/accepted/applied acknowledgements and CRC from authentication.
+- Defines modular sequence wrap/replay rejection, monotonic clock-domain rules, local receive-time freshness, per-message timeout, and stale command rejection.
+- Separates command, telemetry, diagnostics, parameter transfer and firmware update services. Integrates Chapter 08 FOC limits/sign conventions, Chapter 09 sensor validity/timestamps, Chapter 10 DMA ownership/ISR/WCET, and Chapter 11 C serialization/parameter schema/fault records.
+- Adds drive state and communication recovery state machines, bounded bus-off recovery, fault-injection matrix, protocol/message/timing verification templates, worked UART/RS-485/CAN/CAN-FD/sequence/CRC calculations and 15 fully solved exercises.
+- Communication can read/acknowledge fault notifications but cannot clear FAULT_LATCH or directly enable PWM. Supervised clear returns only to DISARMED; link recovery never auto-resumes old torque/speed commands.
+- Actual AEL-002 transceiver, connector/pinout, DE/RE mapping, UART baud, CAN controller/transceiver, nominal/data bit rates, CAN ID map, topology, termination/bias, isolation, protocol profile, timeout/stop profile, security model, SDK/driver/compiler remain TBD until exact board/BOM/peer/toolchain evidence is available.
+- Generic sources: TI RS-485 Design Guide SLLA272D; TI fail-safe biasing article; CiA CAN-FD basic concept and technical documents; ISO 11898-1. They explain generic protocol behavior, not AEL-002 hardware integration.
+- Updated Academy index and operator queue. Next task: Chapter 13 system integration and verification architecture—derive end-to-end timing/latency budgets across Chapters 08–12, define SIL/host fault-injection and interface conformance strategy, trace safety requirements to tests, and retain all target/hardware settings as TBD until evidence exists.
+- Existing CI workflow remains unchanged (blob SHA `7af60d723f8b98c2eeb1767c7251a8978fa3cfb3`). No local device/filesystem access, target build, bus measurement, SIL/HIL, physical inspection, hardware test, stack or power-up is claimed.
+- **NO STACK / NO POWER** remains mandatory.
