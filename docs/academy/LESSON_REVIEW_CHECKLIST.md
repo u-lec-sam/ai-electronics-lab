@@ -64,6 +64,18 @@
 - [ ] fast hardware comparator trip과 ADC/software diagnostic을 분리하고 latch/re-arm을 검토했다.
 - [ ] exact MCU datasheet/TRM/errata 및 silicon revision 적용성을 확인하거나 TBD로 남겼다.
 
+## I. FOC 전류 루프·디지털 제어기 (해당 장에 적용)
+- [ ] PMSM d/q 부호·Park convention·극쌍수·전기각속도 규약을 고정했다.
+- [ ] decoupling/feed-forward 부호를 plant 식에 대입해 검산했다.
+- [ ] continuous PI plant assumptions, pole-zero cancellation 및 gain 단위를 검산했다.
+- [ ] Forward Euler/Backward Euler/Tustin의 recurrence와 state indexing을 혼합하지 않았다.
+- [ ] 실제 inverter voltage vector limit, DC bus measurement, modulation reserve와 axis priority를 검토했다.
+- [ ] anti-windup residual이 feed-forward 포함 applied voltage와 일관되며 reset/freeze semantics가 명시됐다.
+- [ ] sensor/AFE/ADC/ZOH/compute/PWM delay를 중복 없이 합산하고 worst-case jitter를 검토했다.
+- [ ] idealized delay phase와 실제 loop phase/gain margin을 구분했다.
+- [ ] Rs/Ld/Lq/flux/Vdc/speed/delay corner sweep을 정의했다.
+- [ ] host/SIL 결과와 target timing/physical evidence의 경계를 구분했다.
+
 ## G. 변경 및 CI
 - [ ] 기존 장의 수식·기호·단위와 용어 일관성을 확인했다.
 - [ ] 변경된 링크와 목차를 확인했다.
