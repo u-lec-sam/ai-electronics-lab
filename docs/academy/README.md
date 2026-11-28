@@ -197,6 +197,7 @@
 - [12장 — 임베디드 통신과 진단 서비스](12-embedded-communications-and-diagnostics.md)
 - [13장 — 시스템 통합과 검증 아키텍처](13-system-integration-and-verification-architecture.md)
 - [14장 — 전력 반도체와 게이트 드라이버 아키텍처](14-power-semiconductors-and-gate-driver-architecture.md)
+- [15장 — 모터 제어 전류 센싱과 아날로그 프런트엔드](15-current-sensing-and-analog-front-end.md)
 - [출처 교차검증 기록부](SOURCE_REVIEW_REGISTER.md)
 - [강의노트 품질 검토 체크리스트](LESSON_REVIEW_CHECKLIST.md)
 
@@ -210,3 +211,6 @@
 
 
 **14장 범위:** silicon MOSFET/e-mode GaN/IGBT 비교, gate charge/Miller plateau, gate/power loop parasitics, deadtime/shoot-through, bootstrap/isolated bias, UVLO/Miller clamp/OCP/DESAT/soft turn-off, conduction/switching/gate loss, fault-energy, verification matrix. 실제 AEL-002 power device/driver/BOM/threshold는 TBD이며 NO STACK / NO POWER를 유지한다.
+
+
+**15장 범위:** low-side single/dual/three-shunt, inline phase/DC-link sensing, Kelvin routing, shunt TCR/tolerance/pulse power/parasitics, current-sense/differential/isolated amplifier와 Hall sensor, common-mode/transient recovery, anti-alias filter, ADC S+H settling/kickback, PWM 동기 sampling, offset/gain/polarity/phase calibration, uncertainty, comparator fast OCP, 16 fault-injection cases 및 완전 풀이 계산. TI EVM 예시는 AEL-002 설계값과 분리하고, 실제 shunt/amplifier/ADC route/gain/bandwidth/current limits/calibration은 TBD로 유지한다. **NO STACK / NO POWER**.
