@@ -65,3 +65,26 @@
 - TI SPRACN0F Rev. F: https://www.ti.com/lit/an/spracn0f/spracn0f.pdf
 - TI SPRAD12A Rev. A: https://www.ti.com/lit/an/sprad12a/sprad12a.pdf
 - TI MotorControl SDK guide: https://software-dl.ti.com/C2000/docs/software_guide/mcsdk.html
+
+
+## 2026-11-28 — Chapter 14 source review
+
+| Claim group | Primary source | Cross-check | Scope / limitation |
+|---|---|---|---|
+| Silicon MOSFET gate charge/Miller behavior | Infineon AN_2203_PL18_2204_004502 V1.0 (2022-04-20) | Infineon gate-driver parameter guide; onsemi AND9987/D | Infineon note explicitly covers silicon MOSFETs, not IGBT/WBG |
+| GaN gate drive/layout | TI SLUAAM3 (2022-08); EPC AN003 | Infineon CoolGaN layout note; EPC eGaN drive paper | Device-family and topology specific; no AEL device chosen |
+| Deadtime/Miller clamp | TI SLYA091 (2024-12) | Infineon gate-driver feature guide; onsemi AND9987/D | Application guidance; exact switch timing must use selected part data |
+| DESAT/OCP/soft turn-off | ST STGAP4S DS13833 Rev.6 (2024-12) | onsemi AND9987/D; Infineon driver feature guide | STGAP4S is an example device, not an AEL selection |
+| Bootstrap sizing | Infineon AN-1123 Rev.1.01 (2024-11-20) | ST AN5789 Rev.1 (2022-03); Infineon AN-978 | Device/controller specific sizing equations and refresh limits |
+| Drive electrical/thermal/energy safety | IEC 61800-5-1:2022 corrected 2025-12 catalogue | IEC 61800-5-2:2016+AMD1:2026 catalogue | Public scope/catalogue checked; no full clause-level review or compliance claim |
+
+Links checked on 2026-11-28:
+- Infineon MOSFET gate-drive AN: https://www.infineon.com/assets/row/public/documents/24/42/infineon-gate-drive-for-power-mosfets-in-switchtin-applications-applicationnotes-en.pdf
+- Infineon driver requirements: https://www.infineon.com/product-information/gate-driver-requirements-mosfet-igbt-sic-gan
+- TI GaN layout SLUAAM3: https://www.ti.com/document-viewer/lit/html/SLUAAM3
+- TI Miller clamp SLYA091: https://www.ti.com/document-viewer/lit/html/SLYA091
+- ST STGAP4S DS13833: https://www.st.com/resource/en/datasheet/stgap4s.pdf
+- Infineon bootstrap AN-1123: https://www.infineon.com/dgdl/Infineon-Bootstrap_Network_Analysis-ApplicationNotes-v01_00-EN.pdf
+- ST bootstrap AN5789: https://www.st.com/resource/en/application_note/an5789-considerations-on-bootstrap-circuitry-for-gate-drivers-stmicroelectronics.pdf
+- IEC 61800-5-1:2022: https://webstore.iec.ch/en/publication/62103
+- IEC 61800-5-2:2016+AMD1:2026: https://webstore.iec.ch/en/publication/117563
