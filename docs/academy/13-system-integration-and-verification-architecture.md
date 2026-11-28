@@ -388,7 +388,7 @@ ADC conversion-ready 2 µs, dispatch 1.5 µs, snapshot 1 µs, FOC 7 µs, PWM wri
 T=2+1.5+1+7+0.5=12\ \mu s
 \]
 
-deadline=20 µs이면 slack=25? 아니며 \(20-12=8\ \mu s\), slack ratio=8/20=40%다. 이 수치는 가상이며 target WCET 증거가 아니다.
+deadline=20 µs이면 slack=20−12=8 µs, slack ratio=8/20=40%다. 이 수치는 가상이며 target WCET 증거가 아니다.
 
 ### B — control phase error
 
@@ -551,7 +551,18 @@ sensor measurement timestamp \(t_m=1000\ \mu s\), ADC aperture \(t_s=1020\ \mu s
 4. IEC 61800-5-2:2016+AMD1:2026 — adjustable-speed power drive system의 safety-related PDS functional safety 범위. AEL-002가 해당 표준을 준수하거나 STO를 구현했다는 뜻은 아니다.
 5. TI, *The Essential Guide for Developing With C2000 Real-Time Microcontrollers* (SPRACN0F Rev. F) — PWM/ADC synchronization, sample aperture, interrupt latency, update timing. C2000 사례를 다른 MCU에 일반화하지 않는다.
 6. TI, *C2000 ePWM Developer’s Guide* (SPRAD12A Rev. A) — ePWM event, ADC SOC, Trip Zone architecture. 정확한 device routing은 device datasheet/TRM/errata로 확인해야 한다.
-7. TI MotorControl SDK official guide/release page — SDK 지원 솔루션과 release version을 확인하는 출발점. 현재 TI page의 SDK 6.00.00.00이 보여도 AEL-002가 그 버전을 사용한다는 근거가 아니다.
+7. TI MotorControl SDK [software guide](https://software-dl.ti.com/C2000/docs/software_guide/mcsdk.html) 및 [official SDK release page](https://www.ti.com/tool/C2000WARE-MOTORCONTROL-SDK) — SDK 지원 솔루션과 release version을 확인하는 출발점. 현재 TI page의 SDK 6.00.00.00이 보여도 AEL-002가 그 버전을 사용한다는 근거가 아니다.
+
+공식 원문/카탈로그 확인 링크:
+- NASA Systems Engineering Handbook: https://www.nasa.gov/reference/system-engineering-handbook-appendix/ (Appendix D/E/H와 V&V/integration 내용)
+- IEEE 1012-2024 catalogue: https://standards.ieee.org/ieee/1012/7324/
+- IEC 61508-3:2010 catalogue: https://webstore.iec.ch/en/publication/5517
+- IEC 61508-3:2026 pre-release/FDIS status: https://webstore.iec.ch/en/publication/117298
+- IEC 61800-5-2:2016+AMD1:2026 consolidated publication: https://webstore.iec.ch/en/publication/117563
+- TI SPRACN0F Rev. F: https://www.ti.com/lit/an/spracn0f/spracn0f.pdf
+- TI SPRAD12A Rev. A: https://www.ti.com/lit/an/sprad12a/sprad12a.pdf
+
+2026-11-28 확인. 유료 표준 전문은 열람하지 않은 경우 공개 catalogue/scope만 확인했다고 명시한다.
 
 ### 13.5 출처 간 충돌 처리
 
