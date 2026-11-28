@@ -192,6 +192,7 @@
 - [07장 — DC 링크와 2레벨 3상 전압형 인버터](07-dc-link-and-three-phase-inverter.md)
 - [08장 — 3상 전류 벡터, Clarke/Park 변환과 PMSM FOC](08-clarke-park-pmsm-foc.md)
 - [09장 — 엔코더·Hall·Resolver와 회전자 위치 피드백](09-rotor-position-sensors-and-feedback.md)
+- [10장 — MCU 시간 기반 주변장치와 실시간 FOC 실행 구조](10-mcu-real-time-timing-and-scheduling.md)
 - [10장 — MCU 클록·타이머·인터럽트·DMA와 실시간 제어](10-mcu-timing-interrupts-dma-realtime.md)
 - [강의노트 품질 검토 체크리스트](LESSON_REVIEW_CHECKLIST.md)
 
