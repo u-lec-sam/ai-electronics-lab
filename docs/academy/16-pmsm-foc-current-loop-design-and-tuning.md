@@ -998,6 +998,18 @@ Host/SIL fault injection does not prove physical OCP, gate disable, STO, EMC imm
 - IEC 61800-5-1:2022 (corrected 2025-12) concerns electrical, thermal, energy and related drive-system hazards. IEC 61800-5-2:2016+AMD1:2026 concerns functional safety of safety-related PDS. These standards do **not** provide the PI gain formulas in this chapter. Public catalogue scope is not a clause-by-clause compliance assessment.
 - No AEL-002 design, safety compliance, STO certification or physical validation is established by this educational chapter.
 
+### References used in this chapter
+1. imperix, TN111, *Field oriented control (FOC) of permanent magnet synchronous machine (PMSM)*, posted 2021-03-23; online equations (1)–(7), sections “Plant model” and “Field oriented control implementation”: https://imperix.com/doc/implementation/field-oriented-control-of-pmsm
+2. imperix, TN106, *Vector current control*, posted 2021-03-23, updated 2023-01-19; equations (1)–(5), “System-level modeling” and “Tuning and performance evaluation”: https://imperix.com/doc/implementation/vector-current-control
+3. imperix, TN105, *Discrete PI controller implementation*, posted 2023-05-04, updated 2025-06-15; equations (1)–(12), “Digital implementation”, “PI controller tuning strategies” and “Integrator wind-up and anti-windup methods”: https://imperix.com/doc/implementation/pi-controller
+4. imperix, PN142, *Discrete control delay identification*, posted 2021-03-29, updated 2026-05-01; delay definitions and single-/double-rate examples: https://imperix.com/doc/help/discrete-control-delay
+5. MathWorks, *PMSM Current Controller*, Simscape Electrical R2026b; equations and sections “Voltage Saturation”, “Integral Anti-Windup”, “Assumptions and Limitations”: https://www.mathworks.com/help/simscape-electrical/ref/pmsmcurrentcontroller.html
+6. Texas Instruments, *C2000 Motor Control Software Guide*, online v1.5; “Sensored FOC solutions” and Table 3: https://software-dl.ti.com/C2000/docs/software_guide/mcsdk.html
+7. Lan, Yang and Shang, “Design of a High-Performance Current Controller for Permanent Magnet Synchronous Motors via Multi-Frequency Sweep Adjustment”, Energies 2025, 18(16), 4306, DOI 10.3390/en18164306; §§1, 2.3, 3.1–3.2 and equations (6)–(12): https://www.mdpi.com/1996-1073/18/16/4306
+8. IEC 61800-5-1:2022, Edition 3.0, corrected version 2025-12, official publication scope: https://webstore.iec.ch/en/publication/62103
+9. IEC 61800-5-2:2016+AMD1:2026 CSV, Edition 2.1, published 2026-10-30, official publication scope: https://webstore.iec.ch/en/publication/117563
+
+
 ## 16. 장 완료 기준
 
 - [ ] PMSM d/q equations and sign convention can be re-derived.
